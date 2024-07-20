@@ -13,6 +13,7 @@ typedef struct s_node
 }	t_node;
 
 //to check ; 1st and last elem of node
+// for which purpose?
 typedef struct s_stack
 {
 	struct s_node *top;
@@ -20,9 +21,9 @@ typedef struct s_stack
 }	t_stack;
 
 // UTIL FUNC
-t_node		*get_new_node()
-void		init_stack()
 
 // ALGORITHM UTILS
 
 // INSTRUCTION FUNC
+
+#endif

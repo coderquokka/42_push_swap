@@ -1,50 +1,68 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include "../libft/libft.h"
+#include <stdlib.h> //for EXIT_SUC/FAIL
+#include "push_swap.h"
 
-
-//val : changed?
-void	init_stack(int *arr, int ac, char **av)
+//check after writing mv: av->tmp
+void	init_stack(char **temp, t_node *stack)
 {
-	int		i;
-
-	arr = malloc(ac * sizeof(int));
-	if (!arr)
+	if (!stack)
+		return ;
+	while (*temp)
 	{
-		ft_putstr_fd("Error\n", 1);
-		return; 
+		stack->val = *temp;
+		stack = stack->next;
+		temp++;
 	}
-	i = 0;
-	while (i < ac)
-	{
-		arr[i] = ft_atoi(av[i + 1]);
-		i++;
-	}
-	//return (arr);
-}
-
-
-void	print_int_arr(int *arr, int arr_len)
-{
-	int		i;
-
-	i = 0;
-	while (i <= arr_len)
-		printf("%d", arr[i++]);
 }
 
 int	main(int ac, char **av)
 {
-	int		*arr;
+	int		**temp;
+	t_node	*stack_a;
+	int		i;
 	
-	//check_param(ac, av);
-	if (!arr)
-		exit(0);
-	init_stack(arr, ac, av);
-	print_int_arr(arr, 5);
-	//after init, check validity
+	//A. if(ac < 2)
+	if (ac < 2)
+		return (EXIT_FAILURE);
+	//B. if(ac==2): mv input to temp -> put into stack A && free temp
+	//B-1.mv: input->temp
+	//B-2.mv: temp->stack A
+	//B-3.error_hanlder(NULL, NULL) : don't understand why it's needed
+	//B-4.free: tmp
+	if (ac == 2)
+	{
+		temp = ft_split(av[1], ' ');
+		if (!temp || !*temp)
+		{
+			free(temp);
+			return (EXIT_FAILURE);
+		}
+	}
+	//C. if(ac > 2): 
+	else
+	{
+		i = 1;
+		while (av[i])
+		{
+			*temp = malloc (ac * sizeof(int));
+			if (!*temp)
+				return (EXIT_FAILURE);
+			temp[i - 1] = av[i];
+			i++;
+		}
+		temp[ac - 1] = '\0';
+	}
+	if (temp)
+	{
+		init_stack(temp, stack_a);
+		free(temp);
+	}
+	else if (*temp)
+		free(temp);
+	//D. if (is_sorted(stack A))
 
+	//E. push_swap
 
+	return (EXIT_SUCCESS);
 }
-
 

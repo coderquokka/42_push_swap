@@ -24,9 +24,35 @@
 
 
 */
+int		is_numeric(int ac, char **av)
+{
 
 
-void	check_param(int ac, char **av)
+
+}
+
+int		have_same_nbr(int ac, char **av)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 1;
+	while (i < ac - 1)
+	{
+		while (av[i+j])
+		{
+			if (ft_strcmp(av[i], av[i + j]) == 1) //check
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+
+void	check_args(int ac, char **av)
 {
 	int	i;
 
@@ -34,26 +60,14 @@ void	check_param(int ac, char **av)
 	if (ac == 1)
 		exit(0);
 
-	//B.not numeric : atoi_err
-	i = 0;
-	while (i <= ac)
+	//B. check ac and av
+	if (have_same_nbr(ac, av) || !is_numeric(ac, av))
 	{
-		if (is_valid_int(av[i]) == 0) //invalid
-		{
 			ft_putstr_fd("Error\n", 1);
 			exit(0);
-		}
-		av[i];
 	}
 
-	//C. dumplicate numeric
-	i = 0;
-	while (i <= ac)
-	{
-		
 
-
-	}
 
 
 
