@@ -1,3 +1,6 @@
+//learning struct
+
+
 #include <stdio.h>
 #include <stdlib.h> //for EXIT_SUC/FAIL
 #include "push_swap.h"

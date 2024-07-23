@@ -42,7 +42,7 @@ void	init_stack(char **temp, t_node **stack)
 		//set val
 		new_node->val = ft_atoi(*temp);
 		new_node->right = NULL;
-		//printf("%d", ft_atoi(*temp));
+		//printf("%d", ft_atoi(*temp)); //debugging
 
 		//if empty, set the new node as 1st node
 		if (*stack == NULL)
@@ -92,7 +92,7 @@ int main(int ac, char **av)
 
 	if (ac < 2)
 		return (EXIT_SUCCESS);
-	else if (ac == 2)
+	else //else if (ac == 2) //in other codes
 	{
 		init_stack(&av[1], &cur);
 		if (is_valid_args(cur) == 0)
