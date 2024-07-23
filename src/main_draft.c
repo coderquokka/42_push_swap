@@ -41,7 +41,7 @@ void	init_stack(char **temp, t_node **stack)
 
 		//set val
 		new_node->val = ft_atoi(*temp);
-		new_node->next = NULL;
+		new_node->right = NULL;
 		//printf("%d", ft_atoi(*temp));
 
 		//if empty, set the new node as 1st node
@@ -52,8 +52,8 @@ void	init_stack(char **temp, t_node **stack)
 		} else
 		{
 			// If the stack is not empty, link the new node to the current last node
-			cur->next = new_node; // Link the current node to the new node
-			cur = cur->next; // Move current to the new node
+			cur->right = new_node; // Link the current node to the new node
+			cur = cur->right; // Move current to the new node
 		}
 		temp++;
 	}
@@ -68,7 +68,7 @@ void	free_stack(t_node *stack)
 	while (stack)
 	{
 		temp = stack;
-		stack = stack->next;
+		stack = stack->right;
 		free(temp);
 	}
 }
@@ -78,7 +78,7 @@ void	print_stack(t_node *stack)
 	while (stack)
 	{
 		printf("%d\n", stack->val);
-		stack = stack->next;
+		stack = stack->right;
 	}
 }
 
@@ -90,9 +90,22 @@ int main(int ac, char **av)
 	t_node *cur = NULL;
 	t_node *temp;
 
-	init_stack(&av[1], &cur);
-	temp = cur;
-	print_stack(cur);
-	free(temp);
-	return (EXIT_SUCCESS);
+	if (ac < 2)
+		return (EXIT_SUCCESS);
+	else if (ac == 2)
+	{
+		init_stack(&av[1], &cur);
+		if (is_valid_args(cur) == 0)
+			return (0);
+		temp = cur;
+		print_stack(cur);
+		free(temp);
+		return (EXIT_SUCCESS);
+	}
+	//else if ()
+
+	//after putting av to temp, and to stack => indexing
+	
+
+
 }
