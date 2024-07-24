@@ -22,15 +22,40 @@
 (1)~(3)
 -> disp "Error"
 */
-int		is_numeric(t_node *tmp)
+int		is_numeric(int ac, char **av)
 {
-	return (0);
+	int	i;
+	int	j;
+
+	i = 1;
+	while (av[i])
+	{
+		j = 0;
+		while (av[i][j])
+		{
+			if (av[i][j] == '-' || av[i][j] == '+')
+			{
+				if (j != 0)
+					return (0);
+				while (j == 0 || av[i][j] == '-' || av[i][j] == '+')
+						j++;
+			}
+			if (av[i][j] < '0' || av[i][j] > '9')
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
 }
+
 
 int have_same_nbr(t_node *tmp)
 {
 	t_node *current;
 
+	if (tmp == NULL || tmp->right == NULL)
+		return (0);
 	while (tmp != NULL)
 	{
 		current = tmp;
@@ -43,18 +68,4 @@ int have_same_nbr(t_node *tmp)
 		tmp = tmp->right;
 	}
 	return (0);
-}
-
-
-int	is_valid_args(t_node *tmp)
-{
-	if (have_same_nbr(tmp) || !is_numeric(tmp))
-	{
-			ft_putstr_fd("Error\n", 1);
-			return(0);
-	}
-	return (1);
-	//D. numeric but greater than MAXINT
-
-
 }

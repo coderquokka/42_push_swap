@@ -13,15 +13,12 @@ typedef struct s_node
 }	t_node;
 
 //for choosing pivot
-typedef struct s_var
+typedef struct s_stack_a_var
 {
-	int				max_size;
-	int				*arr_for_pivot; //for choosing better pivot, sorted arr
 	struct s_node	*stack_a;
-	struct s_node	*stack_b;
-	int				a_size;
-	int				b_size;
-} t_bar;
+	int				stack_a_size;
+	int				*stack_a_to_idx; //for choosing better pivot, sorted arr
+} t_stack_a_var;
 
 //for storing commands, (for later use: optimizing some commands)
 typedef struct s_list_node
@@ -34,12 +31,20 @@ typedef struct s_list_node
 //to check ; 1st and last elem of node // but for which purpose?
 typedef struct s_stack
 {
-	struct s_node *top;
-	struct s_node *bottom;
+	int				size;
+	struct s_node	*top;
+	struct s_node	*bottom;
 }	t_stack;
 
 // src: check_arg.c
-int	is_valid_args(t_node *tmp);
+int	is_valid_args(int ac, char **av, t_node *tmp);
+int have_same_nbr(t_node *tmp);
+int		is_numeric(int ac, char **av);
+
+//src: stacK_setup.c
+void	setup_stack_var(t_node *stack_a);
+int		measure_size(t_stack_a_var *var);
+t_node		*sort_stack(t_stack_a_var *var);
 
 
 
