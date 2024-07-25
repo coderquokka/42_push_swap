@@ -16,8 +16,9 @@ typedef struct s_node
 typedef struct s_stack_a_var
 {
 	struct s_node	*stack_a;
+	struct s_node	*sorted_stack_a;
+	struct s_node	*stack_a_idx;  //for choosing better pivot, sorted arr
 	int				stack_a_size;
-	int				*stack_a_to_idx; //for choosing better pivot, sorted arr
 } t_stack_a_var;
 
 //for storing commands, (for later use: optimizing some commands)
@@ -45,7 +46,7 @@ int		is_numeric(int ac, char **av);
 void	setup_stack_var(t_node *stack_a);
 int		measure_size(t_stack_a_var *var);
 t_node		*sort_stack(t_stack_a_var *var);
-
+t_node *idx_stack(t_stack_a_var *var);
 
 
 #endif
