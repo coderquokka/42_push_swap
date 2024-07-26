@@ -13,29 +13,24 @@ typedef struct s_node
 }	t_node;
 
 //for choosing pivot
-typedef struct s_stack_a_var
+typedef struct s_stack_var
 {
-	struct s_node	*stack_a;
-	struct s_node	*sorted_stack_a;
-	struct s_node	*stack_a_idx;  //for choosing better pivot, sorted arr
-	int				stack_a_size;
+	struct s_node	*stack;
+	struct s_node	*sorted_stack;
+	struct s_node	*stack_idx;  //for choosing better pivot, sorted arr
+	int				stack_size;
+	struct s_node	*stack_top; //necessary?
+	struct s_node	*stack_bottom; //necessary?
 } t_stack_a_var;
 
 //for storing commands, (for later use: optimizing some commands)
 typedef struct s_list_node
 {
-	struct s_list_node	*left;
-	char			*var;
+	struct s_list_node		*left;
+	char					*var;
 	struct s_list_node		*right;
 }	t_list_node;
 
-//to check ; 1st and last elem of node // but for which purpose?
-typedef struct s_stack
-{
-	int				size;
-	struct s_node	*top;
-	struct s_node	*bottom;
-}	t_stack;
 
 // src: check_arg.c
 int	is_valid_args(int ac, char **av, t_node *tmp);
