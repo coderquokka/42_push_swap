@@ -1,9 +1,8 @@
 #include "../includes/push_swap.h"
-#include <stdio.h>
 
 void	print_node(t_node *node);
 
-t_node *idx_stack(t_stack_a_var *var)
+t_node *idx_stack(t_stack_var *var)
 {
 	t_node	*res_head = NULL;
 	t_node	*res_cur = NULL;
@@ -11,13 +10,13 @@ t_node *idx_stack(t_stack_a_var *var)
 	t_node	*stack_a_ptr;
 	int		i;
 
-	while (var->sorted_stack)
+	while (var->sorted_stack_a)
 	{
 		i = 0;
-		stack_a_ptr = var->stack;
+		stack_a_ptr = var->stack_a;
 		while (stack_a_ptr)
 		{
-			if (var->sorted_stack->val == stack_a_ptr->val)
+			if (var->sorted_stack_a->val == stack_a_ptr->val)
 			{
 				new_node = malloc(sizeof(t_node));
 				if (!new_node)
@@ -34,25 +33,25 @@ t_node *idx_stack(t_stack_a_var *var)
 			i++;
 			stack_a_ptr = stack_a_ptr->right;
 		}
-		var->sorted_stack = var->sorted_stack->right;
+		var->sorted_stack_a = var->sorted_stack_a->right;
 	}
 	return (res_head);  // Return the head of the linked list
 }
 
-t_node		*sort_stack(t_stack_a_var *var)
+t_node		*sort_stack(t_stack_var *var)
 {
 	int swapped;
 	t_node *current;
 	t_node *next;
 	int temp;
 
-	if (!var || !var->stack || var->stack_size <= 1)
+	if (!var || !var->stack_a || var->stack_size <= 1)
 		return (NULL);
 	swapped = 1;//to enter the loop
 	while (swapped)
 	{
 		swapped = 0;  // Reset swapped flag for this pass
-		current = var->stack;
+		current = var->stack_a;
 		while (current->right)
 		{
 			next = current->right;
@@ -66,16 +65,16 @@ t_node		*sort_stack(t_stack_a_var *var)
 			current = next;  // mv to the next node
 		}
 	}
-	return (var->stack);
+	return (var->stack_a);
 }
 
-int		measure_size(t_stack_a_var *var)
+int		measure_size(t_stack_var *var)
 {
 	int		i;
 	t_node	*cur_stack;
 
 	i = 0;
-	cur_stack = var->stack;
+	cur_stack = var->stack_a;
 	while (cur_stack)
 	{
 		i++;
@@ -83,35 +82,6 @@ int		measure_size(t_stack_a_var *var)
 	}
 	return (i);
 }
-
-
-void	setup_stack_var(t_node *stack_a)
-{
-	t_stack_a_var	*stack_a_var;
-	
-	//alloc mem for var
-	stack_a_var = (t_stack_a_var *)malloc(sizeof(t_stack_a_var));
-	if (!stack_a)
-	{
-		perror("Failed to allocate memory for stack variable");
-		exit(EXIT_FAILURE);
-	}
-	
-	//setup: stack a var
-	stack_a_var->stack = stack_a; //necessary?
-	stack_a_var->stack_size = measure_size(stack_a_var);
-	stack_a_var->sorted_stack = sort_stack(stack_a_var);
-
-	printf("\nsorted_stack_a: \n");
-	print_node(stack_a_var->sorted_stack);
-	printf("\n");
-
-	//setup: stack a in idx
-	stack_a_var->stack_idx = idx_stack(stack_a_var);
-	printf("stack a in idx:\n");
-	print_node(stack_a_var->stack_idx);
-}
-
 
 void	print_node(t_node *node)
 {
@@ -129,3 +99,32 @@ void	print_node(t_node *node)
 		temp = temp->right;
 	}
 }
+
+t_stack_var		*setup_stack_var(t_node *stack_a)
+{
+	t_stack_var	*stack_var;
+	
+	//alloc mem for var
+	stack_var = (t_stack_var *)malloc(sizeof(t_stack_var));
+	if (!stack_a)
+	{
+		perror("Failed to allocate memory for stack variable");
+		exit(EXIT_FAILURE);
+	}
+	
+	//setup: stack a var
+	stack_var->stack_a = stack_a; //necessary?
+	stack_var->stack_size = measure_size(stack_var);
+	stack_var->sorted_stack_a = sort_stack(stack_var);
+
+	printf("\nsorted_stack_a: \n");
+	print_node(stack_var->sorted_stack_a);
+	printf("\n");
+
+	//setup: stack a in idx
+	stack_var->stack_a_to_idx = idx_stack(stack_var);
+	printf("stack a in idx:\n");
+	print_node(stack_var->stack_a_to_idx);
+	return (stack_var);
+}
+

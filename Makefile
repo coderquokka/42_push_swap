@@ -10,13 +10,13 @@ LIBFT_DIR := libft
 LIBFT := $(LIBFT_DIR)/libft.a
 
 # Sources
-SRC := $(addprefix $(SCR_DIR)/, check_arg.c main.c stack_setup.c)
+SRC := $(wildcard $(SCR_DIR)/*.c)
 
 # Objects
-OBJ := $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
+OBJ := $(patsubst $(SCR_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 # Headers
-HEADER := $(addprefix $(INC_DIR)/, push_swap.h)
+HEADER := $(wildcard includes/*.h)
 
 # Flags
 CFLAGS := -Wall -Wextra -Werror -I$(INC_DIR)
@@ -28,20 +28,21 @@ LDLIBS := -lft
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(LIBFT) $(HEADER) #header: necessary?
+$(NAME): $(OBJ) $(LIBFT) #$(HEADER) #header: necessary?
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LDFLAGS) $(LDLIBS)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
+$(OBJ_DIR)/%.o: $(SCR_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+#can be rm-ed
 $(HEADER):
 	ln -sf $(LIBFT_DIR)/libft.h $(INC_DIR)/libft.h
 
-$(OBJ_DIR)/%.o: $(SCR_DIR)/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
 
 # Clean
 clean:
@@ -52,7 +53,5 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 	$(MAKE) -C $(LIBFT_DIR) fclean
-#$(RM) -r $(OBJ_DIR)
-#$(RM) $(INC_DIR)/libft.h
 
 re: fclean all

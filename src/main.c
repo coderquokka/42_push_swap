@@ -29,17 +29,15 @@ void	init_stack(char **temp, t_node **stack)
 	if (!stack || !temp)
 		return ;
 
-	//why? to signify empty list
+	//to signify empty list
 	*stack = NULL;
 
 	while (*temp)
 	{
-		//mem alloc
 		new_node = (t_node *)malloc(sizeof(t_node));
 		if (!new_node)
 			return ;
 
-		//set val
 		new_node->val = ft_atoi(*temp);
 		new_node->right = NULL;
 		//printf("%d", ft_atoi(*temp)); //debugging
@@ -82,14 +80,16 @@ void	print_stack(t_node *stack)
 	}
 }
 
-int main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	//for later use: replace test[] with av
 	//char *test[] = {"4", "4", "68", "8282", NULL}; //Proper arr initialization
 	//init_stack(test, &cur);
 
-	t_node *stack_a = NULL;
-	t_node *temp;
+	t_node				*stack_a = NULL;
+	t_node				*stack_b = NULL;
+	t_stack_var			*stack_var;
+	t_node				*temp; //for free 'stack_a'
 
 	if (ac < 2)
 		return (EXIT_SUCCESS);
@@ -103,8 +103,13 @@ int main(int ac, char **av)
 			return (EXIT_FAILURE);
 		print_stack(stack_a);
 
-		//setup -> sorting
-		setup_stack_var(stack_a);
+		//setup: create sorted stack, stack in idx
+		stack_var = setup_stack_var(stack_a);
+
+		//push_swap = sorting
+		push_swap(stack_var);
+
+		//free
 		free(temp);
 		return (EXIT_SUCCESS);
 	}
