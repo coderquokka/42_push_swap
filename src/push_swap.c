@@ -1,12 +1,5 @@
 #include "../includes/push_swap.h"
 
-void swap(t_node *a, t_node *b)
-{
-	int temp = a->val;
-	a->val = b->val;
-	b->val = temp;
-}
-
 t_node	*get_nth_node(t_stack_var *var, int i)
 {
 	t_node	*res;
@@ -19,48 +12,67 @@ t_node	*get_nth_node(t_stack_var *var, int i)
 	return (res);
 } 
 
-
-int partition(t_stack_var *var, int low, int high)
+int	*pick_two_pivots(t_stack_var *var)
 {
-	t_node *pivot_node = var->stack_a_bottom;
-	t_node *current_node = var->stack_a;
-	t_node *i_node;
-	int pivot_val = pivot_node->val;
-	int i = low - 1;
+	t_node			*temp;
+	int				*arr;
+	int				skip;
 
-	int j = -1;
-	while (j++ < low)
-		current_node = current_node->right; 	// Move current_node to the low position
-	j = low;
-	while (j <= high - 1)
-	{
-		if (current_node->val <= pivot_val)
-		{
-			i++;
-			i_node = get_nth_node(var, i); 			// Move to the i-th node
-			swap(i_node, current_node);
-		}
-		current_node = current_node->right;
-		j++;
-	}
-	swap(get_nth_node(var, i + 1), pivot_node);
-	return (i + 1);
+	arr = malloc(sizeof(int) * 2);
+	if (!arr)
+		exit(EXIT_FAILURE);
+	skip = (int)var->stack_size / 2;
+	temp = var->sorted_stack_a;
+	temp = get_nth_node(temp, skip);
+	arr[0] = temp->val;
+	temp = get_nth_node(temp, skip);
+	arr[1] = temp->val;
+	return (arr);
 }
 
 
-
-void quicksort_recursion(t_stack_var *var, int low, int high)
+void	a_to_b(t_stack_var *var)
 {
-	if (low < high)
+	int		*arr; // why 3?
+
+	arr = pick_two_pivots(var);
+
+	//write later
+	if (var->stack_size <= 3)
+		break;
+	//write the function : is_sorted 
+	if (is_sorted(var))
+		break;
+	arr = pick_two_pivot(var); //arr[0]= small pivot <=> arr[1] = big pivot
+
+	if (var->stack_a->val >= arr[1])
 	{
-		int pivot_idx = partition(var, low, high);
-		quicksort_recursion(var, low, pivot_idx - 1);
-		quicksort_recursion(var, pivot_idx + 1, high);
+		ra(var);
+		var->stack_a = var->stack_a->right;
+	} 
+	else if (var->stack_a->val <= arr[0])
+	{
+		pb(var);
+		var->stack_a = var->stack_a->right;
 	}
+	else
+	{
+		pb(var);
+		var->stack_a = var->stack_a->right;
+		rb(var);
+		var->stack_a = var->stack_a->right;
+	}
+
 }
+
 
 void push_swap(t_stack_var *var)
 {
-	quicksort_recursion(var, 0, var->stack_size - 1);
+	//where to put? 
+	if (var->stack_size <= 5)
+	{
+		sort_less_than_five(var);
+		return;
+	}
 }
 

@@ -43,6 +43,7 @@ t_stack_var		*setup_stack_var(t_node *stack_a);
 int			measure_size(t_stack_var *var);
 t_node		*sort_stack(t_stack_var *var);
 t_node		*idx_stack(t_stack_var *var);
+void	print_node(t_node *node);
 
 //src: push_swap.c
 void	push_swap(t_stack_var *var);

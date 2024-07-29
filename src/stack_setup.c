@@ -1,7 +1,7 @@
 #include "../includes/push_swap.h"
 
-void	print_node(t_node *node);
 
+/*comment out: so long, doesn't assign idx to original stack a
 t_node *idx_stack(t_stack_var *var)
 {
 	t_node	*res_head = NULL;
@@ -36,7 +36,7 @@ t_node *idx_stack(t_stack_var *var)
 		var->sorted_stack_a = var->sorted_stack_a->right;
 	}
 	return (res_head);  // Return the head of the linked list
-}
+}*/
 
 t_node		*sort_stack(t_stack_var *var)
 {
@@ -106,25 +106,35 @@ t_stack_var		*setup_stack_var(t_node *stack_a)
 	
 	//alloc mem for var
 	stack_var = (t_stack_var *)malloc(sizeof(t_stack_var));
-	if (!stack_a)
+	if (!stack_var)
 	{
 		perror("Failed to allocate memory for stack variable");
 		exit(EXIT_FAILURE);
 	}
 	
+	//setup: stack b
+	//stack_var->stack_b =
+
 	//setup: stack a var
 	stack_var->stack_a = stack_a; //necessary?
 	stack_var->stack_size = measure_size(stack_var);
 	stack_var->sorted_stack_a = sort_stack(stack_var);
 
+
+	/*
 	printf("\nsorted_stack_a: \n");
 	print_node(stack_var->sorted_stack_a);
 	printf("\n");
+	*/
 
+
+	/*comment out till fix it
 	//setup: stack a in idx
 	stack_var->stack_a_to_idx = idx_stack(stack_var);
 	printf("stack a in idx:\n");
 	print_node(stack_var->stack_a_to_idx);
+	*/
+
 	return (stack_var);
 }
 

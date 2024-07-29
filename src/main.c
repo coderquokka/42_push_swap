@@ -103,8 +103,11 @@ int		main(int ac, char **av)
 			return (EXIT_FAILURE);
 		print_stack(stack_a);
 
-		//setup: create sorted stack, stack in idx
+		//setup: 1.create sorted stack, 2.stack in idx(give up?)
 		stack_var = setup_stack_var(stack_a);
+		printf("main, print sorted stacK: \n");
+		print_node(stack_var->sorted_stack_a);
+		printf("\n");
 
 		//push_swap = sorting
 		push_swap(stack_var);
