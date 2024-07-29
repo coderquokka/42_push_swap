@@ -17,11 +17,18 @@ void	push_a(t_stack_var	*var)
 void	push_b(t_stack_var	*var)
 {
 	t_node	*temp;
+	t_node	*new_node;
 
 	if (!var->stack_a)
 		return ;
 	temp = (var->stack_a)->right;
 	(var->stack_a)->right = temp;
+
+	//malloc check
+	new_node = (t_node *)malloc(sizeof(t_node));
+	if (!new_node)
+			return ;
+	var->stack_b = new_node;
 	var->stack_b = var->stack_a;
 	var->stack_a = temp;
 	ft_putstr_fd("pb\n", 1);
@@ -128,7 +135,5 @@ int		main(int ac, char **av)
 		free(temp);
 		return (EXIT_SUCCESS);
 	}
-
-
 
 }
