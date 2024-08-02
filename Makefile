@@ -1,7 +1,7 @@
 NAME = push_swap
 
 # Directory
-SCR_DIR := scr
+SCR_DIR := src
 INC_DIR := includes
 OBJ_DIR := obj
 LIBFT_DIR := libft
@@ -19,6 +19,7 @@ OBJ := $(patsubst $(SCR_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 HEADER := $(wildcard includes/*.h)
 
 # Flags
+CC := gcc
 CFLAGS := -Wall -Wextra -Werror -I$(INC_DIR)
 LDFLAGS := -L$(LIBFT_DIR)
 LDLIBS := -lft

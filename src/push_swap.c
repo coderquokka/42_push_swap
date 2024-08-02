@@ -1,16 +1,16 @@
 #include "../includes/push_swap.h"
 
-t_node	*get_nth_node(t_stack_var *var, int i)
+t_node	*get_nth_node(t_node *temp, int i)
 {
 	t_node	*res;
 	int		k;
 
-	res = var->stack_a;
+	res = temp;
 	k = -1;
-	while (k++ < i && res != NULL) 
+	while (k++ < i && res != NULL)
 		res = res->right;
 	return (res);
-} 
+}
 
 int	*pick_two_pivots(t_stack_var *var)
 {
@@ -30,45 +30,37 @@ int	*pick_two_pivots(t_stack_var *var)
 	return (arr);
 }
 
-
 void	a_to_b(t_stack_var *var)
 {
-	int		*arr; // why 3?
+	int		*arr;
 
+	if (var->stack_size <= 3 || is_sorted(var->stack_a))
+	{
+		sort_less_than(var);
+		return ;
+	}
 	arr = pick_two_pivots(var);
-
-	//write later
-	if (var->stack_size <= 3)
-		break;
-	//write the function : is_sorted 
-	if (is_sorted(var))
-		break;
-	arr = pick_two_pivot(var); //arr[0]= small pivot <=> arr[1] = big pivot
-
 	if (var->stack_a->val >= arr[1])
 	{
-		ra(var);
+		rotate_a(var);
 		var->stack_a = var->stack_a->right;
-	} 
+	}
 	else if (var->stack_a->val <= arr[0])
 	{
-		pb(var);
+		push_b(var);
 		var->stack_a = var->stack_a->right;
 	}
 	else
 	{
-		pb(var);
+		push_b(var);
 		var->stack_a = var->stack_a->right;
-		rb(var);
+		rotate_b(var);
 		var->stack_a = var->stack_a->right;
 	}
-
 }
 
-
-void push_swap(t_stack_var *var)
+void	push_swap(t_stack_var *var)
 {
-	//where to put? 
 	if (var->stack_size <= 5)
 	{
 		sort_less_than_five(var);

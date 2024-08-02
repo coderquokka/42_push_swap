@@ -17,6 +17,7 @@ void	rotate_a(t_node **stack)
 	rotate(stack);
 	write(1, "ra\n", 3);
 }
+
 void	rotate_b(t_node **stack)
 {
 	rotate(stack);
@@ -29,3 +30,4 @@ void	rotate_ab(t_node **stack1, t_node **stack2)
 	rotate(stack2);
 	write(1, "rr\n", 3);
 }
+

@@ -2,6 +2,25 @@
 #include <stdlib.h> //for EXIT_SUC/FAIL
 #include "../includes/push_swap.h"
 
+int is_sorted(t_node *stack)
+{
+	int prev;
+	
+	if (!stack || !stack->right)
+		return (-1);
+	prev = stack->val;
+	stack = stack->right;
+	while (stack)
+	{
+		if (prev >= stack->val)
+			return (0);
+		prev = stack->val;
+		stack = stack->right;
+	}
+	return (1);
+}
+
+
 void	init_stack(char **temp, t_node **stack)
 {
 
@@ -10,14 +29,21 @@ void	init_stack(char **temp, t_node **stack)
 
 	if (!stack || !temp)
 		return ;
+
+	//to signify empty list
 	*stack = NULL;
+
 	while (*temp)
 	{
 		new_node = (t_node *)malloc(sizeof(t_node));
 		if (!new_node)
 			return ;
+
 		new_node->val = ft_atoi(*temp);
 		new_node->right = NULL;
+		//printf("%d", ft_atoi(*temp)); //debugging
+
+		//if empty, set the new node as 1st node
 		if (*stack == NULL)
 		{
 			*stack = new_node; // The stack (head) now points to the new node
@@ -57,9 +83,13 @@ void	print_stack(t_node *stack)
 
 int		main(int ac, char **av)
 {
+	//for later use: replace test[] with av
+	//char *test[] = {"4", "4", "68", "8282", NULL}; //Proper arr initialization
+	//init_stack(test, &cur);
+
 	t_node				*stack_a = NULL;
 	//t_node				*stack_b = NULL;
-	//t_stack_var			*stack_var;
+	t_stack_var			*stack_var;
 	t_node				*temp; //for free 'stack_a'
 
 	if (ac < 2)
@@ -73,20 +103,27 @@ int		main(int ac, char **av)
 		if (have_same_nbr(temp) == 1)
 			return (EXIT_FAILURE);
 		print_stack(stack_a);
+		
 
-		/*
 		//setup: 1.create sorted stack, 2.stack in idx(give up?)
 		stack_var = setup_stack_var(stack_a);
+		if (is_sorted(stack_var->stack_a) == 1)
+			printf(" stack a is sorted\n");
+		else
+			printf(" stack a is not sorted\n");
+
 		printf("main, print sorted stacK: \n");
 		print_node(stack_var->sorted_stack_a);
 		printf("\n");
 
-		//push_swap = sorting
-		push_swap(stack_var);
+
+		if (is_sorted(stack_var->sorted_stack_a) == 1)
+			printf("sorted stack a is sorted\n");
+		else
+			printf("sorted stack a is not sorted\n");
 
 		//free
 		free(temp);
 		return (EXIT_SUCCESS);
-		*/
 	}
 }

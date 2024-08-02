@@ -22,7 +22,7 @@
 (1)~(3)
 -> disp "Error"
 */
-int		is_numeric(int ac, char **av)
+int	is_numeric(char **av)
 {
 	int	i;
 	int	j;
@@ -38,7 +38,7 @@ int		is_numeric(int ac, char **av)
 				if (j != 0)
 					return (0);
 				while (j == 0 || av[i][j] == '-' || av[i][j] == '+')
-						j++;
+					j++;
 			}
 			if (av[i][j] < '0' || av[i][j] > '9')
 				return (0);
@@ -50,9 +50,9 @@ int		is_numeric(int ac, char **av)
 }
 
 
-int have_same_nbr(t_node *tmp)
+int	have_same_nbr(t_node *tmp)
 {
-	t_node *current;
+	t_node	*current;
 
 	if (tmp == NULL || tmp->right == NULL)
 		return (0);
