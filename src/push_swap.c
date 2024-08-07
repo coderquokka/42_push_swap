@@ -61,10 +61,14 @@ void	a_to_b(t_stack_var *var)
 
 void	push_swap(t_stack_var *var)
 {
+	t_node		*new_stack_b;
+
+	new_stack_b = NULL;
+	var->stack_b = new_stack_b;
 	if (var->stack_size <= 5)
 	{
 		sort_less_than_five(var);
-		return;
+		return ;
 	}
 }
 

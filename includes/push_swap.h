@@ -17,7 +17,7 @@ typedef struct s_stack_var
 {
 	struct s_node	*stack_a;
 	struct s_node	*sorted_stack_a;
-	struct s_node	*stack_a_to_idx;  //for choosing better pivot, sorted arr
+	struct s_node	*stack_a_to_idx;  //for choosing better pivot
 	int				stack_size;
 	struct s_node	*stack_a_top;
 	struct s_node	*stack_a_bottom;
@@ -65,12 +65,16 @@ void			rotate_ab(t_node **stack1, t_node **stack2);
 
 //src:stack_setup
 void			init_stack(char **temp, t_node **stack);
-void			free_stack(t_node *stack);
-void			print_stack(t_node *stack);
-int				is_sorted(t_node *stack);
 t_node			*sort_stack(t_stack_var *var);
 int				measure_size(t_stack_var *var);
-void			print_node(t_node *node);
 t_stack_var		*setup_stack_var(t_node *stack_a);
+
+//src:stack_libft.c
+void			print_node(t_node *node);
+void			free_node(t_node *stack);
+int				is_sorted(t_node *stack);
+
+
+
 
 #endif

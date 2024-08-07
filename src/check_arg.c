@@ -49,7 +49,6 @@ int	is_numeric(char **av)
 	return (1);
 }
 
-
 int	have_same_nbr(t_node *tmp)
 {
 	t_node	*current;

@@ -12,22 +12,21 @@ static void	rotate(t_node **stack)
 	ft_last_node(*stack)->right = temp;
 }
 
-void	rotate_a(t_node **stack)
+void	rotate_a(t_stack_var *var)
 {
-	rotate(stack);
+	rotate(var->stack_a);
 	write(1, "ra\n", 3);
 }
 
-void	rotate_b(t_node **stack)
+void	rotate_b(t_stack_var *var)
 {
-	rotate(stack);
+	rotate(var->stack_b);
 	write(1, "rb\n", 3);
 }
 
-void	rotate_ab(t_node **stack1, t_node **stack2)
+void	rotate_ab(t_stack_var *var)
 {
-	rotate(stack1);
-	rotate(stack2);
+	rotate_a(var);
+	rotate_b(var);
 	write(1, "rr\n", 3);
 }
-

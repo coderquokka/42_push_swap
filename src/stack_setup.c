@@ -2,7 +2,6 @@
 
 void	init_stack(char **temp, t_node **stack)
 {
-
 	t_node	*new_node;
 	t_node	*cur;
 
@@ -28,47 +27,6 @@ void	init_stack(char **temp, t_node **stack)
 		}
 		temp++;
 	}
-}
-
-void	free_stack(t_node *stack)
-{
-	//to store cur node while freeing mem
-	t_node *temp;
-
-	//free while traverses each node in list
-	while (stack)
-	{
-		temp = stack;
-		stack = stack->right;
-		free(temp);
-	}
-}
-
-void	print_stack(t_node *stack)
-{
-	while (stack)
-	{
-		printf("%d\n", stack->val);
-		stack = stack->right;
-	}
-}
-
-int	is_sorted(t_node *stack)
-{
-	int	prev;
-
-	if (!stack || !stack->right)
-		return (-1);
-	prev = stack->val;
-	stack = stack->right;
-	while (stack)
-	{
-		if (prev >= stack->val)
-			return (0);
-		prev = stack->val;
-		stack = stack->right;
-	}
-	return (1);
 }
 
 t_node	*sort_stack(t_stack_var *var)
@@ -111,23 +69,6 @@ int	measure_size(t_stack_var *var)
 		cur_stack = cur_stack->right;
 	}
 	return (i);
-}
-
-void	print_node(t_node *node)
-{
-	t_node	*temp;
-
-	temp = node;
-	if (!temp)
-	{
-		printf("node is leer\n");
-		return ;
-	}
-	while (temp)
-	{
-		printf("%d\n", temp->val);
-		temp = temp->right;
-	}
 }
 
 t_stack_var	*setup_stack_var(t_node *stack_a)

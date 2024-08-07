@@ -23,9 +23,31 @@ void	sort_two(t_stack_var *var)
 		swap(prev, next);
 }
 
+void	sort_three(t_stack_var *var)
+{
+	t_node	*first;
+	t_node	*second;
+	t_node	*third;
+
+	first = var->stack_a;
+	second = first->right;
+	third = second->right;
+
+	while (!is_sorted(var->stack_a))
+	{
+		if (first->val > second->val && first->val > third->val)
+		{
+			if (second->val < third->val)
+			{
+				
+			}
+		}
+	}
+}
+
 void	sort_less_than(t_stack_var *var)
 {
-	if (var->stack_size > 6 || var->stack_size < 1)
+	if (var->stack_size >= 6 || var->stack_size <= 1)
 		return ;
 	if (var->stack_size == 1)
 		return ;
