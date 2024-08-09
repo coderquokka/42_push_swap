@@ -29,15 +29,19 @@ void	init_stack(char **temp, t_node **stack)
 	}
 }
 
+/* is needed? not sure
 t_node	*sort_stack(t_stack_var *var)
 {
-	int		temp;
+	t_node	*temp;
 	t_node	*current;
 	t_node	*next;
 
 	if (!var || !var->stack_a || var->stack_size <= 1)
 		return (NULL);
-	while (1)
+	// 3 2 4 1 -> 2 3 4 1  next->cur->(next->right)
+	// 3 2 0 -> 2 3 0 -> 2 0 3 
+	// wrong algorithm
+	while (current)
 	{
 		current = var->stack_a;
 		while (current->right)
@@ -45,16 +49,15 @@ t_node	*sort_stack(t_stack_var *var)
 			next = current->right;
 			if (current->val > next->val)
 			{
-				temp = current->val;
-				current->val = next->val;
-				next->val = temp;
+				temp = next->right;
+				current->right = temp;
+				next->right = current;
 			}
-			current = next;
+			current = current->right;
 		}
-		break ;
 	}
 	return (var->stack_a);
-}
+}*/
 
 int	measure_size(t_stack_var *var)
 {
@@ -71,18 +74,25 @@ int	measure_size(t_stack_var *var)
 	return (i);
 }
 
+//output: var->stack_a / stack_size / check: sorted or not
 t_stack_var	*setup_stack_var(t_node *stack_a)
 {
 	t_stack_var	*stack_var;
 
 	stack_var = (t_stack_var *)malloc(sizeof(t_stack_var));
 	if (!stack_var)
-	{
-		perror("Failed to allocate memory for stack variable");
-		exit(EXIT_FAILURE);
-	}
+		return (NULL);
 	stack_var->stack_a = stack_a;
 	stack_var->stack_size = measure_size(stack_var);
-	stack_var->sorted_stack_a = sort_stack(stack_var);
+	if (is_sorted(stack_var->stack_a) == 1)
+	{
+		printf("stack a is already sorted\n");
+		//stack_var->sorted_stack_a = stack_a;
+	}
+	else
+	{
+		printf("stack a is not sorted yet\n");
+	//	stack_var->sorted_stack_a = sort_stack(stack_var);
+	}
 	return (stack_var);
 }

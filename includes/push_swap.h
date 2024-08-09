@@ -74,7 +74,4 @@ void			print_node(t_node *node);
 void			free_node(t_node *stack);
 int				is_sorted(t_node *stack);
 
-
-
-
 #endif

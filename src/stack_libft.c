@@ -31,18 +31,18 @@ void	free_node(t_node *stack)
 
 int	is_sorted(t_node *stack)
 {
-	int	prev;
+	int		prev;
+	t_node	*temp;
 
 	if (!stack || !stack->right)
 		return (-1);
-	prev = stack->val;
-	stack = stack->right;
-	while (stack)
+	temp = stack;
+	while (temp->right)
 	{
-		if (prev >= stack->val)
+		prev = temp->val;
+		temp = temp->right;
+		if (prev >= temp->val)
 			return (0);
-		prev = stack->val;
-		stack = stack->right;
 	}
 	return (1);
 }
