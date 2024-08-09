@@ -1,7 +1,6 @@
 #include "../includes/push_swap.h"
+#include "stack_op.h"
 
-
-//wrong
 void	push_a(t_stack_var	*var)
 {
 	t_node	*new_stack_a;
@@ -16,7 +15,6 @@ void	push_a(t_stack_var	*var)
 	ft_putstr_fd("pa\n", 1);
 }
 
-//no need to alloc, all the mem needed is created while setting up stack a
 void	push_b(t_stack_var *var)
 {
 	t_node	*new_stack_b;

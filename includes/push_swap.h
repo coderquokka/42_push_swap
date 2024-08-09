@@ -51,17 +51,6 @@ void			a_to_b(t_stack_var *var);
 void			push_swap(t_stack_var *var);
 
 //src: sort_less_than 
-//		blank
-
-//src:stack_op1_push
-void			push_a(t_stack_var	*var);
-void			push_b(t_stack_var	*var);
-
-//src:stack_op2_rotate
-//static void		rotate(t_node **stack);
-void			rotate_a(t_node **stack);
-void			rotate_b(t_node **stack);
-void			rotate_ab(t_node **stack1, t_node **stack2);
 
 //src:stack_setup
 void			init_stack(char **temp, t_node **stack);
@@ -70,6 +59,7 @@ int				measure_size(t_stack_var *var);
 t_stack_var		*setup_stack_var(t_node *stack_a);
 
 //src:stack_libft.c
+t_node			*ft_last_node(t_node *node);
 void			print_node(t_node *node);
 void			free_node(t_node *stack);
 int				is_sorted(t_node *stack);

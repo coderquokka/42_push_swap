@@ -65,6 +65,8 @@ void	push_swap(t_stack_var *var)
 
 	new_stack_b = NULL;
 	var->stack_b = new_stack_b;
+	if (var->stack_size >= 6 || var->stack_size <= 1)
+		return ;
 	if (var->stack_size <= 5)
 	{
 		sort_less_than_five(var);

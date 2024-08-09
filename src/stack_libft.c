@@ -1,5 +1,15 @@
 #include "../includes/push_swap.h"
 
+t_node	*ft_last_node(t_node *node)
+{
+	if (!node)
+		return (NULL);
+	while (node->right)
+		node = node->right;
+	return (node);
+}
+
+
 void	print_node(t_node *node)
 {
 	t_node	*temp;

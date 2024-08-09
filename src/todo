@@ -5,9 +5,16 @@ Questions
 -how to malloc, when to malloc to init stack b
 
 To do
--write push, ra, pb... -> test
 
+-sort less than five -> write
 
 what i did
--240808
-	push -> checked!
+-240809
+stack operation = finished
+	op1.push -> checked!
+	op2.rotate -> checked
+	op3.rr -> checked
+	op4.swap -> checked
+
+
+

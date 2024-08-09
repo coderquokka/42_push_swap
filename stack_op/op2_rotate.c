@@ -1,4 +1,5 @@
 #include "../includes/push_swap.h"
+#include "stack_op.h"
 
 static void	rotate(t_node **stack)
 {
@@ -14,13 +15,13 @@ static void	rotate(t_node **stack)
 
 void	rotate_a(t_stack_var *var)
 {
-	rotate(var->stack_a);
+	rotate(&var->stack_a);
 	write(1, "ra\n", 3);
 }
 
 void	rotate_b(t_stack_var *var)
 {
-	rotate(var->stack_b);
+	rotate(&var->stack_b);
 	write(1, "rb\n", 3);
 }
 
