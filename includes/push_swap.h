@@ -21,11 +21,11 @@ typedef struct s_stack_var
 	int				stack_size;
 	struct s_node	*stack_a_top;
 	struct s_node	*stack_a_bottom;
-	int				stack_a_first_pivot;
-	int				stack_a_second_pivot;
+	int				stack_a_1st_piv;
+	int				stack_a_2nd_piv;
 
 	struct s_node	*stack_b;
-} t_stack_var;
+}	t_stack_var;
 
 //for storing commands, (for later use: optimizing some commands)
 typedef struct s_list_node
@@ -52,10 +52,10 @@ void			a_to_b(t_stack_var *var);
 void			push_swap(t_stack_var *var);
 
 //src: sort_less_than
-void	swap_nodes(t_node *a, t_node *b);
-void	sort_two(t_stack_var *var);
-void	sort_three(t_stack_var *var);
-void	sort_less_than(t_stack_var *var);
+void			swap_nodes(t_node *a, t_node *b);
+void			sort_two(t_stack_var *var);
+void			sort_three(t_stack_var *var);
+void			sort_less_than(t_stack_var *var);
 
 //src:stack_setup
 void			init_stack(char **temp, t_node **stack);
