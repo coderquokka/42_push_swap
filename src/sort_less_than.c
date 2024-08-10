@@ -1,8 +1,7 @@
 #include "../includes/push_swap.h"
 #include "../stack_op/stack_op.h"
 
-
-void	swap(t_node *a, t_node *b)
+void	swap_nodes(t_node *a, t_node *b)
 {
 	int	temp;
 
@@ -22,60 +21,40 @@ void	sort_two(t_stack_var *var)
 	cur = cur->right;
 	next = cur;
 	if (prev > next)
-		swap(prev, next);
+		swap_nodes(prev, next);
 }
 
 void	sort_three(t_stack_var *var)
 {
-	t_node	*first;
-	t_node	*second;
-	t_node	*third;
+	t_node	*temp;
+	int		first;
+	int		second;
+	int		third;
 
 	if (is_sorted(var->stack_a))
 		return ;
-	first = var->stack_a;
-	second = first->right;
-	third = second->right;
-	/*cases
-	1. 1 2 3
-	2. 1 3 2 
-	3. 2 3 1
-	case2. 2 1 3 -> 1 3 2 -> 3 2 | 1 -> 2 3 |  1 -> 1 2 3  : 4 moves
-				 -> 1 3 | 2 -> 3 1 | 2 -> 2 3 1 -> 1 2 3 
-	case1-1. 3 1 2 -> erledigt : ra, 1 move
-	case1-2. 3 2 1 -> no need
-	*/
-
-	while (!is_sorted(var->stack_a))
+	temp = var->stack_a;
+	first = temp->val;
+	temp = temp->right;
+	second = temp->val;
+	temp = temp->right;
+	third = temp->val;
+	if (first > second && first > third && second < third)
+		rotate_a(var);
+	else if (first < second && second > third && first > third)
+		rev_rotate_a(var);
+	else
 	{
-		//case1
-		if (first->val > second->val && first->val > third->val)
-		{
-			if (second->val < third->val)
-				rotate_a(var);
-		}
-		//case2
-		else if (first->val > second->val)
-		{
-			push_b(var);
+		swap_a(var);
+		if (first < second && second > third)
 			rotate_a(var);
-			push_a(var);
-			rev_rotate_a(var);
-		}
-		else if (first->val < third->val)
-		{
-			push_b(var);
-			rotate_a(var);
-			push_a(var);
-		}
-		else
+		if (first > second && second > third)
 			rev_rotate_a(var);
 	}
 }
 
-void	sort_less_than_five(t_stack_var *var)
+void	sort_less_than(t_stack_var *var)
 {
-
 	if (var->stack_size == 1)
 		return ;
 	if (var->stack_size == 2)
@@ -83,17 +62,9 @@ void	sort_less_than_five(t_stack_var *var)
 		sort_two(var);
 		return ;
 	}
-
 	if (var->stack_size == 3)
 	{
 		sort_three(var);
 		return ;
 	}
-	/*
-	if (var->stack_size == 4)
-	{
-		sort_four(var);
-		return ;
-	}
-	*/
 }

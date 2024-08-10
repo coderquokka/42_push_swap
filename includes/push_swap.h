@@ -21,6 +21,8 @@ typedef struct s_stack_var
 	int				stack_size;
 	struct s_node	*stack_a_top;
 	struct s_node	*stack_a_bottom;
+	int				stack_a_first_pivot;
+	int				stack_a_second_pivot;
 
 	struct s_node	*stack_b;
 } t_stack_var;
@@ -45,12 +47,15 @@ t_node			*idx_stack(t_stack_var *var);
 void			print_node(t_node *node);
 
 //src: push_swap.c
-t_node			*get_nth_node(t_node *temp, int i);
 int				*pick_two_pivots(t_stack_var *var);
 void			a_to_b(t_stack_var *var);
 void			push_swap(t_stack_var *var);
 
-//src: sort_less_than 
+//src: sort_less_than
+void	swap_nodes(t_node *a, t_node *b);
+void	sort_two(t_stack_var *var);
+void	sort_three(t_stack_var *var);
+void	sort_less_than(t_stack_var *var);
 
 //src:stack_setup
 void			init_stack(char **temp, t_node **stack);
@@ -63,5 +68,6 @@ t_node			*ft_last_node(t_node *node);
 void			print_node(t_node *node);
 void			free_node(t_node *stack);
 int				is_sorted(t_node *stack);
+t_node			*get_nth_node(t_node *temp, int i);
 
 #endif

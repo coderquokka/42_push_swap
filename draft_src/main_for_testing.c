@@ -26,37 +26,67 @@ int	main(int ac, char **av)
 		printf("\n");
 
 
-			//*rm: op1.pb
+		//*rm: op1.pb
 		push_b(stack_var);
 		printf("\nstack a:\n");
 		print_node(stack_var->stack_a);
 		printf("\nstack b:\n");
 		print_node(stack_var->stack_b);
-		printf("\n");
+		printf("--------------\n");
 
+		push_b(stack_var);
+		printf("\nstack a:\n");
+		print_node(stack_var->stack_a);
+		printf("\nstack b:\n");
+		print_node(stack_var->stack_b);
+		printf("--------------\n");
+
+		push_b(stack_var);
+		printf("\nstack a:\n");
+		print_node(stack_var->stack_a);
+		printf("\nstack b:\n");
+		print_node(stack_var->stack_b);
+		printf("--------------\n");
+
+		
 		//*rm: op2.rotate
-		rotate_a(stack_var);
+		rev_rotate_a(stack_var);
+		printf("\nstack a:\n");
+		print_node(stack_var->stack_a);
+		printf("\nstack b:\n");
+		print_node(stack_var->stack_b);
+		printf("--------------\n");
+
+		rev_rotate_b(stack_var);
+		printf("\nstack a:\n");
+		print_node(stack_var->stack_a);
+		printf("\nstack b:\n");
+		print_node(stack_var->stack_b);
+		printf("--------------\n");
+		
+		rev_rotate_ab(stack_var);
+		printf("\nstack a:\n");
+		print_node(stack_var->stack_a);
+		printf("\nstack b:\n");
+		print_node(stack_var->stack_b);
+		printf("--------------\n");
+
+		/*
+
 		printf("\nstack a:\n");
 		print_node(stack_var->stack_a);
 		printf("\nstack b:\n");
 		print_node(stack_var->stack_b);
 		printf("\n");
 
-		push_b(stack_var);
-		rotate_b(stack_var);
-
+		rev_rotate_b(stack_var);
 		printf("\nstack a:\n");
 		print_node(stack_var->stack_a);
 		printf("\nstack b:\n");
 		print_node(stack_var->stack_b);
 		printf("\n");
 
-		rotate_ab(stack_var);
-		printf("\nstack a:\n");
-		print_node(stack_var->stack_a);
-		printf("\nstack b:\n");
-		print_node(stack_var->stack_b);
-		printf("\n");		/*
+*/
 		//push_swap = sorting
 		push_swap(stack_var);
 		//free

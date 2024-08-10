@@ -15,6 +15,7 @@ void	rev_rotate_b(t_stack_var *var);
 void	rev_rotate_ab(t_stack_var *var);
 
 //op4.swap
+void	swap(t_node **stack);
 void	swap_a(t_stack_var *var);
 void	swap_b(t_stack_var *var);
 void	swap_ab(t_stack_var *var);

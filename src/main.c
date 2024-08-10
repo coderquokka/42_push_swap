@@ -3,6 +3,14 @@
 #include "../includes/push_swap.h"
 #include "../stack_op/stack_op.h"
 
+void	print_stack_ab(*var)
+{
+		printf("(stack a)\n");
+		print_node(stack_var->stack_a);
+		printf("(stack b)\n");
+		print_node(stack_var->stack_b);
+
+}
 
 int	main(int ac, char **av)
 {
@@ -22,74 +30,8 @@ int	main(int ac, char **av)
 		print_node(stack_a);
 		stack_var = setup_stack_var(stack_a);
 		printf("\n");
-
-
-		//*rm: op1.pb
-		push_b(stack_var);
-		printf("\nstack a:\n");
-		print_node(stack_var->stack_a);
-		printf("\nstack b:\n");
-		print_node(stack_var->stack_b);
-		printf("--------------\n");
-
-		push_b(stack_var);
-		printf("\nstack a:\n");
-		print_node(stack_var->stack_a);
-		printf("\nstack b:\n");
-		print_node(stack_var->stack_b);
-		printf("--------------\n");
-
-		push_b(stack_var);
-		printf("\nstack a:\n");
-		print_node(stack_var->stack_a);
-		printf("\nstack b:\n");
-		print_node(stack_var->stack_b);
-		printf("--------------\n");
-
-		
-		//*rm: op2.rotate
-		rev_rotate_a(stack_var);
-		printf("\nstack a:\n");
-		print_node(stack_var->stack_a);
-		printf("\nstack b:\n");
-		print_node(stack_var->stack_b);
-		printf("--------------\n");
-
-		rev_rotate_b(stack_var);
-		printf("\nstack a:\n");
-		print_node(stack_var->stack_a);
-		printf("\nstack b:\n");
-		print_node(stack_var->stack_b);
-		printf("--------------\n");
-		
-		rev_rotate_ab(stack_var);
-		printf("\nstack a:\n");
-		print_node(stack_var->stack_a);
-		printf("\nstack b:\n");
-		print_node(stack_var->stack_b);
-		printf("--------------\n");
-
-		/*
-
-		printf("\nstack a:\n");
-		print_node(stack_var->stack_a);
-		printf("\nstack b:\n");
-		print_node(stack_var->stack_b);
-		printf("\n");
-
-		rev_rotate_b(stack_var);
-		printf("\nstack a:\n");
-		print_node(stack_var->stack_a);
-		printf("\nstack b:\n");
-		print_node(stack_var->stack_b);
-		printf("\n");
-
-*/
-
-
-		
 		push_swap(stack_var);
-
+		print_stack_ab(stack_var);
 		/*free
 		free(temp);
 		return (EXIT_SUCCESS);

@@ -9,7 +9,6 @@ t_node	*ft_last_node(t_node *node)
 	return (node);
 }
 
-
 void	print_node(t_node *node)
 {
 	t_node	*temp;
@@ -55,4 +54,16 @@ int	is_sorted(t_node *stack)
 			return (0);
 	}
 	return (1);
+}
+
+t_node	*get_nth_node(t_node *temp, int i)
+{
+	t_node	*res;
+	int		k;
+
+	res = temp;
+	k = -1;
+	while (k++ < i && res != NULL)
+		res = res->right;
+	return (res);
 }
