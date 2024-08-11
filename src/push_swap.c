@@ -48,12 +48,12 @@ void	push_swap(t_stack_var *var)
 {
 	if (var->stack_size <= 1 || is_sorted(var->stack_a))
 		return ;
-	else if (var->stack_size <= 3) //sort 1-3
+	else if (var->stack_size <= 3) //case1(sort 1-3): directly change
 	{
 		sort_less_than(var);
 		return ;
 	}
-	pick_two_pivots(var);
+	//pick_two_pivots(var); //case2(sort more than 4): piv->sorted_a->stack_a_in_indx
 	
 
 }

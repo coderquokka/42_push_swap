@@ -1,5 +1,19 @@
 #include "../includes/push_swap.h"
 
+t_node	*get_new_tail(t_node *node, t_node *prev_tail)
+{
+	t_node	*second_last;
+
+	if (!node || !node->right)
+		return (NULL);
+	while (node->right && node != prev_tail)
+	{
+		second_last = node;
+		node = node->right;
+	}
+	return (second_last);
+}
+
 t_node	*ft_last_node(t_node *node)
 {
 	if (!node)

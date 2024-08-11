@@ -59,11 +59,12 @@ void			sort_less_than(t_stack_var *var);
 
 //src:stack_setup
 void			init_stack(char **temp, t_node **stack);
-t_node			*sort_stack(t_stack_var *var);
+void			get_sorted_stack(t_stack_var *var);
 int				measure_size(t_stack_var *var);
 t_stack_var		*setup_stack_var(t_node *stack_a);
 
 //src:stack_libft.c
+t_node			*get_new_tail(t_node *node, t_node *prev_tail);
 t_node			*ft_last_node(t_node *node);
 void			print_node(t_node *node);
 void			free_node(t_node *stack);

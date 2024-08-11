@@ -29,35 +29,62 @@ void	init_stack(char **temp, t_node **stack)
 	}
 }
 
-/* is needed? not sure
+/* need to be refined
 t_node	*sort_stack(t_stack_var *var)
 {
 	t_node	*temp;
+	t_node	*end_of_searching;
+	t_node	*start_of_searching;
 	t_node	*current;
-	t_node	*next;
 
-	if (!var || !var->stack_a || var->stack_size <= 1)
+	temp = var->stack_a;
+	if (!var || !temp || var->stack_size <= 1)
 		return (NULL);
-	// 3 2 4 1 -> 2 3 4 1  next->cur->(next->right)
-	// 3 2 0 -> 2 3 0 -> 2 0 3 
-	// wrong algorithm
-	while (current)
+	start_of_searching = temp;
+	end_of_searching = ft_last_node(start_of_searching);
+	while (start_of_searching != end_of_searching && start_of_searching->right)
 	{
-		current = var->stack_a;
-		while (current->right)
+		if (start_of_searching != temp)
+			start_of_searching = start_of_searching->right;
+		current = start_of_searching;
+		while (current != end_of_searching && current->right)
 		{
-			next = current->right;
-			if (current->val > next->val)
-			{
-				temp = next->right;
-				current->right = temp;
-				next->right = current;
-			}
+			if (current->val > current->right->val)
+				swap_nodes(current, current->right); //swaping values
 			current = current->right;
 		}
+		end_of_searching = get_new_tail(current, end_of_searching);
 	}
-	return (var->stack_a);
+	return (temp);
 }*/
+
+void	get_sorted_stack(t_stack_var *var)
+{
+	t_node	*start_of_searching;
+	t_node	*end_of_searching;
+	t_node	*current;
+	t_node	*dest;
+
+	if (!var || !start_of_searching || var->stack_size <= 1)
+		return ;
+	start_of_searching = var->stack_a;
+	end_of_searching = ft_last_node(start_of_searching);
+	dest = var->sorted_stack_a;
+	while (start_of_searching != end_of_searching && start_of_searching->right)
+	{
+		current = start_of_searching;
+		while (current != end_of_searching && current->right)
+		{
+			if (current->val > current->right->val)
+				swap_nodes(current, current->right); // Swapping values
+			dest->val = current->val;
+			dest = dest->right;
+			current = current->right;
+		}
+		start_of_searching = start_of_searching->right;
+		end_of_searching = get_new_tail(current, end_of_searching);
+	}
+}
 
 int	measure_size(t_stack_var *var)
 {
@@ -84,15 +111,16 @@ t_stack_var	*setup_stack_var(t_node *stack_a)
 		return (NULL);
 	stack_var->stack_a = stack_a;
 	stack_var->stack_size = measure_size(stack_var);
+	if (stack_var->stack_size < 1)
+		printf("invalid stack size\n");
 	if (is_sorted(stack_var->stack_a) == 1)
 	{
 		printf("stack a is already sorted\n");
-		//stack_var->sorted_stack_a = stack_a;
 	}
 	else
 	{
 		printf("stack a is not sorted yet\n");
-	//	stack_var->sorted_stack_a = sort_stack(stack_var);
+		get_sorted_stack(stack_var);
 	}
 	return (stack_var);
 }
