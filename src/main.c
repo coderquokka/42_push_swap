@@ -7,7 +7,9 @@ void	print_stack_ab(t_stack_var *var)
 {
 	printf("(stack a)\n");
 	print_node(var->stack_a);
-	printf("(stack b)\n");
+	printf("(stack a origin)\n");
+	print_node(var->stack_a_origin);
+	printf("\n(stack b)\n");
 	print_node(var->stack_b);
 }
 

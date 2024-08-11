@@ -16,6 +16,8 @@ typedef struct s_node
 typedef struct s_stack_var
 {
 	struct s_node	*stack_a;
+	struct s_node	*stack_a_origin;
+
 	struct s_node	*sorted_stack_a;
 	struct s_node	*stack_a_to_idx;  //for choosing better pivot
 	int				stack_size;
@@ -70,5 +72,9 @@ void			print_node(t_node *node);
 void			free_node(t_node *stack);
 int				is_sorted(t_node *stack);
 t_node			*get_nth_node(t_node *temp, int i);
+
+//src:stack_libft2.c
+void			cp_node(t_node **dst, t_node *src);
+
 
 #endif

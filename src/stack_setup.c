@@ -63,13 +63,14 @@ void	get_sorted_stack(t_stack_var *var)
 	t_node	*start_of_searching;
 	t_node	*end_of_searching;
 	t_node	*current;
-	t_node	*dest;
 
 	if (!var || !start_of_searching || var->stack_size <= 1)
 		return ;
+	cp_node(&var->stack_a_origin, var->stack_a);
+	if (!var->stack_a_origin)
+		return ;
 	start_of_searching = var->stack_a;
 	end_of_searching = ft_last_node(start_of_searching);
-	dest = var->sorted_stack_a;
 	while (start_of_searching != end_of_searching && start_of_searching->right)
 	{
 		current = start_of_searching;
@@ -77,8 +78,6 @@ void	get_sorted_stack(t_stack_var *var)
 		{
 			if (current->val > current->right->val)
 				swap_nodes(current, current->right); // Swapping values
-			dest->val = current->val;
-			dest = dest->right;
 			current = current->right;
 		}
 		start_of_searching = start_of_searching->right;
