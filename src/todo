@@ -23,17 +23,15 @@ stack operation = finished
 	op3.rr -> checked
 	op4.swap -> checked
 
-
-
-
 greedy sort 쉬워 보임
 https://80000coding.oopy.io/71fa0b62-6461-463d-b1e1-5eaa2b3a3ca9
 
 0. pivot은 최적의 것을 뽑도록 미리 stack a 를 정렬해야 함
-	-> get "var->sorting_a"
+	-> get "var->sorted_a"
 	-> get "stack_a_in_idx" : 1 2 3 4 ... 로 변환
 
 1. pivot 2개 뽑는다 (stack a), 다른 피봇은 더이상 필요 없음
+
 2. 큰/중/작 (큰 > pivot b), (pivot a < 중 < pivot b) (작 < pivot a)
 	작-> remain in stack a : ra
 	중-> head of stack b   : pb

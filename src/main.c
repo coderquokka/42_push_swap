@@ -6,11 +6,15 @@
 void	print_stack_ab(t_stack_var *var)
 {
 	printf("(stack a)\n");
-	print_node(var->stack_a);
-	printf("(stack a origin)\n");
-	print_node(var->stack_a_origin);
+	print_value(var->stack_a);
+	printf("(sorted stack a)\n");
+	print_value(var->sorted_stack_a);
+	printf("(stack a in idx)\n");
+	print_idx(var->stack_a);
 	printf("\n(stack b)\n");
-	print_node(var->stack_b);
+	print_value(var->stack_b);
+
+
 }
 
 int	main(int ac, char **av)
@@ -28,7 +32,7 @@ int	main(int ac, char **av)
 		temp = stack_a;
 		if (have_same_nbr(temp) == 1)
 			return (EXIT_FAILURE);
-		print_node(stack_a);
+		print_value(stack_a);
 		stack_var = setup_stack_var(stack_a);
 		push_swap(stack_var);
 		printf("\nafter push_swap:\n");

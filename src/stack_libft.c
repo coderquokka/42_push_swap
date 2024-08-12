@@ -23,7 +23,7 @@ t_node	*ft_last_node(t_node *node)
 	return (node);
 }
 
-void	print_node(t_node *node)
+void	print_value(t_node *node)
 {
 	t_node	*temp;
 

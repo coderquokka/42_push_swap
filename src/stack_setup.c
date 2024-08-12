@@ -29,34 +29,36 @@ void	init_stack(char **temp, t_node **stack)
 	}
 }
 
-/* need to be refined
-t_node	*sort_stack(t_stack_var *var)
+void	get_index_stack(t_stack_var *var)
 {
-	t_node	*temp;
-	t_node	*end_of_searching;
-	t_node	*start_of_searching;
-	t_node	*current;
+	int		i;
+	t_node	*first;
+	t_node	*second;
 
-	temp = var->stack_a;
-	if (!var || !temp || var->stack_size <= 1)
-		return (NULL);
-	start_of_searching = temp;
-	end_of_searching = ft_last_node(start_of_searching);
-	while (start_of_searching != end_of_searching && start_of_searching->right)
+	first = var->stack_a;
+	second = var->sorted_stack_a;
+	if (!first || !second)
+		return ;
+	while (first)
 	{
-		if (start_of_searching != temp)
-			start_of_searching = start_of_searching->right;
-		current = start_of_searching;
-		while (current != end_of_searching && current->right)
+		i = 10;
+		while (second)
 		{
-			if (current->val > current->right->val)
-				swap_nodes(current, current->right); //swaping values
-			current = current->right;
+			if (first->val == second->val)
+			{
+				first->idx = i;
+				break ;
+			}
+			else if (second->right)
+			{
+				second = second->right;
+				i++;
+			}
 		}
-		end_of_searching = get_new_tail(current, end_of_searching);
+		if (first->right)
+			first = first->right;
 	}
-	return (temp);
-}*/
+}
 
 void	get_sorted_stack(t_stack_var *var)
 {
@@ -66,10 +68,10 @@ void	get_sorted_stack(t_stack_var *var)
 
 	if (!var || !start_of_searching || var->stack_size <= 1)
 		return ;
-	cp_node(&var->stack_a_origin, var->stack_a);
-	if (!var->stack_a_origin)
+	cp_node(&var->sorted_stack_a, var->stack_a);
+	if (!var->sorted_stack_a)
 		return ;
-	start_of_searching = var->stack_a;
+	start_of_searching = var->sorted_stack_a;
 	end_of_searching = ft_last_node(start_of_searching);
 	while (start_of_searching != end_of_searching && start_of_searching->right)
 	{

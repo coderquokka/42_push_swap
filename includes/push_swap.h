@@ -9,6 +9,7 @@ typedef struct s_node
 {
 	struct s_node	*left;
 	int				val;
+	int				idx;
 	struct s_node	*right;
 }	t_node;
 
@@ -16,11 +17,11 @@ typedef struct s_node
 typedef struct s_stack_var
 {
 	struct s_node	*stack_a;
-	struct s_node	*stack_a_origin;
-
 	struct s_node	*sorted_stack_a;
-	struct s_node	*stack_a_to_idx;  //for choosing better pivot
+	struct s_node	*stack_a_to_idx;//for choosing better pivot
+
 	int				stack_size;
+
 	struct s_node	*stack_a_top;
 	struct s_node	*stack_a_bottom;
 	int				stack_a_1st_piv;
@@ -68,13 +69,12 @@ t_stack_var		*setup_stack_var(t_node *stack_a);
 //src:stack_libft.c
 t_node			*get_new_tail(t_node *node, t_node *prev_tail);
 t_node			*ft_last_node(t_node *node);
-void			print_node(t_node *node);
+void			print_value(t_node *node);
 void			free_node(t_node *stack);
 int				is_sorted(t_node *stack);
 t_node			*get_nth_node(t_node *temp, int i);
 
 //src:stack_libft2.c
 void			cp_node(t_node **dst, t_node *src);
-
-
+void			print_idx(t_node *node);
 #endif
