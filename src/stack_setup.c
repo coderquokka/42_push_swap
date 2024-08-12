@@ -39,21 +39,18 @@ void	get_index_stack(t_stack_var *var)
 	second = var->sorted_stack_a;
 	if (!first || !second)
 		return ;
-	while (first)
+	while (first != NULL)
 	{
 		i = 10;
-		while (second)
+		while (second != NULL)
 		{
 			if (first->val == second->val)
 			{
 				first->idx = i;
 				break ;
 			}
-			else if (second->right)
-			{
-				second = second->right;
-				i++;
-			}
+			second = second->right;
+			i++;
 		}
 		if (first->right)
 			first = first->right;
@@ -122,6 +119,7 @@ t_stack_var	*setup_stack_var(t_node *stack_a)
 	{
 		printf("stack a is not sorted yet\n");
 		get_sorted_stack(stack_var);
+		get_index_stack(stack_var);
 	}
 	return (stack_var);
 }

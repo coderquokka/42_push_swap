@@ -63,6 +63,7 @@ void			sort_less_than(t_stack_var *var);
 //src:stack_setup
 void			init_stack(char **temp, t_node **stack);
 void			get_sorted_stack(t_stack_var *var);
+void			get_index_stack(t_stack_var *var);
 int				measure_size(t_stack_var *var);
 t_stack_var		*setup_stack_var(t_node *stack_a);
 

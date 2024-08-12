@@ -35,7 +35,7 @@ int	main(int ac, char **av)
 		print_value(stack_a);
 		stack_var = setup_stack_var(stack_a);
 		push_swap(stack_var);
-		printf("\nafter push_swap:\n");
+		printf("\nafter push_swap(sorting, indexing):\n");
 		print_stack_ab(stack_var);
 		printf("\n");
 
