@@ -3,7 +3,7 @@
 #include "../includes/push_swap.h"
 #include "../stack_op/stack_op.h"
 
-void	print_stack_ab(t_stack_var *var)
+void	print_stack(t_stack_var *var)
 {
 	printf("AFTER SORTING (ac <=3) or indexing (ac >= 4)");
 	printf("(stack a)\n");
@@ -12,14 +12,14 @@ void	print_stack_ab(t_stack_var *var)
 	printf("\n(temp_sorted_stack_a)\n");
 	print_value(var->temp_sorted_stack_a);
 
-	printf("\n(stack a in idx)\n"); // fix it
-	print_idx(var->stack_a);
+	//printf("\n(stack a in idx)\n"); // fix it
+	//print_idx(var->stack_a);
 
-	printf("\n(stack b)\n");
-	print_value(var->stack_b);
+	//printf("\n(stack b)\n");
+	//print_value(var->stack_b);
 
-	printf("\n(stack b in idx)\n");
-	print_idx(var->stack_b);
+	//printf("\n(stack b in idx)\n");
+	//print_idx(var->stack_b);
 
 }
 
@@ -42,7 +42,7 @@ int	main(int ac, char **av)
 		stack_var = setup_stack_var(stack_a);
 		push_swap(stack_var);
 		printf("\nafter push_swap(sorting, indexing):\n");
-		print_stack_ab(stack_var);
+		print_stack(stack_var);
 		printf("\n");
 
 		/*free

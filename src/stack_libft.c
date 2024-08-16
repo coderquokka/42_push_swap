@@ -2,25 +2,26 @@
 
 t_node	*get_new_tail(t_node *node, t_node *prev_tail)
 {
-	t_node	*second_last;
+	t_node	*temp;
 
-	if (!node || !node->right)
+	temp = node;
+	if (!temp)
 		return (NULL);
-	while (node->right && node != prev_tail)
-	{
-		second_last = node;
-		node = node->right;
-	}
-	return (second_last);
+	while (temp->right && temp->right != prev_tail)
+		temp = temp->right;
+	return (temp);
 }
 
 t_node	*ft_last_node(t_node *node)
 {
-	if (!node)
+	t_node	*temp;
+
+	temp = node;
+	if (!temp)
 		return (NULL);
-	while (node->right)
-		node = node->right;
-	return (node);
+	while (temp->right)
+		temp = temp->right;
+	return (temp);
 }
 
 void	print_value(t_node *node)
@@ -36,7 +37,10 @@ void	print_value(t_node *node)
 	while (temp)
 	{
 		printf("%d\n", temp->val);
-		temp = temp->right;
+		if (temp->right)
+			temp = temp->right;
+		else
+			break ;
 	}
 }
 

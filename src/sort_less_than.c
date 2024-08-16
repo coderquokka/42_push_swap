@@ -1,14 +1,6 @@
 #include "../includes/push_swap.h"
 #include "../stack_op/stack_op.h"
 
-void	swap_nodes(t_node *a, t_node *b)
-{
-	int	temp;
-
-	temp = a->val;
-	a->val = b->val;
-	b->val = temp;
-}
 
 void	sort_two(t_stack_var *var)
 {

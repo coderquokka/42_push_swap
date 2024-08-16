@@ -39,6 +39,19 @@ stack operation = finished
 greedy sort 쉬워 보임
 https://80000coding.oopy.io/71fa0b62-6461-463d-b1e1-5eaa2b3a3ca9
 
+-240816
+			end_of_searching = get_new_tail(start_of_searching, end_of_searching);
+		printf(" tail (%d): %d\n", i++, end_of_searching->val);
+
+		finding second last is wrong. 
+
+		c4a9c7% ./a.out 4 3 1 7 5                                                
+				stack a is not sorted yet, has more than 4 arg
+				tail (1): 5
+				tail (2): 4
+				tail (3): 3
+				tail (4): 1
+
 0. pivot은 최적의 것을 뽑도록 미리 stack a 를 정렬해야 함
 	-> get "var->sorted_a"
 	-> get "stack_a_in_idx" : 1 2 3 4 ... 로 변환

@@ -47,7 +47,6 @@ t_stack_var		*setup_stack_var(t_node *stack_a);
 int				measure_size(t_stack_var *var);
 t_node			*sort_stack(t_stack_var *var);
 t_node			*idx_stack(t_stack_var *var);
-void			print_node(t_node *node);
 
 //src: push_swap.c
 int				*pick_two_pivots(t_stack_var *var);
@@ -55,14 +54,13 @@ void			a_to_b(t_stack_var *var);
 void			push_swap(t_stack_var *var);
 
 //src: sort_less_than
-void			swap_nodes(t_node *a, t_node *b);
 void			sort_two(t_stack_var *var);
 void			sort_three(t_stack_var *var);
 void			sort_less_than(t_stack_var *var);
 
 //src:stack_setup
 void			init_stack(char **temp, t_node **stack);
-void			get_sorted_stack(t_stack_var *var);
+void			get_temp_sorted_stack(t_stack_var *var);
 void			get_index_stack(t_stack_var *var);
 int				measure_size(t_stack_var *var);
 t_stack_var		*setup_stack_var(t_node *stack_a);
@@ -78,4 +76,6 @@ t_node			*get_nth_node(t_node *temp, int i);
 //src:stack_libft2.c
 void			cp_node(t_node **dst, t_node *src);
 void			print_idx(t_node *node);
+void			swap_nodes(t_node *a, t_node *b);
+
 #endif

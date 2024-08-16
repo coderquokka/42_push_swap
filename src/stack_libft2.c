@@ -50,3 +50,13 @@ void	print_idx(t_node *node)
 		temp = temp->right;
 	}
 }
+
+
+void	swap_nodes(t_node *a, t_node *b)
+{
+	int	temp;
+
+	temp = a->val;
+	a->val = b->val;
+	b->val = temp;
+}

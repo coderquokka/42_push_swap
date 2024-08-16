@@ -55,10 +55,6 @@ void	push_swap(t_stack_var *var)
 	}
 	else //sorting은 아직, 그걸 위해서 indexing만.
 	{
-		get_sorted_stack(var); //change stack a
-		get_index_stack(var);
-		 //=> 이후에 피봇 뽑기 => sorting
-		 	//pick_two_pivots(var); //case2(sort more than 4): piv->sorted_a->stack_a_in_indx
 	}
 
 	
