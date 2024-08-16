@@ -11,7 +11,7 @@ int		*pick_two_pivots(t_stack_var *var)
 	if (!arr)
 		exit(EXIT_FAILURE);
 	skip = (int)var->stack_size / 2;
-	temp = var->sorted_stack_a;
+	temp = var->temp_sorted_stack_a;
 	temp = get_nth_node(temp, skip);
 	arr[0] = temp->val;
 	temp = get_nth_node(temp, skip);
@@ -53,7 +53,14 @@ void	push_swap(t_stack_var *var)
 		sort_less_than(var);
 		return ;
 	}
-	//pick_two_pivots(var); //case2(sort more than 4): piv->sorted_a->stack_a_in_indx
+	else //sorting은 아직, 그걸 위해서 indexing만.
+	{
+		get_sorted_stack(var); //change stack a
+		get_index_stack(var);
+		 //=> 이후에 피봇 뽑기 => sorting
+		 	//pick_two_pivots(var); //case2(sort more than 4): piv->sorted_a->stack_a_in_indx
+	}
+
 	
 
 }

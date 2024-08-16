@@ -17,9 +17,9 @@ typedef struct s_node
 typedef struct s_stack_var
 {
 	struct s_node	*stack_a;
-	struct s_node	*sorted_stack_a;
-	struct s_node	*stack_a_to_idx;//for choosing better pivot
-
+	struct s_node	*stack_a_origin;
+	struct s_node	*temp_sorted_stack_a;
+	struct s_node	*stack_a_to_idx;
 	int				stack_size;
 
 	struct s_node	*stack_a_top;

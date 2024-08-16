@@ -33,30 +33,49 @@ void	get_index_stack(t_stack_var *var)
 {
 	int		i;
 	t_node	*first;
-	t_node	*second;
+	t_node	*second_current;
+	t_node	*second_start;
 
-	first = var->stack_a;
-	second = var->sorted_stack_a;
-	if (!first || !second)
+	first = var->stack_a; //origin, unsorted
+	second_start = var->temp_sorted_stack_a; //sorted
+	if (!first || !second_current)
 		return ;
 	while (first != NULL)
 	{
-		i = 10;
-		while (second != NULL)
+		i = 1;
+		second_current = second_start;
+		while (second_current != NULL)
 		{
-			if (first->val == second->val)
+			if (first->val == second_current->val)
 			{
 				first->idx = i;
 				break ;
 			}
-			second = second->right;
+			second_current = second_current->right;
 			i++;
 		}
-		if (first->right)
-			first = first->right;
+		first = first->right;
 	}
 }
 
+/* wrong moves
+82613
+(1st)
+-> 28613 -> 26813 -> 26183 -> 26138
+(2nd)
+-> 21638 -> 21368
+(3rd)
+-> 21368
+
+=> wrong algorithmm fix
+아예 처음부터 바꾼다면?
+82613
+(1st)28613 -> 26813 -> 26183 -> 26138
+(2nd)26813 -> 26183 -> 26138
+(3rd)21638 -> 21368 
+(4th)12368
+
+*/
 void	get_sorted_stack(t_stack_var *var)
 {
 	t_node	*start_of_searching;
@@ -65,11 +84,12 @@ void	get_sorted_stack(t_stack_var *var)
 
 	if (!var || !start_of_searching || var->stack_size <= 1)
 		return ;
-	cp_node(&var->sorted_stack_a, var->stack_a);
-	if (!var->sorted_stack_a)
+	cp_node(&var->temp_sorted_stack_a, var->stack_a);
+	if (!var->temp_sorted_stack_a)
 		return ;
-	start_of_searching = var->sorted_stack_a;
+	start_of_searching = var->temp_sorted_stack_a;
 	end_of_searching = ft_last_node(start_of_searching);
+	
 	while (start_of_searching != end_of_searching && start_of_searching->right)
 	{
 		current = start_of_searching;
@@ -79,9 +99,10 @@ void	get_sorted_stack(t_stack_var *var)
 				swap_nodes(current, current->right); // Swapping values
 			current = current->right;
 		}
-		start_of_searching = start_of_searching->right;
+		//start_of_searching = start_of_searching->right; //여기가 틀린 것 같은데 고치면 또 아님. 
 		end_of_searching = get_new_tail(current, end_of_searching);
 	}
+	
 }
 
 int	measure_size(t_stack_var *var)
@@ -98,8 +119,8 @@ int	measure_size(t_stack_var *var)
 	}
 	return (i);
 }
-
-//output: var->stack_a / stack_size / check: sorted or not
+//하는 일 3가지 : var에 stack a 집어 넣기 / size 재기 / sorted&ac 체크 
+//sorting이나 indexing은 하지 않음
 t_stack_var	*setup_stack_var(t_node *stack_a)
 {
 	t_stack_var	*stack_var;
@@ -112,14 +133,10 @@ t_stack_var	*setup_stack_var(t_node *stack_a)
 	if (stack_var->stack_size < 1)
 		printf("invalid stack size\n");
 	if (is_sorted(stack_var->stack_a) == 1)
-	{
 		printf("stack a is already sorted\n");
-	}
+	else if (stack_var->stack_size >= 4)
+		printf("stack a is not sorted yet, has more than 4 arg\n");
 	else
-	{
-		printf("stack a is not sorted yet\n");
-		get_sorted_stack(stack_var);
-		get_index_stack(stack_var);
-	}
+		printf("stack a is not sorted yet, but has less than 3 arguments\n");
 	return (stack_var);
 }

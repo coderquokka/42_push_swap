@@ -4,8 +4,15 @@ Ref
 Questions
 -how to malloc, when to malloc to init stack b
 
+Things to know
+- when arg <= 3,
+	no need to pick pivots, idx stack a, or so on.
+- only when arg >= 4
+	pick pivot, get idx stack a ...
+
 To do
--fix : get_idx_stack_a
+-fix : get_idx_stack_a 
+		what? segfault, getting right index
 
 cc *.c ../libft/ft_atoi.c ../libft/ft_putstr_fd.c ../stack_op/*.c
 (base) jieunpark@eng---macbook src % ./a.out 3 1 2 4 6 9 8 11 10
@@ -18,6 +25,16 @@ stack operation = finished
 	op2.rotate -> checked
 	op3.rr -> checked
 	op4.swap -> checked
+
+-240813
+	printf("\n(stack a in idx)\n"); // fix it
+	print_idx(var->stack_a);
+
+	stack a 뽑고, sorting해서 stack a 바꾸고, original stack a 저장까지는 ㅇㅋ
+	-> stack a를 인덱스로 변환해서 인덱스 프린트하는 게 안됨(고치기!)
+
+-240814
+	stack_setup : temporarily sorting -> is wrong, fix the wrong algorithm
 
 greedy sort 쉬워 보임
 https://80000coding.oopy.io/71fa0b62-6461-463d-b1e1-5eaa2b3a3ca9

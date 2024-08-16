@@ -5,15 +5,21 @@
 
 void	print_stack_ab(t_stack_var *var)
 {
+	printf("AFTER SORTING (ac <=3) or indexing (ac >= 4)");
 	printf("(stack a)\n");
 	print_value(var->stack_a);
-	printf("(sorted stack a)\n");
-	print_value(var->sorted_stack_a);
-	printf("(stack a in idx)\n");
+
+	printf("\n(temp_sorted_stack_a)\n");
+	print_value(var->temp_sorted_stack_a);
+
+	printf("\n(stack a in idx)\n"); // fix it
 	print_idx(var->stack_a);
+
 	printf("\n(stack b)\n");
 	print_value(var->stack_b);
 
+	printf("\n(stack b in idx)\n");
+	print_idx(var->stack_b);
 
 }
 
