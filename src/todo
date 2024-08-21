@@ -1,43 +1,46 @@
-Ref
--https://bingu.tistory.com/6
-
 Questions
 -how to malloc, when to malloc to init stack b
 
-Things to know
+Remember
 - when arg <= 3,
 	no need to pick pivots, idx stack a, or so on.
 - only when arg >= 4
 	pick pivot, get idx stack a ...
 
 To do
--fix : get_idx_stack_a 
-		what? segfault, getting right index
-
--fix : get tail
+-compile and check
 cc *.c ../libft/ft_atoi.c ../libft/ft_putstr_fd.c ../stack_op/*.c
 (base) jieunpark@eng---macbook src % ./a.out 3 1 2 4 6 9 8 11 10
 
+
+[greedy sort 쉬워 보임]
+ref: https://80000coding.oopy.io/71fa0b62-6461-463d-b1e1-5eaa2b3a3ca9
+
+0. pivot은 최적의 것을 뽑도록 미리 stack a 를 정렬해야 함 (ok)
+	-> get "var->temp_sorted_stack_a"
+	-> get "stack_a_in_idx" : 1 2 3 4 ... 로 변환
+
+1. pivot 2개 뽑는다 (ok)
+
+2. 큰/중/작 (큰 > pivot b), (pivot a < 중 < pivot b) (작 < pivot a)
+	작-> remain in stack a : ra
+	중-> head of stack b   : pb
+	큰-> tail of stack b   : pb->rb
+
+3. 고 다음에 stack b로 모두 넘긴다 : 작작작/중중중/큰큰큰
+
+4. sorting 하면서 stack a로
+
+
+---
+
 what i did
--240809
-stack operation = finished
-	op1.push -> checked!
-	op2.rotate -> checked
-	op3.rr -> checked
-	op4.swap -> checked
 
--240813
-	printf("\n(stack a in idx)\n"); // fix it
-	print_idx(var->stack_a);
-
-	stack a 뽑고, sorting해서 stack a 바꾸고, original stack a 저장까지는 ㅇㅋ
-	-> stack a를 인덱스로 변환해서 인덱스 프린트하는 게 안됨(고치기!)
-
--240814
-	stack_setup : temporarily sorting -> is wrong, fix the wrong algorithm
-
-greedy sort 쉬워 보임
-https://80000coding.oopy.io/71fa0b62-6461-463d-b1e1-5eaa2b3a3ca9
+-240821
+	get_temp_sorted_a (OK)
+	get_stack_a_in_idx (OK)
+	
+	get pivots (ING)
 
 -240816
 			end_of_searching = get_new_tail(start_of_searching, end_of_searching);
@@ -52,21 +55,22 @@ https://80000coding.oopy.io/71fa0b62-6461-463d-b1e1-5eaa2b3a3ca9
 				tail (3): 3
 				tail (4): 1
 
-0. pivot은 최적의 것을 뽑도록 미리 stack a 를 정렬해야 함
-	-> get "var->sorted_a"
-	-> get "stack_a_in_idx" : 1 2 3 4 ... 로 변환
+-240814
+	stack_setup : temporarily sorting -> is wrong, fix the wrong algorithm
 
-1. pivot 2개 뽑는다 (stack a), 다른 피봇은 더이상 필요 없음
+-240813
+	printf("\n(stack a in idx)\n"); // fix it
+	print_idx(var->stack_a);
 
-2. 큰/중/작 (큰 > pivot b), (pivot a < 중 < pivot b) (작 < pivot a)
-	작-> remain in stack a : ra
-	중-> head of stack b   : pb
-	큰-> tail of stack b   : pb->rb
-
-3. 고 다음에 stack b로 모두 넘긴다 : 작작작/중중중/큰큰큰
-
-4. sorting 하면서 stack a로
+	stack a 뽑고, sorting해서 stack a 바꾸고, original stack a 저장까지는 ㅇㅋ
+	-> stack a를 인덱스로 변환해서 인덱스 프린트하는 게 안됨(고치기!)
 
 
----
-compile
+
+-240809
+stack operation = finished
+	op1.push -> checked!
+	op2.rotate -> checked
+	op3.rr -> checked
+	op4.swap -> checked
+

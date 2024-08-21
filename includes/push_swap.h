@@ -16,16 +16,14 @@ typedef struct s_node
 // STACK VARIABLE
 typedef struct s_stack_var
 {
-	struct s_node	*stack_a;
-	struct s_node	*stack_a_origin;
+	struct s_node	*stack_a; 
 	struct s_node	*temp_sorted_stack_a;
-	struct s_node	*stack_a_to_idx;
 	int				stack_size;
 
-	struct s_node	*stack_a_top;
-	struct s_node	*stack_a_bottom;
-	int				stack_a_1st_piv;
-	int				stack_a_2nd_piv;
+	struct s_node	*stack_a_top; //why needed?
+	struct s_node	*stack_a_bottom; //why needed?
+	int				first_piv;
+	int				second_piv;
 
 	struct s_node	*stack_b;
 }	t_stack_var;
@@ -49,7 +47,7 @@ t_node			*sort_stack(t_stack_var *var);
 t_node			*idx_stack(t_stack_var *var);
 
 //src: push_swap.c
-int				*pick_two_pivots(t_stack_var *var);
+void			pick_two_pivots(t_stack_var *var);
 void			a_to_b(t_stack_var *var);
 void			push_swap(t_stack_var *var);
 

@@ -87,15 +87,16 @@ void	get_temp_sorted_stack(t_stack_var *var)
 int	measure_size(t_stack_var *var)
 {
 	int		i;
-	t_node	*cur_stack;
+	t_node	*cur;
 
 	i = 0;
-	cur_stack = var->stack_a;
-	while (cur_stack)
+	cur = var->stack_a;
+	while (cur)
 	{
 		i++;
-		cur_stack = cur_stack->right;
+		cur = cur->right;
 	}
+	printf("stack size: %d\n", i);
 	return (i);
 }
 //하는 일 3가지 : var에 stack a 집어 넣기 / size 재기 / sorted&ac 체크 / get temp_sorted
