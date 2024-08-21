@@ -5,15 +5,15 @@
 
 void	print_stack(t_stack_var *var)
 {
-	printf("AFTER SORTING (ac <=3) or indexing (ac >= 4)");
+	printf("AFTER SORTING (ac <=3) or just indexing (ac >= 4)");
 	printf("(stack a)\n");
 	print_value(var->stack_a);
 
 	printf("\n(temp_sorted_stack_a)\n");
 	print_value(var->temp_sorted_stack_a);
 
-	//printf("\n(stack a in idx)\n"); // fix it
-	//print_idx(var->stack_a);
+	printf("\n(stack a in idx)\n"); // fix it
+	print_idx(var->stack_a);
 
 	//printf("\n(stack b)\n");
 	//print_value(var->stack_b);
@@ -41,7 +41,6 @@ int	main(int ac, char **av)
 		print_value(stack_a);
 		stack_var = setup_stack_var(stack_a);
 		push_swap(stack_var);
-		printf("\nafter push_swap(sorting, indexing):\n");
 		print_stack(stack_var);
 		printf("\n");
 

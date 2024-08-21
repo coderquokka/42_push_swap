@@ -14,9 +14,9 @@ To do
 -fix : get_idx_stack_a 
 		what? segfault, getting right index
 
+-fix : get tail
 cc *.c ../libft/ft_atoi.c ../libft/ft_putstr_fd.c ../stack_op/*.c
 (base) jieunpark@eng---macbook src % ./a.out 3 1 2 4 6 9 8 11 10
-
 
 what i did
 -240809

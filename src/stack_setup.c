@@ -40,11 +40,11 @@ void	get_index_stack(t_stack_var *var)
 	second_start = var->temp_sorted_stack_a; //sorted
 	if (!first || !second_current)
 		return ;
-	while (first != NULL)
+	while (first)
 	{
 		i = 1;
 		second_current = second_start;
-		while (second_current != NULL)
+		while (second_current)
 		{
 			if (first->val == second_current->val)
 			{
@@ -58,50 +58,29 @@ void	get_index_stack(t_stack_var *var)
 	}
 }
 
-/* wrong moves
-82613
-(1st)
--> 28613 -> 26813 -> 26183 -> 26138
-(2nd)
--> 21638 -> 21368
-(3rd)
--> 21368
-
-=> wrong algorithmm fix
-아예 처음부터 바꾼다면?
-82613
-(1st)28613 -> 26813 -> 26183 -> 26138
-(2nd)26813 -> 26183 -> 26138
-(3rd)21638 -> 21368 
-(4th)12368
-
-*/
 void	get_temp_sorted_stack(t_stack_var *var)
 {
-	t_node	*start_of_searching;
-	t_node	*end_of_searching = NULL;
-	t_node	*current;
+	t_node	*start_pos;
+	t_node	*cur = NULL;
+	t_node	*tail;
 
 	if (!var || var->stack_size <= 1)
 		return ;
 	cp_node(&var->temp_sorted_stack_a, var->stack_a); //successfully cpied
 	if (!var->temp_sorted_stack_a)
 		return ;
-	start_of_searching = var->temp_sorted_stack_a;
-	end_of_searching = ft_last_node(start_of_searching);
-
-	int i = 1;
-	while (end_of_searching != start_of_searching)
+	start_pos = var->temp_sorted_stack_a; //save starting position
+	tail = ft_last_node(start_pos);
+	while (tail != start_pos)
 	{
-		current = start_of_searching;
-		while (current != end_of_searching && current->right)
+		cur = start_pos;
+		while (cur && cur->right && cur != tail)
 		{
-			if (current->val > current->right->val)
-				swap_nodes(current, current->right); // Swapping values
-			current = current->right;
+			if (cur->val > cur->right->val)
+				swap_nodes(cur, cur->right); // Swapping values
+			cur = cur->right;
 		}
-		end_of_searching = get_new_tail(start_of_searching, end_of_searching);
-		printf(" tail (%d): %d\n", i++, end_of_searching->val);
+		tail = get_new_tail(start_pos, tail);
 	}
 }
 
@@ -138,7 +117,7 @@ t_stack_var	*setup_stack_var(t_node *stack_a)
 	{
 		printf("stack a is not sorted yet, has more than 4 arg\n");
 		get_temp_sorted_stack(stack_var);
-		//get_index_stack(stack_var);
+		get_index_stack(stack_var);
 
 	}
 	return (stack_var);
