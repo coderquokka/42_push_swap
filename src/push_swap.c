@@ -13,8 +13,6 @@ void	pick_two_pivots(t_stack_var *var)
 		return ;
 	first_pivot_idx = (var->stack_size) / 2 - (var->stack_size) / 4;
 	second_pivot_idx = (var->stack_size) / 2 + (var->stack_size) / 4;
-	printf("\n1st_pivot_idx: %d\n", first_pivot_idx);
-	printf("2nd_pivot_idx: %d\n", second_pivot_idx);
 	found = 0;
 	cur = var->stack_a;
 	while(cur && found != 2)
@@ -29,31 +27,32 @@ void	pick_two_pivots(t_stack_var *var)
 		}
 		cur = cur->right;
 	}
+	printf("pivots: %d, %d\n", var->first_piv, var->second_piv);
 }
 
-/*
-void	a_to_b(t_stack_var *var)
+void	a_to_ab(t_stack_var *var)
 {
-	int		*arr;
+	t_node	*cur;
 
-	if (var->stack_a->val >= arr[1])
+	cur = var->stack_a;
+	if (cur->val >= var->second_piv)
 	{
 		rotate_a(var);
-		var->stack_a = var->stack_a->right;
+		cur = cur->right;
 	}
-	else if (var->stack_a->val <= arr[0])
+	else if (cur->val <= var->first_piv)
 	{
 		push_b(var);
-		var->stack_a = var->stack_a->right;
+		cur = cur->right;
 	}
 	else
 	{
 		push_b(var);
-		var->stack_a = var->stack_a->right;
+		cur = cur->right;
 		rotate_b(var);
-		var->stack_a = var->stack_a->right;
+		cur = cur->right;
 	}
-}*/
+}
 
 void	push_swap(t_stack_var *var)
 {
@@ -64,10 +63,9 @@ void	push_swap(t_stack_var *var)
 		sort_less_than(var);
 		return ;
 	}
-	else //on the go
+	else //ing
 	{
 		pick_two_pivots(var);
-		//printf("\n1st pivot found: %d\n", var->first_piv);
-		//printf("\n2nd pivot found: %d\n", var->second_piv);
+		a_to_ab(var);
 	}
 }

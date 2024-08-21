@@ -3,14 +3,16 @@
 
 static void	rotate(t_node **stack)
 {
-	t_node	*temp;
+	t_node	*tail;
+	t_node	*head;
 
-	temp = *stack;
-	if (!*stack || !(*stack)->right)
+	tail = *stack;
+	if (!tail || !tail->right)
 		return ;
-	*stack = temp->right;
-	temp->right = NULL;
-	ft_last_node(*stack)->right = temp;
+	tail->right = NULL;
+	*stack = tail->right;
+	head = ft_last_node(*stack);
+	head->right = tail;
 }
 
 void	rotate_a(t_stack_var *var)

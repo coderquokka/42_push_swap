@@ -15,8 +15,8 @@ void	print_stack(t_stack_var *var)
 	printf("\n(stack a in idx)\n"); // fix it
 	print_idx(var->stack_a);
 
-	//printf("\n(stack b)\n");
-	//print_value(var->stack_b);
+	printf("\n(stack b)\n");
+	print_value(var->stack_b);
 
 	//printf("\n(stack b in idx)\n");
 	//print_idx(var->stack_b);

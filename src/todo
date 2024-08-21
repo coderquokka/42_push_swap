@@ -7,8 +7,10 @@ Remember
 - only when arg >= 4
 	pick pivot, get idx stack a ...
 
-To do
--compile and check
+!! To do !!
+- a_to_ab in push_swap -> seg_fault
+
+- compile and check
 cc *.c ../libft/ft_atoi.c ../libft/ft_putstr_fd.c ../stack_op/*.c
 (base) jieunpark@eng---macbook src % ./a.out 3 1 2 4 6 9 8 11 10
 
@@ -40,7 +42,7 @@ what i did
 	get_temp_sorted_a (OK)
 	get_stack_a_in_idx (OK)
 	
-	get pivots (ING)
+	get pivots -> push_swap(ING)
 
 -240816
 			end_of_searching = get_new_tail(start_of_searching, end_of_searching);
