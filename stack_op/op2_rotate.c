@@ -33,13 +33,13 @@ static void	rotate(t_node **stack)
 
 	if (!stack || !*stack || !(*stack)->right)
 		return ;
-		/*
 	tail = *stack;
+	*stack = (*stack)->right;
+	(*stack)->left = NULL; 
 	head = ft_last_node(*stack);
 	tail->right = NULL;
 	tail->left = head;
 	head->right = tail;
-	*/
 }
 
 /*wrong
