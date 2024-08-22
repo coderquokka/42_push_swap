@@ -38,7 +38,9 @@ void	a_to_ab(t_stack_var *var)
 	while (cur)
 	{
 		if (cur->val <= var->first_piv)
-			rotate_a(var);
+		{
+			//rotate_a(var);
+		}
 		else if (cur->val > var->first_piv && cur->val < var->second_piv)
 			push_b(var);
 		else if (cur->val >= var->second_piv)

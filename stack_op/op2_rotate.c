@@ -1,6 +1,31 @@
 #include "../includes/push_swap.h"
 #include "stack_op.h"
 
+/*gpt: also wrong
+static void rotate(t_node **stack)
+{
+	t_node *tail;
+	t_node *head;
+
+	if (!stack || !*stack || !(*stack)->right)
+		return;
+
+	// Move the head pointer to the second node
+	head = (*stack)->right;
+	
+	// Update the stack to point to the new head
+	*stack = head;
+
+	// Find the last node of the updated list
+	tail = ft_last_node(*stack);
+
+	// Attach the original head node (which is now `tail`) to the end of the list
+	tail->right = head;
+	head->left = tail;
+	head->right = NULL;
+}*/
+
+
 static void	rotate(t_node **stack)
 {
 	t_node	*tail;
@@ -8,11 +33,13 @@ static void	rotate(t_node **stack)
 
 	if (!stack || !*stack || !(*stack)->right)
 		return ;
+		/*
 	tail = *stack;
 	head = ft_last_node(*stack);
 	tail->right = NULL;
 	tail->left = head;
 	head->right = tail;
+	*/
 }
 
 /*wrong
