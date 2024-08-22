@@ -3,18 +3,18 @@
 void	init_stack(char **temp, t_node **stack)
 {
 	t_node	*new_node;
-	t_node	*cur;
+	t_node	*cur = NULL;
 
 	if (!stack || !temp)
 		return ;
 	*stack = NULL;
 	while (*temp)
 	{
-		new_node = (t_node *)malloc(sizeof(t_node));
-		if (!new_node)
+		if (!(new_node = (t_node *)malloc(sizeof(t_node))))
 			return ;
 		new_node->val = ft_atoi(*temp);
 		new_node->right = NULL;
+		new_node->left = cur;
 		if (*stack == NULL)
 		{
 			*stack = new_node;

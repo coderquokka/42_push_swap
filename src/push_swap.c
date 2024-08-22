@@ -35,17 +35,17 @@ void	a_to_ab(t_stack_var *var)
 	t_node	*cur;
 
 	cur = var->stack_a;
-	if (cur->val >= var->second_piv)
+	if (cur->val <= var->first_piv)
 	{
 		rotate_a(var);
 		cur = cur->right;
 	}
-	else if (cur->val <= var->first_piv)
+	else if (cur->val > var->first_piv && cur->val < var->second_piv)
 	{
 		push_b(var);
 		cur = cur->right;
 	}
-	else
+	else if (cur->val >= var->second_piv)
 	{
 		push_b(var);
 		cur = cur->right;

@@ -72,6 +72,7 @@ int				is_sorted(t_node *stack);
 t_node			*get_nth_node(t_node *temp, int i);
 
 //src:stack_libft2.c
+void			cp_one_node(t_node *dst, t_node *src);
 void			cp_node(t_node **dst, t_node *src);
 void			print_idx(t_node *node);
 void			swap_nodes(t_node *a, t_node *b);

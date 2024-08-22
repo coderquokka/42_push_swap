@@ -1,22 +1,32 @@
 #include "../includes/push_swap.h"
 
+
+void cp_one_node(t_node *dst, t_node *src)
+{
+	if (!src)
+		return ;
+	if (!(dst = malloc(sizeof(t_node))))
+		return ;
+	dst->val = src->val;
+	dst->left = NULL;
+	dst->right = NULL;
+}
+
 void cp_node(t_node **dst, t_node *src)
 {
 	t_node *new_node;
-	t_node *last_node;
+	t_node *last_node = NULL;
 
 	if (!src)
-		return;
-	// Initialize the destination pointer
+		return ;
 	*dst = NULL;
-	last_node = NULL;
 	while (src)
 	{
-		new_node = malloc(sizeof(t_node));
-		if (!new_node)
-			return;
+		if (!(new_node = malloc(sizeof(t_node))))
+			return ;
 		new_node->val = src->val;
-		new_node->right = NULL; // Initialize the right pointer
+		new_node->right = NULL;
+		new_node->left = last_node;
 		if (*dst == NULL) //1st node
 			*dst = new_node;
 		else// Append to the end of the list
