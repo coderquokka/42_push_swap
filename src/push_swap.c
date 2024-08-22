@@ -27,7 +27,7 @@ void	pick_two_pivots(t_stack_var *var)
 		}
 		cur = cur->right;
 	}
-	printf("pivots: %d, %d\n", var->first_piv, var->second_piv);
+	printf("\n\npivots: %d, %d\n\n", var->first_piv, var->second_piv);
 }
 
 void	a_to_ab(t_stack_var *var)
@@ -35,21 +35,17 @@ void	a_to_ab(t_stack_var *var)
 	t_node	*cur;
 
 	cur = var->stack_a;
-	if (cur->val <= var->first_piv)
+	while (cur)
 	{
-		rotate_a(var);
-		cur = cur->right;
-	}
-	else if (cur->val > var->first_piv && cur->val < var->second_piv)
-	{
-		push_b(var);
-		cur = cur->right;
-	}
-	else if (cur->val >= var->second_piv)
-	{
-		push_b(var);
-		cur = cur->right;
-		rotate_b(var);
+		if (cur->val <= var->first_piv)
+			rotate_a(var);
+		else if (cur->val > var->first_piv && cur->val < var->second_piv)
+			push_b(var);
+		else if (cur->val >= var->second_piv)
+		{
+			push_b(var);
+			rotate_b(var);
+		}
 		cur = cur->right;
 	}
 }
@@ -58,7 +54,7 @@ void	push_swap(t_stack_var *var)
 {
 	if (var->stack_size <= 1 || is_sorted(var->stack_a))
 		return ;
-	else if (var->stack_size <= 3) //case1(sort 1-3): directly change
+	else if (var->stack_size <= 3)
 	{
 		sort_less_than(var);
 		return ;

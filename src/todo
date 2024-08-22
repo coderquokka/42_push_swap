@@ -37,6 +37,9 @@ ref: https://80000coding.oopy.io/71fa0b62-6461-463d-b1e1-5eaa2b3a3ca9
 ---
 
 what i did
+-240822
+	fix rotate, rev_rotate (ING)
+	prob: after rotating, stack itself is change, just last node remains
 
 -240821
 	get_temp_sorted_a (OK)
@@ -45,7 +48,7 @@ what i did
 	get pivots -> push_swap(ING)
 
 -240816
-			end_of_searching = get_new_tail(start_of_searching, end_of_searching);
+			end_of_searching = ft_second_last_node(start_of_searching, end_of_searching);
 		printf(" tail (%d): %d\n", i++, end_of_searching->val);
 
 		finding second last is wrong. 

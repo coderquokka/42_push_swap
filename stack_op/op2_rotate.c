@@ -1,32 +1,41 @@
 #include "../includes/push_swap.h"
 #include "stack_op.h"
 
-//seg fault
 static void	rotate(t_node **stack)
 {
-	t_node	*tmp;
+	t_node	*tail;
 	t_node	*head;
 
 	if (!stack || !*stack || !(*stack)->right)
 		return ;
-	*stack = (*stack)->right;
-	if ((*stack)->left)
-	{
-		cp_one_node(tmp, (*stack)->left);
-		free((*stack)->left);
-	}
+	tail = *stack;
 	head = ft_last_node(*stack);
-	head->right = tmp;
-	tmp->left = head;
+	tail->right = NULL;
+	tail->left = head;
+	head->right = tail;
 }
+
+/*wrong
+static void	rotate(t_node **stack)
+{
+	t_node	*temp;
+
+	if (!stack || !*stack || !(*stack)->right)
+		return ;
+	temp = *stack;
+	*stack = (*stack)->right;
+	temp->right = NULL;
+	*stack = ft_last_node(*stack); //here: fix
+	temp->left = *stack;
+	(*stack)->right = temp;
+	//while((*stack)->left)
+	//	*stack = (*stack)->left;
+}
+*/
 	
 void	rotate_a(t_stack_var *var)
 {
-		write(1, "A\n", 2);
-
 	rotate(&var->stack_a);
-		write(1, "A\n", 2);
-
 	write(1, "ra\n", 3);
 }
 

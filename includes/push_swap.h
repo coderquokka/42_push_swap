@@ -64,7 +64,7 @@ int				measure_size(t_stack_var *var);
 t_stack_var		*setup_stack_var(t_node *stack_a);
 
 //src:stack_libft.c
-t_node			*get_new_tail(t_node *node, t_node *prev_tail);
+t_node			*ft_second_last_node(t_node *node, t_node *prev_tail);
 t_node			*ft_last_node(t_node *node);
 void			print_value(t_node *node);
 void			free_node(t_node *stack);

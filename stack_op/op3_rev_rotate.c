@@ -1,22 +1,19 @@
 #include "../includes/push_swap.h"
 #include "stack_op.h"
 
+//maybe wrong, check
 static void	rev_rotate(t_node **stack)
 {
-	t_node	*last;
-	t_node	*second_last;
+	t_node	*prev_tail;
 
-	if (!*stack || !(*stack)->right)
+	if (!stack || !*stack || !(*stack)->right)
 		return ;
-	last = *stack;
-	while (last->right)
-	{
-		second_last = last;
-		last = last->right;
-	}
-	second_last->right = NULL;
-	last->right = *stack;
-	*stack = last;
+	prev_tail = ft_last_node(*stack);
+	prev_tail->right = *stack;
+	(*stack)->left = prev_tail;
+	*stack = ft_second_last_node(*stack, prev_tail);
+	(*stack)->right = NULL;
+	prev_tail->left = NULL;
 }
 
 void	rev_rotate_a(t_stack_var *var)

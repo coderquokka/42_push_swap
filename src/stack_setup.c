@@ -80,7 +80,7 @@ void	get_temp_sorted_stack(t_stack_var *var)
 				swap_nodes(cur, cur->right); // Swapping values
 			cur = cur->right;
 		}
-		tail = get_new_tail(start_pos, tail);
+		tail = ft_second_last_node(start_pos, tail);
 	}
 }
 
@@ -96,7 +96,7 @@ int	measure_size(t_stack_var *var)
 		i++;
 		cur = cur->right;
 	}
-	printf("stack size: %d\n", i);
+	printf("\nstack size: %d\n", i);
 	return (i);
 }
 //하는 일 3가지 : var에 stack a 집어 넣기 / size 재기 / sorted&ac 체크 / get temp_sorted
@@ -111,12 +111,12 @@ t_stack_var	*setup_stack_var(t_node *stack_a)
 	stack_var->stack_a = stack_a;
 	stack_var->stack_size = measure_size(stack_var);
 	if (is_sorted(stack_var->stack_a) == 1)
-		printf("stack a is already sorted\n");
+		printf("\nstack a is already sorted\n");
 	if (stack_var->stack_size < 1)
-		printf("invalid stack size\n");
+		printf("\ninvalid stack size\n");
 	else if (stack_var->stack_size >= 4)
 	{
-		printf("stack a is not sorted yet, has more than 4 arg\n");
+		printf("\nstack a is not sorted yet, has more than 4 arg\n");
 		get_temp_sorted_stack(stack_var);
 		get_index_stack(stack_var);
 

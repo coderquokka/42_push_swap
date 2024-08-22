@@ -61,7 +61,6 @@ void	print_idx(t_node *node)
 	}
 }
 
-
 void	swap_nodes(t_node *a, t_node *b)
 {
 	int	temp;

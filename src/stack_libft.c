@@ -1,6 +1,6 @@
 #include "../includes/push_swap.h"
 
-t_node	*get_new_tail(t_node *node, t_node *prev_tail)
+t_node	*ft_second_last_node(t_node *node, t_node *prev_tail)
 {
 	t_node	*temp;
 
