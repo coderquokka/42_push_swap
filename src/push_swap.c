@@ -1,7 +1,6 @@
 #include "../includes/push_swap.h"
 #include "../stack_op/stack_op.h"
 
-
 void	pick_two_pivots(t_stack_var *var)
 {
 	int		first_pivot_idx;
@@ -15,7 +14,7 @@ void	pick_two_pivots(t_stack_var *var)
 	second_pivot_idx = (var->stack_size) / 2 + (var->stack_size) / 4;
 	found = 0;
 	cur = var->stack_a;
-	while(cur && found != 2)
+	while (cur && found != 2)
 	{
 		if (cur->idx == first_pivot_idx || cur->idx == second_pivot_idx)
 		{
@@ -30,9 +29,29 @@ void	pick_two_pivots(t_stack_var *var)
 	printf("\n\npivots: %d, %d\n\n", var->first_piv, var->second_piv);
 }
 
-void a_to_b(t_stack_var *var)
+//ing
+void	b_to_a(t_stack_var *var)
 {
-	t_node *next_node;
+	t_node	*last_nbr;
+
+	if (var->stack_b == NULL)
+		return ;
+	while (var->stack_b)
+	{
+		push_a(var);
+		var->stack_b = var->stack_b->right; //check
+		last_nbr = ft_last_node(var->stack_a);
+		//compeletly sorting? or not? decide
+		if (var->stack_b->val > last_nbr->val)
+		{
+			rotate_a(var);
+		}
+	}
+}
+
+void	a_to_b(t_stack_var *var)
+{
+	t_node	*next_node;
 
 	if (var->stack_a == NULL)
 		return ;
@@ -44,32 +63,36 @@ void a_to_b(t_stack_var *var)
 	}
 }
 
-
 void	a_to_ab(t_stack_var *var)
 {
 	t_node	*prev_tail;
+	int		flag;
 
 	prev_tail = ft_last_node(var->stack_a);
+	flag = 0;
 	while (var->stack_a)
 	{
-		if (var->stack_a->val == prev_tail->val)
+		if (var->stack_a->val > var->second_piv)
 		{
-			push_b(var);
-			rotate_b(var);
-			break ;
-		}
-		if (var->stack_a->val <= var->first_piv)
-		{
+			//printf("ra: %d goes to bottom A\n", var->stack_a->val);
 			rotate_a(var);
-			if (var->stack_a->right)
-				var->stack_a = var->stack_a->right;
+		}
+		else if (var->stack_a->val >= var->first_piv)
+		{
+			//printf("pa: %d goes to B\n", var->stack_a->val);
+			push_b(var);
 		}
 		else
 		{
+			//printf("pa: %d goes to B\n", var->stack_a->val);
 			push_b(var);
-			if (var->stack_a->val > var->second_piv)
-				rotate_b(var);
+			//printf("pa -> rb: %d goes to bottom B\n", var->stack_a->val);
+			rotate_b(var);
 		}
+		if (flag)
+			break ;
+		if (var->stack_a->val == prev_tail->val)
+			flag++;
 	}
 }
 
@@ -84,8 +107,12 @@ void	push_swap(t_stack_var *var)
 	}
 	else //ing
 	{
-		pick_two_pivots(var);
-		a_to_ab(var);
-		a_to_b(var);
+		while (!is_sorted(var->stack_a))
+		{
+			pick_two_pivots(var);
+			a_to_ab(var);
+			a_to_b(var);
+			//b_to_a(var);
+		}
 	}
 }

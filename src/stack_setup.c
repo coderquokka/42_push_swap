@@ -99,6 +99,7 @@ int	measure_size(t_stack_var *var)
 	printf("\nstack size: %d\n", i);
 	return (i);
 }
+
 //하는 일 3가지 : var에 stack a 집어 넣기 / size 재기 / sorted&ac 체크 / get temp_sorted
 //sorting이나 indexing은 하지 않음
 t_stack_var	*setup_stack_var(t_node *stack_a)
@@ -119,7 +120,6 @@ t_stack_var	*setup_stack_var(t_node *stack_a)
 		printf("\nstack a is not sorted yet, has more than 4 arg\n");
 		get_temp_sorted_stack(stack_var);
 		get_index_stack(stack_var);
-
 	}
 	return (stack_var);
 }

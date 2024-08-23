@@ -8,8 +8,8 @@ Remember
 	pick pivot, get idx stack a ...
 
 !! To do !!
-- to FIX (in push_swap ); a_to_ab
-	when rotating twice, rotate_a cant be completed
+- to FIX (push_swap.c): b_to_a
+	result: blah blah -> pbpbpbpb papapa -> seg fault
 
 - compile and check
 cc *.c ../libft/ft_atoi.c ../libft/ft_putstr_fd.c ../stack_op/*.c
@@ -38,6 +38,12 @@ ref: https://80000coding.oopy.io/71fa0b62-6461-463d-b1e1-5eaa2b3a3ca9
 ---
 
 what i did
+-240823
+	fix rotate(OK)
+	fix rev_rotate(not yet)
+	push swap.c: algorithm (thinking, how to repeat?) (ING)
+	void	b_to_a(t_stack_var *var) (ING)
+
 -240822
 	fix rotate, rev_rotate (ING)
 	prob: after rotating, stack itself is change, just last node remains

@@ -1,7 +1,6 @@
 #include "../includes/push_swap.h"
 #include "../stack_op/stack_op.h"
 
-
 void	sort_two(t_stack_var *var)
 {
 	t_node	*prev;

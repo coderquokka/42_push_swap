@@ -1,7 +1,6 @@
 #include "../includes/push_swap.h"
 
-
-void cp_one_node(t_node *dst, t_node *src)
+void	cp_one_node(t_node *dst, t_node *src)
 {
 	if (!src)
 		return ;
@@ -12,10 +11,10 @@ void cp_one_node(t_node *dst, t_node *src)
 	dst->right = NULL;
 }
 
-void cp_node(t_node **dst, t_node *src)
+void	cp_node(t_node **dst, t_node *src)
 {
-	t_node *new_node;
-	t_node *last_node = NULL;
+	t_node	*new_node;
+	t_node	*last_node = NULL;
 
 	if (!src)
 		return ;
@@ -35,13 +34,6 @@ void cp_node(t_node **dst, t_node *src)
 		last_node = new_node;
 		src = src->right;
 	}
-}
-
-int	is_same_value(t_node *first, t_node *second)
-{
-	if (first->val == second->val)
-		return (1);
-	return (0);
 }
 
 void	print_idx(t_node *node)

@@ -70,7 +70,6 @@ t_node			*ft_last_node(t_node *node);
 void			print_value(t_node *node);
 void			free_node(t_node *stack);
 int				is_sorted(t_node *stack);
-t_node			*get_nth_node(t_node *temp, int i);
 
 //src:stack_libft2.c
 void			cp_one_node(t_node *dst, t_node *src);

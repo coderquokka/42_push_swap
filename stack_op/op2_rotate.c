@@ -1,7 +1,7 @@
 #include "../includes/push_swap.h"
 #include "stack_op.h"
 
-static void rotate(t_node **stack)
+static void	rotate(t_node **stack)
 {
 	t_node	*second_last;
 	t_node	*last;
@@ -9,6 +9,7 @@ static void rotate(t_node **stack)
 	if (!stack || !*stack || !(*stack)->right)
 		return;
 	last = *stack;
+	//*stack is updated
 	*stack = (*stack)->right;
 	(*stack)->left = NULL;
 	second_last = ft_last_node(*stack);
@@ -16,7 +17,7 @@ static void rotate(t_node **stack)
 	last->left = second_last;
 	last->right = NULL;
 }
-	
+
 void	rotate_a(t_stack_var *var)
 {
 	rotate(&var->stack_a);

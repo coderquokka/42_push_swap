@@ -77,15 +77,3 @@ int	is_sorted(t_node *stack)
 	}
 	return (1);
 }
-
-t_node	*get_nth_node(t_node *temp, int i)
-{
-	t_node	*res;
-	int		k;
-
-	res = temp;
-	k = -1;
-	while (k++ < i && res != NULL)
-		res = res->right;
-	return (res);
-}
