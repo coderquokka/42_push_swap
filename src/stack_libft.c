@@ -18,9 +18,13 @@ t_node	*ft_last_node(t_node *node)
 
 	temp = node;
 	if (!temp)
+	{
 		return (NULL);
+	}
 	while (temp->right)
+	{
 		temp = temp->right;
+	}
 	return (temp);
 }
 

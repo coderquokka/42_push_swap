@@ -6,8 +6,6 @@
 void	print_stack(t_stack_var *var)
 {
 	printf("\nAFTER SORTING (ac <=3) or just indexing (ac >= 4)");
-	printf("\n(stack a)\n");
-	print_value(var->stack_a);
 
 	printf("\n(temp_sorted_stack_a)\n");
 	print_value(var->temp_sorted_stack_a);
@@ -15,8 +13,14 @@ void	print_stack(t_stack_var *var)
 	printf("\n(stack a in idx)\n");
 	print_idx(var->stack_a);
 
+	printf("\n(stack a)\n");
+	print_value(var->stack_a);
+
+
 	printf("\n(stack b)\n");
 	print_value(var->stack_b);
+
+
 
 	//printf("\n(stack b in idx)\n");
 	//print_idx(var->stack_b);

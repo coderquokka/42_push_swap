@@ -48,6 +48,7 @@ t_node			*idx_stack(t_stack_var *var);
 
 //src: push_swap.c
 void			pick_two_pivots(t_stack_var *var);
+void			a_to_b(t_stack_var *var);
 void			a_to_ab(t_stack_var *var);
 void			push_swap(t_stack_var *var);
 

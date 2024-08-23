@@ -30,25 +30,46 @@ void	pick_two_pivots(t_stack_var *var)
 	printf("\n\npivots: %d, %d\n\n", var->first_piv, var->second_piv);
 }
 
+void a_to_b(t_stack_var *var)
+{
+	t_node *next_node;
+
+	if (var->stack_a == NULL)
+		return ;
+	while (var->stack_a)
+	{
+		next_node = var->stack_a->right;  // Store next node before modifying stack_a
+		push_b(var);					  // push_b might modify var->stack_a
+		var->stack_a = next_node;		 // Safely move to the next node
+	}
+}
+
+
 void	a_to_ab(t_stack_var *var)
 {
-	t_node	*cur;
+	t_node	*prev_tail;
 
-	cur = var->stack_a;
-	while (cur)
+	prev_tail = ft_last_node(var->stack_a);
+	while (var->stack_a)
 	{
-		if (cur->val <= var->first_piv)
-		{
-			rotate_a(var);
-		}
-		else if (cur->val > var->first_piv && cur->val < var->second_piv)
-			push_b(var);
-		else if (cur->val >= var->second_piv)
+		if (var->stack_a->val == prev_tail->val)
 		{
 			push_b(var);
 			rotate_b(var);
+			break ;
 		}
-		cur = cur->right;
+		if (var->stack_a->val <= var->first_piv)
+		{
+			rotate_a(var);
+			if (var->stack_a->right)
+				var->stack_a = var->stack_a->right;
+		}
+		else
+		{
+			push_b(var);
+			if (var->stack_a->val > var->second_piv)
+				rotate_b(var);
+		}
 	}
 }
 
@@ -65,5 +86,6 @@ void	push_swap(t_stack_var *var)
 	{
 		pick_two_pivots(var);
 		a_to_ab(var);
+		a_to_b(var);
 	}
 }

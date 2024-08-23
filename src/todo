@@ -8,7 +8,8 @@ Remember
 	pick pivot, get idx stack a ...
 
 !! To do !!
-- a_to_ab in push_swap -> seg_fault
+- to FIX (in push_swap ); a_to_ab
+	when rotating twice, rotate_a cant be completed
 
 - compile and check
 cc *.c ../libft/ft_atoi.c ../libft/ft_putstr_fd.c ../stack_op/*.c

@@ -1,64 +1,21 @@
 #include "../includes/push_swap.h"
 #include "stack_op.h"
 
-/*gpt: also wrong
 static void rotate(t_node **stack)
 {
-	t_node *tail;
-	t_node *head;
+	t_node	*second_last;
+	t_node	*last;
 
 	if (!stack || !*stack || !(*stack)->right)
 		return;
-
-	// Move the head pointer to the second node
-	head = (*stack)->right;
-	
-	// Update the stack to point to the new head
-	*stack = head;
-
-	// Find the last node of the updated list
-	tail = ft_last_node(*stack);
-
-	// Attach the original head node (which is now `tail`) to the end of the list
-	tail->right = head;
-	head->left = tail;
-	head->right = NULL;
-}*/
-
-
-static void	rotate(t_node **stack)
-{
-	t_node	*tail;
-	t_node	*head;
-
-	if (!stack || !*stack || !(*stack)->right)
-		return ;
-	tail = *stack;
+	last = *stack;
 	*stack = (*stack)->right;
-	(*stack)->left = NULL; 
-	head = ft_last_node(*stack);
-	tail->right = NULL;
-	tail->left = head;
-	head->right = tail;
+	(*stack)->left = NULL;
+	second_last = ft_last_node(*stack);
+	second_last->right = last;
+	last->left = second_last;
+	last->right = NULL;
 }
-
-/*wrong
-static void	rotate(t_node **stack)
-{
-	t_node	*temp;
-
-	if (!stack || !*stack || !(*stack)->right)
-		return ;
-	temp = *stack;
-	*stack = (*stack)->right;
-	temp->right = NULL;
-	*stack = ft_last_node(*stack); //here: fix
-	temp->left = *stack;
-	(*stack)->right = temp;
-	//while((*stack)->left)
-	//	*stack = (*stack)->left;
-}
-*/
 	
 void	rotate_a(t_stack_var *var)
 {
