@@ -12,6 +12,8 @@ void	pick_two_pivots(t_stack_var *var)
 		return ;
 	first_pivot_idx = (var->stack_size) / 2 - (var->stack_size) / 4;
 	second_pivot_idx = (var->stack_size) / 2 + (var->stack_size) / 4;
+		printf("idx 1, 2: %d, %d\n", first_pivot_idx, second_pivot_idx); //out
+
 	found = 0;
 	cur = var->stack_a;
 	while (cur && found != 2)
@@ -29,23 +31,17 @@ void	pick_two_pivots(t_stack_var *var)
 	printf("\n\npivots: %d, %d\n\n", var->first_piv, var->second_piv);
 }
 
-//ing
 void	b_to_a(t_stack_var *var)
 {
-	t_node	*last_nbr;
+	t_node	*next_node;
 
 	if (var->stack_b == NULL)
 		return ;
 	while (var->stack_b)
 	{
+		next_node = var->stack_b->right;
 		push_a(var);
-		var->stack_b = var->stack_b->right; //check
-		last_nbr = ft_last_node(var->stack_a);
-		//compeletly sorting? or not? decide
-		if (var->stack_b->val > last_nbr->val)
-		{
-			rotate_a(var);
-		}
+		var->stack_b = next_node;
 	}
 }
 
@@ -74,19 +70,15 @@ void	a_to_ab(t_stack_var *var)
 	{
 		if (var->stack_a->val > var->second_piv)
 		{
-			//printf("ra: %d goes to bottom A\n", var->stack_a->val);
 			rotate_a(var);
 		}
 		else if (var->stack_a->val >= var->first_piv)
 		{
-			//printf("pa: %d goes to B\n", var->stack_a->val);
 			push_b(var);
 		}
 		else
 		{
-			//printf("pa: %d goes to B\n", var->stack_a->val);
 			push_b(var);
-			//printf("pa -> rb: %d goes to bottom B\n", var->stack_a->val);
 			rotate_b(var);
 		}
 		if (flag)
@@ -98,6 +90,8 @@ void	a_to_ab(t_stack_var *var)
 
 void	push_swap(t_stack_var *var)
 {
+	t_node	*last_node;
+
 	if (var->stack_size <= 1 || is_sorted(var->stack_a))
 		return ;
 	else if (var->stack_size <= 3)
@@ -107,12 +101,25 @@ void	push_swap(t_stack_var *var)
 	}
 	else //ing
 	{
-		while (!is_sorted(var->stack_a))
-		{
+		//while (!is_sorted(var->stack_a))
+		//{
 			pick_two_pivots(var);
 			a_to_ab(var);
 			a_to_b(var);
+			last_node = ft_last_node(var->stack_b);
+			last_node->right = NULL;
 			//b_to_a(var);
-		}
+
+
+		//}
 	}
 }
+
+/*for printing
+
+			printf("print start(stack a): \n");
+			print_value(var->stack_a);
+			printf("print start(stack b): \n");
+			print_value(var->stack_b);
+			
+			*/
