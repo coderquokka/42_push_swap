@@ -10,6 +10,7 @@ typedef struct s_node
 	struct s_node	*left;
 	int				val;
 	int				idx;
+	int				second_idx;
 	struct s_node	*right;
 }	t_node;
 
@@ -42,7 +43,6 @@ int				have_same_nbr(t_node *tmp);
 
 //src: stack_setup.c
 t_stack_var		*setup_stack_var(t_node *stack_a);
-int				measure_size(t_stack_var *var);
 t_node			*sort_stack(t_stack_var *var);
 t_node			*idx_stack(t_stack_var *var);
 
@@ -61,7 +61,6 @@ void			sort_less_than(t_stack_var *var);
 void			init_stack(char **temp, t_node **stack);
 void			get_temp_sorted_stack(t_stack_var *var);
 void			get_index_stack(t_stack_var *var);
-int				measure_size(t_stack_var *var);
 t_stack_var		*setup_stack_var(t_node *stack_a);
 
 //src:stack_libft.c
@@ -76,5 +75,8 @@ void			cp_one_node(t_node *dst, t_node *src);
 void			cp_node(t_node **dst, t_node *src);
 void			print_idx(t_node *node);
 void			swap_nodes(t_node *a, t_node *b);
+
+//src:stack_libft3.c
+int				measure_size(t_node *cur);
 
 #endif

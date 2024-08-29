@@ -84,21 +84,7 @@ void	get_temp_sorted_stack(t_stack_var *var)
 	}
 }
 
-int	measure_size(t_stack_var *var)
-{
-	int		i;
-	t_node	*cur;
 
-	i = 0;
-	cur = var->stack_a;
-	while (cur)
-	{
-		i++;
-		cur = cur->right;
-	}
-	printf("\nstack size: %d\n", i);
-	return (i);
-}
 
 //하는 일 3가지 : var에 stack a 집어 넣기 / size 재기 / sorted&ac 체크 / get temp_sorted
 //sorting이나 indexing은 하지 않음
@@ -110,7 +96,7 @@ t_stack_var	*setup_stack_var(t_node *stack_a)
 	if (!stack_var)
 		return (NULL);
 	stack_var->stack_a = stack_a;
-	stack_var->stack_size = measure_size(stack_var);
+	stack_var->stack_size = measure_size(stack_var->stack_a);
 	if (is_sorted(stack_var->stack_a) == 1)
 		printf("\nstack a is already sorted\n");
 	if (stack_var->stack_size < 1)

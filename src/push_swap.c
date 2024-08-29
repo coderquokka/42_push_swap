@@ -31,16 +31,75 @@ void	pick_two_pivots(t_stack_var *var)
 	printf("\n\npivots: %d, %d\n\n", var->first_piv, var->second_piv);
 }
 
+int	rolling_time_by_idx(t_stack_var *var, int size)
+{
+	int		res;
+	t_node	*cur;
+
+	res = 1;
+	cur = var->stack_a;
+	if (!var->stack_b)
+		return (0);
+	while (cur && cur->idx < var->stack_b->idx)
+	{
+		res++;
+		cur = cur->right; // check
+	}
+	if (res >= size / 2)
+		res = (size - res + 1) * -1;
+	return (res);
+}
+
+void	second_index_stack_a(t_stack_var *var)
+{
+	int		i;
+	t_node	*cur;
+
+	i = 0;
+	cur = var->stack_a;
+	if (!cur)
+		return ;
+	while (cur)
+	{
+		cur->second_idx = i;
+		i++;
+		if (cur->right)
+			cur = cur->right;
+		else
+			break;
+	}
+}
+
 void	b_to_a(t_stack_var *var)
 {
 	t_node	*next_node;
+	int		rolling_time;
+	int		stack_a_size;
 
 	if (var->stack_b == NULL)
 		return ;
+			write(1, "A", 1);
 	while (var->stack_b)
 	{
+		stack_a_size = measure_size(var->stack_a);
+		rolling_time = find_rolling_time(var, stack_a_size);
+				write(1, "B", 1);
 		next_node = var->stack_b->right;
+				write(1, "C", 1);
+		if (rolling_time == 0)
+			return ;
+		else if (rolling_time < 0)
+		{
+
+
+		}
+		else
+		{
+
+
+		}
 		push_a(var);
+
 		var->stack_b = next_node;
 	}
 }
@@ -101,17 +160,12 @@ void	push_swap(t_stack_var *var)
 	}
 	else //ing
 	{
-		//while (!is_sorted(var->stack_a))
-		//{
-			pick_two_pivots(var);
-			a_to_ab(var);
-			a_to_b(var);
-			last_node = ft_last_node(var->stack_b);
-			last_node->right = NULL;
-			//b_to_a(var);
-
-
-		//}
+		pick_two_pivots(var);
+		a_to_ab(var);
+		a_to_b(var);
+		last_node = ft_last_node(var->stack_b);
+		last_node->right = NULL;
+		b_to_a(var);
 	}
 }
 
