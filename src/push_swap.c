@@ -13,7 +13,6 @@ void	pick_two_pivots(t_stack_var *var)
 	first_pivot_idx = (var->stack_size) / 2 - (var->stack_size) / 4;
 	second_pivot_idx = (var->stack_size) / 2 + (var->stack_size) / 4;
 		printf("idx 1, 2: %d, %d\n", first_pivot_idx, second_pivot_idx); //out
-
 	found = 0;
 	cur = var->stack_a;
 	while (cur && found != 2)
@@ -31,75 +30,62 @@ void	pick_two_pivots(t_stack_var *var)
 	printf("\n\npivots: %d, %d\n\n", var->first_piv, var->second_piv);
 }
 
-int	rolling_time_by_idx(t_stack_var *var, int size)
+int	find_pos_stack_a_by_idx(t_stack_var *var, int cur_stack_a_size)
 {
+	int		idx_stack_b;
+	t_node	*cur;
 	int		res;
-	t_node	*cur;
 
-	res = 1;
-	cur = var->stack_a;
-	if (!var->stack_b)
-		return (0);
-	while (cur && cur->idx < var->stack_b->idx)
-	{
-		res++;
-		cur = cur->right; // check
-	}
-	if (res >= size / 2)
-		res = (size - res + 1) * -1;
-	return (res);
-}
-
-void	second_index_stack_a(t_stack_var *var)
-{
-	int		i;
-	t_node	*cur;
-
-	i = 0;
+	if (! var->stack_b)
+		return (-1);
+	idx_stack_b = var->stack_b->idx;
 	cur = var->stack_a;
 	if (!cur)
-		return ;
-	while (cur)
+		return (1);
+	if (!cur->right)
+		return (2);
+	res = 1;
+	while (cur->right && cur->idx < idx_stack_b)
 	{
-		cur->second_idx = i;
-		i++;
-		if (cur->right)
-			cur = cur->right;
-		else
-			break;
+		printf("\ncur idx stack a:%d, idx stack b:%d, res:%d\n", cur->idx, idx_stack_b, res);
+		res++;
+		cur = cur->right;
 	}
+	if (res == 1)
+		return (1);
+	if (res >= cur_stack_a_size / 2)
+		res = -1 * (cur_stack_a_size - res + 1);
+	return (res);
 }
 
 void	b_to_a(t_stack_var *var)
 {
 	t_node	*next_node;
-	int		rolling_time;
 	int		stack_a_size;
+	int		pos;
 
-	if (var->stack_b == NULL)
-		return ;
-			write(1, "A", 1);
 	while (var->stack_b)
 	{
 		stack_a_size = measure_size(var->stack_a);
-		rolling_time = find_rolling_time(var, stack_a_size);
-				write(1, "B", 1);
-		next_node = var->stack_b->right;
-				write(1, "C", 1);
-		if (rolling_time == 0)
+		pos = find_pos_stack_a_by_idx(var, stack_a_size);
+		if (pos == 0)
 			return ;
-		else if (rolling_time < 0)
+		printf("stack b:%d, stack a cur size:%d, pos:%d\n", var->stack_b->val, stack_a_size, pos);
+		while (pos != 1)
 		{
-
-
+			if (pos < 1)
+			{
+				rev_rotate_a(var);
+				pos++;
+			}
+			else
+			{
+				rotate_a(var);
+				pos--;
+			}
 		}
-		else
-		{
-
-
-		}
+		next_node = var->stack_b->right;
 		push_a(var);
-
 		var->stack_b = next_node;
 	}
 }
