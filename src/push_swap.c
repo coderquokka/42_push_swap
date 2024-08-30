@@ -42,14 +42,15 @@ int	find_pos_stack_a_by_idx(t_stack_var *var, int cur_stack_a_size)
 	cur = var->stack_a;
 	if (!cur)
 		return (1);
-	if (!cur->right)
-		return (2);
 	res = 1;
-	while (cur->right && cur->idx < idx_stack_b)
+	while (cur->idx < idx_stack_b)
 	{
 		printf("\ncur idx stack a:%d, idx stack b:%d, res:%d\n", cur->idx, idx_stack_b, res);
 		res++;
-		cur = cur->right;
+		if (cur->right)
+			cur = cur->right;
+		else
+			break ;
 	}
 	if (res == 1)
 		return (1);
