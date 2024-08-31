@@ -45,7 +45,7 @@ int	find_pos_stack_a_by_idx(t_stack_var *var, int cur_stack_a_size)
 	res = 1;
 	while (cur->idx < idx_stack_b)
 	{
-		printf("\ncur idx stack a:%d, idx stack b:%d, res:%d\n", cur->idx, idx_stack_b, res);
+		//printf("\ncur idx stack a:%d, idx stack b:%d, res:%d\n", cur->idx, idx_stack_b, res);
 		res++;
 		if (cur->right)
 			cur = cur->right;
@@ -72,7 +72,15 @@ void	b_to_a(t_stack_var *var)
 		printf("stack b:%d, stack a cur size:%d, pos:%d\n", var->stack_b->val, stack_a_size, pos);
 		while (pos > 1 || pos < 0)
 		{
-			if (pos < 0)
+			if (pos == 2)
+			{
+				next_node = var->stack_b->right;
+				push_a(var);
+				swap_a(var);
+				var->stack_b = next_node;
+				break ;
+			}
+			else if (pos < 0)
 			{
 				rev_rotate_a(var);
 				pos++;
@@ -83,9 +91,12 @@ void	b_to_a(t_stack_var *var)
 				pos--;
 			}
 		}
-		next_node = var->stack_b->right;
-		push_a(var);
-		var->stack_b = next_node;
+		if (pos != 2)
+		{
+			next_node = var->stack_b->right;
+			push_a(var);
+			var->stack_b = next_node;
+		}
 	}
 }
 
