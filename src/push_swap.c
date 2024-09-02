@@ -10,8 +10,8 @@ void	pick_two_pivots(t_stack_var *var)
 
 	if (!var->stack_a || !var->temp_sorted_stack_a)
 		return ;
-	first_pivot_idx = (var->stack_size) / 2 - (var->stack_size) / 4;
-	second_pivot_idx = (var->stack_size) / 2 + (var->stack_size) / 4;
+	first_pivot_idx = (var->stack_a_size) / 2 - (var->stack_a_size) / 4;
+	second_pivot_idx = (var->stack_a_size) / 2 + (var->stack_a_size) / 4;
 		printf("idx 1, 2: %d, %d\n", first_pivot_idx, second_pivot_idx); //out
 	found = 0;
 	cur = var->stack_a;
@@ -32,69 +32,51 @@ void	pick_two_pivots(t_stack_var *var)
 
 int	find_pos_stack_a_by_idx(t_stack_var *var, int cur_stack_a_size)
 {
-	int		idx_stack_b;
 	t_node	*cur;
 	int		res;
 
 	if (!var->stack_b)
-		return (-1);
-	idx_stack_b = var->stack_b->idx;
+		return (0);
 	cur = var->stack_a;
 	if (!cur)
 		return (1);
 	res = 1;
-	while (cur->idx < idx_stack_b)
+	while (cur->idx < var->stack_b->idx)
 	{
-		//printf("\ncur idx stack a:%d, idx stack b:%d, res:%d\n", cur->idx, idx_stack_b, res);
 		res++;
+		if (cur->right->idx < cur->idx)
+			break ;
 		if (cur->right)
 			cur = cur->right;
 		else
 			break ;
 	}
-	if (res >= cur_stack_a_size / 2 && cur_stack_a_size >= 4) //wrong
-		res = -1 * (cur_stack_a_size - res + 1);
+	//if (res >= cur_stack_a_size / 2 && cur_stack_a_size >= 4) //wrong
+	//	res = -1 * (cur_stack_a_size - res + 1);
 	return (res);
 }
 
 void	b_to_a(t_stack_var *var)
 {
 	t_node	*next_node;
-	int		stack_a_size;
 	int		pos;
 
 	while (var->stack_b)
 	{
-		stack_a_size = measure_size(var->stack_a);
-		pos = find_pos_stack_a_by_idx(var, stack_a_size);
+		var->stack_a_size = measure_size(var->stack_a);
+		pos = find_pos_stack_a_by_idx(var, var->stack_a_size);
 		if (pos == 0)
 			return ;
-		printf("stack b:%d, stack a cur size:%d, pos:%d\n", var->stack_b->val, stack_a_size, pos);
-		while (pos > 1 || pos < 0)
-		{
-			if (pos == 2)
-			{
-				next_node = var->stack_b->right;
-				push_a(var);
-				swap_a(var);
-				var->stack_b = next_node;
-				break ;
-			}
-			else if (pos < 0)
-			{
-				rev_rotate_a(var);
-				pos++;
-			}
-			else if (pos > 1)
-			{
-				rotate_a(var);
-				pos--;
-			}
-		}
-		if (pos != 2)
+		while (++pos <= 0)
+			rev_rotate_a(var);
+		while (--pos >= 2)
+			rotate_a(var);
+		if (pos >= 0 && pos <= 2) 
 		{
 			next_node = var->stack_b->right;
 			push_a(var);
+			if (pos == 2)
+				swap_a(var);
 			var->stack_b = next_node;
 		}
 	}
@@ -147,9 +129,9 @@ void	push_swap(t_stack_var *var)
 {
 	t_node	*last_node;
 
-	if (var->stack_size <= 1 || is_sorted(var->stack_a))
+	if (var->stack_a_size <= 1 || is_sorted(var->stack_a))
 		return ;
-	else if (var->stack_size <= 3)
+	else if (var->stack_a_size <= 3)
 	{
 		sort_less_than(var);
 		return ;

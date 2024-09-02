@@ -64,7 +64,7 @@ void	get_temp_sorted_stack(t_stack_var *var)
 	t_node	*cur = NULL;
 	t_node	*tail;
 
-	if (!var || var->stack_size <= 1)
+	if (!var || var->stack_a_size <= 1)
 		return ;
 	cp_node(&var->temp_sorted_stack_a, var->stack_a); //successfully cpied
 	if (!var->temp_sorted_stack_a)
@@ -96,12 +96,12 @@ t_stack_var	*setup_stack_var(t_node *stack_a)
 	if (!stack_var)
 		return (NULL);
 	stack_var->stack_a = stack_a;
-	stack_var->stack_size = measure_size(stack_var->stack_a);
+	stack_var->stack_a_size = measure_size(stack_var->stack_a);
 	if (is_sorted(stack_var->stack_a) == 1)
 		printf("\nstack a is already sorted\n");
-	if (stack_var->stack_size < 1)
+	if (stack_var->stack_a_size < 1)
 		printf("\ninvalid stack size\n");
-	else if (stack_var->stack_size >= 4)
+	else if (stack_var->stack_a_size >= 4)
 	{
 		printf("\nstack a is not sorted yet, has more than 4 arg\n");
 		get_temp_sorted_stack(stack_var);

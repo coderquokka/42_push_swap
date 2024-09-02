@@ -19,7 +19,7 @@ typedef struct s_stack_var
 {
 	struct s_node	*stack_a; 
 	struct s_node	*temp_sorted_stack_a;
-	int				stack_size;
+	int				stack_a_size;
 
 	struct s_node	*stack_a_top; //why needed?
 	struct s_node	*stack_a_bottom; //why needed?

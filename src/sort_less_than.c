@@ -46,14 +46,14 @@ void	sort_three(t_stack_var *var)
 
 void	sort_less_than(t_stack_var *var)
 {
-	if (var->stack_size == 1)
+	if (var->stack_a_size == 1)
 		return ;
-	if (var->stack_size == 2)
+	if (var->stack_a_size == 2)
 	{
 		sort_two(var);
 		return ;
 	}
-	if (var->stack_size == 3)
+	if (var->stack_a_size == 3)
 	{
 		sort_three(var);
 		return ;
