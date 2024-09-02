@@ -9,7 +9,7 @@ Remember
 
 !! To do !!
 - to FIX (push_swap.c): b_to_a
-	result: blah blah -> pbpbpbpb papapa -> seg fault
+	result: handling each adr of a, b for each operation using double pointer
 
 - compile and check
 cc *.c ../libft/ft_atoi.c ../libft/ft_putstr_fd.c ../stack_op/*.c
@@ -38,6 +38,9 @@ ref: https://80000coding.oopy.io/71fa0b62-6461-463d-b1e1-5eaa2b3a3ca9
 ---
 
 what i did
+-240902
+	fixed b_to_a(not OK yet)
+
 -240823
 	fix rotate(OK)
 	fix rev_rotate(not yet)
