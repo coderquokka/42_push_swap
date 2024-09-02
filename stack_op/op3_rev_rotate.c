@@ -2,7 +2,7 @@
 #include "stack_op.h"
 
 //maybe wrong, check
-static void	rev_rotate(t_node **stack)
+void	rev_rotate(t_node **stack)
 {
 	t_node	*prev_tail;
 

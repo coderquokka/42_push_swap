@@ -44,15 +44,17 @@ int	find_pos_stack_a_by_idx(t_stack_var *var, int cur_stack_a_size)
 	while (cur->idx < var->stack_b->idx)
 	{
 		res++;
-		if (cur->right->idx < cur->idx)
-			break ;
 		if (cur->right)
 			cur = cur->right;
 		else
+			return (1); 
+		if (cur->right->idx < cur->idx) //ascending -> descending point
 			break ;
 	}
-	//if (res >= cur_stack_a_size / 2 && cur_stack_a_size >= 4) //wrong
-	//	res = -1 * (cur_stack_a_size - res + 1);
+	if (cur_stack_a_size == res) // second last element ii stack A
+		return (-1);
+	if (res > cur_stack_a_size / 2 && cur_stack_a_size >= 4) 
+		return (-1 * (cur_stack_a_size - res + 1));
 	return (res);
 }
 
@@ -61,26 +63,51 @@ void	b_to_a(t_stack_var *var)
 	t_node	*next_node;
 	int		pos;
 
+	/*seems to be ok
 	while (var->stack_b)
 	{
+		printf("stack b->idx:%d, val:%d\n", var->stack_b->idx, var->stack_b->val);
+		var->stack_b = var->stack_b->right;
+	}*/
+	while (var->stack_b)
+	{
+		//here: seg fault: 59(pa) -> 
 		var->stack_a_size = measure_size(var->stack_a);
 		pos = find_pos_stack_a_by_idx(var, var->stack_a_size);
-		if (pos == 0)
-			return ;
-		while (++pos <= 0)
-			rev_rotate_a(var);
-		while (--pos >= 2)
-			rotate_a(var);
-		if (pos >= 0 && pos <= 2) 
+		//till here
+		if (pos != 0)
+			printf("pos = %d\n", pos);
+		if (pos >= -1 && pos <= 2)
 		{
-			next_node = var->stack_b->right;
+			next_node = var->stack_b->right; // if null, seperately?
 			push_a(var);
 			if (pos == 2)
 				swap_a(var);
+			else if (pos == -1)
+				rev_rotate_a(var);
 			var->stack_b = next_node;
+			//printf("stack a->idx:%d, val:%d\n", var->stack_a->idx, var->stack_a->val);
+			//printf("stack b->idx:%d, val:%d\n", var->stack_b->idx, var->stack_b->val);
+		}
+		while (pos < 0) //pos < 0 : -1, -2, -3, ...
+		{
+			rev_rotate_a(var);
+			pos++;
+		}
+		while (pos >= 3) //pos < 0 : -1, -2, -3, ...
+		{
+			rev_rotate_a(var);
+			pos--;
 		}
 	}
 }
+		/*later use
+		while (++pos <= 0) //pos < 0 : -1, -2, -3, ...
+			rev_rotate_a(var);
+		while (--pos >= 2) //pos >= 3 : 3, 4, 5, ...
+			rotate_a(var);
+			*/
+
 
 void	a_to_b(t_stack_var *var)
 {
@@ -153,5 +180,30 @@ void	push_swap(t_stack_var *var)
 			print_value(var->stack_a);
 			printf("print start(stack b): \n");
 			print_value(var->stack_b);
-			
+
+		66 67 59 65 99 68 86 27 13 74 42 55 2 76 25 82 19 22 17 52
+
+stack b->idx:18, val:82
+stack b->idx:17, val:76
+stack b->idx:16, val:74
+stack b->idx:19, val:86
+stack b->idx:20, val:99
+stack b->idx:9, val:52
+stack b->idx:5, val:22
+stack b->idx:6, val:25
+stack b->idx:10, val:55
+stack b->idx:8, val:42
+stack b->idx:7, val:27
+stack b->idx:15, val:68
+stack b->idx:12, val:65
+stack b->idx:11, val:59
+stack b->idx:14, val:67
+stack b->idx:13, val:66
+stack b->idx:2, val:13
+stack b->idx:1, val:2
+stack b->idx:4, val:19
+stack b->idx:3, val:17
+
+
 			*/
+
