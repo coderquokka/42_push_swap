@@ -64,12 +64,6 @@ void	b_to_a(t_stack_var *var)
 	int		pos;
 	int		i = 0;
 
-	/*seems to be ok
-	while (var->stack_b)
-	{
-		printf("stack b->idx:%d, val:%d\n", var->stack_b->idx, var->stack_b->val);
-		var->stack_b = var->stack_b->right;
-	}*/
 	while (var->stack_b)
 	{
 		if (var->stack_a != NULL)
@@ -79,8 +73,16 @@ void	b_to_a(t_stack_var *var)
 		printf("(%d)stack a\n", i++);
 		print_value(var->stack_a);
 		//here: seg fault: 59(pa) -> 
-		var->stack_a_size = measure_size(var->stack_a);
-		pos = find_pos_stack_a_by_idx(var, var->stack_a_size);
+        if (var->stack_a != NULL)
+        {
+            var->stack_a_size = measure_size(var->stack_a);
+            pos = find_pos_stack_a_by_idx(var, var->stack_a_size);
+        }
+        else
+        {
+            var->stack_a_size = 0;
+            pos = 0; // or another appropriate default value
+        }
 		//till here
 		if (pos != 0)
 			printf("pos = %d\n", pos);
@@ -107,11 +109,8 @@ void	b_to_a(t_stack_var *var)
 			rev_rotate_a(var);
 			pos--;
 		}
+
 	}
-
-
-
-
 }
 		/*later use
 		while (++pos <= 0) //pos < 0 : -1, -2, -3, ...
@@ -175,7 +174,7 @@ void	push_swap(t_stack_var *var)
 		sort_less_than(var);
 		return ;
 	}
-	else //ing
+	if (var->stack_a_size > 3) //ing
 	{
 		pick_two_pivots(var);
 		a_to_ab(var);
@@ -185,6 +184,18 @@ void	push_swap(t_stack_var *var)
 		last_node = ft_last_node(var->stack_b);
 		last_node->right = NULL;
 		b_to_a(var);
+		while (!is_sorted(var->stack_a))
+		{
+			pick_two_pivots(var);
+			a_to_ab(var);
+			a_to_b(var);
+			printf("after a to b, stack B\n");
+			print_value(var->stack_b);
+			last_node = ft_last_node(var->stack_b);
+			last_node->right = NULL;
+			b_to_a(var);
+
+		}
 	}
 }
 
