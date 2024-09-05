@@ -30,7 +30,7 @@ void	pick_two_pivots(t_stack_var *var)
 	printf("\n\npivots: %d, %d\n\n", var->first_piv, var->second_piv);
 }
 
-int	find_pos_stack_a_by_idx(t_stack_var *var, int cur_stack_a_size)
+int	find_best_position(t_stack_var *var, int cur_stack_a_size)
 {
 	t_node	*cur;
 	int		res;
@@ -66,23 +66,16 @@ void	b_to_a(t_stack_var *var)
 
 	while (var->stack_b)
 	{
+		//print
 		if (var->stack_a != NULL)
 			printf("\nloop begin: stack a->idx:%d, val:%d\n", var->stack_a->idx, var->stack_a->val);
 		printf("stack b->idx:%d, val:%d\n", var->stack_b->idx, var->stack_b->val);
-
 		printf("(%d)stack a\n", i++);
 		print_value(var->stack_a);
-		//here: seg fault: 59(pa) -> 
-        if (var->stack_a != NULL)
-        {
-            var->stack_a_size = measure_size(var->stack_a);
-            pos = find_pos_stack_a_by_idx(var, var->stack_a_size);
-        }
-        else
-        {
-            var->stack_a_size = 0;
-            pos = 0; // or another appropriate default value
-        }
+
+		//start : seg fault here
+		var->stack_a_size = measure_size(var->stack_a);
+		pos = find_best_position(var, var->stack_a_size);    
 		//till here
 		if (pos != 0)
 			printf("pos = %d\n", pos);

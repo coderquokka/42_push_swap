@@ -10,7 +10,12 @@ Remember
 !! To do !!
 - to FIX (push_swap.c): b_to_a
 	result: handling each adr of a, b for each operation using double pointer
-
+- write a fun, to make func shorter than 25 lines
+	void move_to_position(t_stack_var *var, int pos)
+	{
+		// Implement logic to move stack A to the correct position
+		// using rotate_a and rev_rotate_a operations
+	}
 - compile and check
 cc *.c ../libft/ft_atoi.c ../libft/ft_putstr_fd.c ../stack_op/*.c
 (base) jieunpark@eng---macbook src % ./a.out 3 1 2 4 6 9 8 11 10
