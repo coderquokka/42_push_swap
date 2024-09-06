@@ -29,6 +29,15 @@ void	pick_two_pivots(t_stack_var *var)
 	}
 	printf("\n\npivots: %d, %d\n\n", var->first_piv, var->second_piv);
 }
+/*
+int	find_position_in_ascending_wave(t_stack_var *var, int cur_stack_a_size)
+{
+
+
+
+
+}
+*/
 
 int	find_best_position(t_stack_var *var, int cur_stack_a_size)
 {
@@ -40,15 +49,15 @@ int	find_best_position(t_stack_var *var, int cur_stack_a_size)
 	cur = var->stack_a;
 	if (!cur)
 		return (1);
-	res = 1;
-	while (cur->idx < var->stack_b->idx)
+	res = 1; //fix this loop
+	while (cur->idx && cur->idx < var->stack_b->idx)
 	{
 		res++;
 		if (cur->right)
 			cur = cur->right;
 		else
 			break ;  
-		if (cur->right->idx < cur->idx) //ascending -> descending point
+		if (cur->right->idx < cur->idx || cur->idx > var->stack_b->idx) //ascending -> descending point in stack a
 			break ;
 	}
 	if (cur_stack_a_size == res) // second last element ii stack A
