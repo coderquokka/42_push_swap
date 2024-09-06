@@ -47,7 +47,7 @@ int	find_best_position(t_stack_var *var, int cur_stack_a_size)
 		if (cur->right)
 			cur = cur->right;
 		else
-			return (1); 
+			break ;  
 		if (cur->right->idx < cur->idx) //ascending -> descending point
 			break ;
 	}
@@ -99,7 +99,7 @@ void	b_to_a(t_stack_var *var)
 		}
 		while (pos >= 3) //pos < 0 : -1, -2, -3, ...
 		{
-			rev_rotate_a(var);
+			rotate_a(var);
 			pos--;
 		}
 
@@ -248,4 +248,3 @@ pa
 loop begin: stack a->idx:19, val:86
 stack b->idx:20, val:99
 			*/
-
