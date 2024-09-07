@@ -10,7 +10,6 @@ typedef struct s_node
 	struct s_node	*left;
 	int				val;
 	int				idx;
-	int				second_idx;
 	struct s_node	*right;
 }	t_node;
 
