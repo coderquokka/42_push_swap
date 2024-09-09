@@ -38,9 +38,10 @@ void	print_value(t_node *node)
 		printf("node is leer\n");
 		return ;
 	}
+	printf("values: ");
 	while (temp)
 	{
-		printf("%d\n", temp->val);
+		printf("%d ->", temp->val);
 		if (temp->right)
 			temp = temp->right;
 		else

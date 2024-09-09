@@ -95,6 +95,11 @@ void	push_swap(t_stack_var *var)
 		print_value(var->stack_b);
 		last_node = ft_last_node(var->stack_b);
 		last_node->right = NULL;
-		b_to_a(var);
+		//b_to_a(var);
+
 	}
+		//printf("after b to a, stack A\n");
+		//print_value(var->stack_a);
+		//printf("stack B\n");
+		//print_value(var->stack_b);
 }
