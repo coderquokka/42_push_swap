@@ -5,6 +5,7 @@
 //o = normal, -1 = error, 1, 2, 3 = case 1, 2, 3
 int	handle_exception_case(t_stack_var *var, int pos)
 {
+	printf("\n handle exception case:  pos = %d\n", pos);
 	if (var->stack_a_size == pos && pos >= 3) // second last element ii stack A
 	{
 		rev_rotate_a(var);
@@ -37,18 +38,22 @@ int	find_best_position(t_stack_var *var)
 	if (!cur)
 		return (1);
 	res = 1; //fix this loop
+	printf("cur val: (A) %d (B)%d \n", cur->val, var->stack_b->val);
 	while (cur->idx && cur->idx < var->stack_b->idx)
 	{
 		res++;
-		if (cur->right->idx < cur->idx || cur->idx > var->stack_b->idx) //ascending -> descending point in stack a
-			break ;
 		if (cur->right)
 			cur = cur->right;
 		else
 			break ;
 	}
-	if (res > var->stack_a_size / 2 && var->stack_a_size >= 4) 
+	printf("temp2 res: %d\n", res);
+	if (res > var->stack_a_size / 2 && var->stack_a_size >= 4)
+	{
+		printf("res is big case!\n");
 		return (-1 * (var->stack_a_size - res + 1));
+	}
+	printf("res in the last stage!\n");
 	return (res);
 }
 
@@ -61,29 +66,29 @@ void	b_to_a(t_stack_var *var)
 
 	while (var->stack_b)
 	{
-				write(1, "AA", 2);
+		write(1, "\"A", 3);
 		var->stack_a_size = measure_size(var->stack_a);
-							write(1, "YY", 2);
-
+		write(1, "B", 1);
 		pos = find_best_position(var);
+		printf("\n 1st elem of stack B: %d, pos : %d  cur stack A size:%d\n", var->stack_b->val, pos, var->stack_a_size);
+
+									write(1, "YY", 2);
 		if (handle_exception_case(var, pos) == 1)
 			pos = 0;
 					write(1, "BB", 2);
-		if (pos != 0)
-			printf("\n find pos first: %d    cur stack A size:%d\n", pos, var->stack_a_size);
 		while (pos < 0) //pos < 0 : -1, -2, -3, ...
 		{
 								write(1, "CC", 2);
 
 			rev_rotate_a(var);
 			pos++;
-					write(1, "CC", 2);
+					write(1, "DD", 2);
 		}
 		while (pos >= 3) //pos < 0 : -1, -2, -3, ...
 		{
 			rotate_a(var);
 			pos--;
-					write(1, "DD", 2);
+					write(1, "EE", 2);
 		}
 					write(1, "FF", 2);
 

@@ -13,7 +13,7 @@ void	pick_two_pivots(t_stack_var *var)
 		return ;
 	first_pivot_idx = (var->stack_a_size) / 2 - (var->stack_a_size) / 4;
 	second_pivot_idx = (var->stack_a_size) / 2 + (var->stack_a_size) / 4;
-		printf("idx 1, 2: %d, %d\n", first_pivot_idx, second_pivot_idx); //out
+		printf("stack a size: %d, pivots' idx: %d, %d\n", var->stack_a_size, first_pivot_idx, second_pivot_idx); //out
 	found = 0;
 	cur = var->stack_a;
 	while (cur && found != 2)
