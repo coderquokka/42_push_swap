@@ -66,31 +66,30 @@ void	b_to_a(t_stack_var *var)
 
 	while (var->stack_b)
 	{
-		write(1, "\"A", 3);
+		write(1, "\&A", 3);
 		var->stack_a_size = measure_size(var->stack_a);
 		write(1, "B", 1);
 		pos = find_best_position(var);
 		printf("\n 1st elem of stack B: %d, pos : %d  cur stack A size:%d\n", var->stack_b->val, pos, var->stack_a_size);
 
-									write(1, "YY", 2);
+		write(1, "C", 1);
 		if (handle_exception_case(var, pos) == 1)
 			pos = 0;
-					write(1, "BB", 2);
+		write(1, "D", 1);
 		while (pos < 0) //pos < 0 : -1, -2, -3, ...
 		{
-								write(1, "CC", 2);
-
+			write(1, "E", 1);
 			rev_rotate_a(var);
 			pos++;
-					write(1, "DD", 2);
+					write(1, "F", 1);
 		}
 		while (pos >= 3) //pos < 0 : -1, -2, -3, ...
 		{
 			rotate_a(var);
 			pos--;
-					write(1, "EE", 2);
+					write(1, "G", 1);
 		}
-					write(1, "FF", 2);
+					write(1, "H", 2);
 
 	}
 }
