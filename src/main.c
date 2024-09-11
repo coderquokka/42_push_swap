@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h> //for EXIT_SUC/FAIL
 #include "../includes/push_swap.h"
-#include "../stack_op/stack_op.h"
+#include "../operation/operation.h"
 
 void	print_stack(t_stack_var *var)
 {

@@ -1,6 +1,4 @@
 #include "../includes/push_swap.h"
-#include "../stack_op/stack_op.h"
-#include "../includes/push_b_to_a.h"
 
 void	pick_two_pivots(t_stack_var *var)
 {

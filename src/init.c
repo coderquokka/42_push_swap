@@ -29,11 +29,11 @@ void	init_stack(char **temp, t_node **stack)
 	}
 }
 
-void	get_index_stack(t_stack_var *var)
+void	get_index_stack_a(t_stack_var *var)
 {
 	int		i;
-	t_node	*first;
-	t_node	*second_current;
+	t_node	*first = NULL;
+	t_node	*second_current = NULL;
 	t_node	*second_start;
 
 	first = var->stack_a; //origin, unsorted
@@ -58,7 +58,7 @@ void	get_index_stack(t_stack_var *var)
 	}
 }
 
-void	get_temp_sorted_stack(t_stack_var *var)
+void	get_temp_sorted_stack_a(t_stack_var *var)
 {
 	t_node	*start_pos;
 	t_node	*cur = NULL;
@@ -104,8 +104,8 @@ t_stack_var	*setup_stack_var(t_node *stack_a)
 	else if (stack_var->stack_a_size >= 4)
 	{
 		printf("\nstack a is not sorted yet, has more than 4 arg\n");
-		get_temp_sorted_stack(stack_var);
-		get_index_stack(stack_var);
+		get_temp_sorted_stack_a(stack_var);
+		get_index_stack_a(stack_var);
 	}
 	return (stack_var);
 }

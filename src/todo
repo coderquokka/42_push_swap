@@ -11,6 +11,7 @@ Remember
 - read googld drive 240909 pushswap
 https://docs.google.com/document/d/1J-Yh3jaL6c4MhSlgRctG_lxN8V1QKCYAY3XwsZzBxwc/edit?pli=1
 
+-makefile
 
 
 - to FIX (push_swap.c): find best pos in <b_to_a>
@@ -25,7 +26,7 @@ https://docs.google.com/document/d/1J-Yh3jaL6c4MhSlgRctG_lxN8V1QKCYAY3XwsZzBxwc/
 		// using rotate_a and rev_rotate_a operations
 	}
 - compile and check
-cc *.c ../libft/ft_atoi.c ../libft/ft_putstr_fd.c ../stack_op/*.c
+cc *.c ../libft/ft_atoi.c ../libft/ft_putstr_fd.c ../operation/*.c
 (base) jieunpark@eng---macbook src % ./a.out 3 1 2 4 6 9 8 11 10
 
 

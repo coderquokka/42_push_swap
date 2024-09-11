@@ -1,5 +1,5 @@
-#ifndef STACK_OP_H
-# define STACK_OP_H
+#ifndef operation_H
+# define operation_H
 
 //op1.push
 void	push_a(t_stack_var	*var);

@@ -1,5 +1,5 @@
 #include "../includes/push_swap.h"
-#include "stack_op.h"
+#include "operation.h"
 
 //push "1st elem of b" to the head of "a"
 void	push_a(t_stack_var	*var)

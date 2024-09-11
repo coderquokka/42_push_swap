@@ -1,6 +1,6 @@
 #include "../includes/push_swap.h"
 #include "../includes/push_b_to_a.h"
-#include "../stack_op/stack_op.h"
+#include "../operation/operation.h"
 
 //o = normal, -1 = error, 1, 2, 3 = case 1, 2, 3
 int	handle_exception_case(t_stack_var *var, int pos)
@@ -71,34 +71,26 @@ void	b_to_a(t_stack_var *var)
 
 	while (var->stack_b)
 	{
-		write(1, "\n\n&A", 4);
 		var->stack_a_size = measure_size(var->stack_a);
-		write(1, "B", 1);
+		get_temp_sorted_stack_a(var);
+		get_index_stack_a(var);
 		pos = find_best_position(var);
-		write(1, "C", 1);
 		printf("\n pos : %d  cur stack A size:%d", pos, var->stack_a_size);
 		if (handle_exception_case(var, pos) == 1)
 		{
 			printf("exception case\n");
 			pos = 0;
 		}
-		//else
-			//pos = find_best_position_last_stage(var, pos);
-		write(1, "&D", 2);
 		while (pos < 0) //pos < 0 : -1, -2, -3, ...
 		{
-			write(1, "E", 1);
 			rev_rotate_a(var);
 			pos++;
-					write(1, "F", 1);
 		}
 		while (pos >= 3) //pos < 0 : -1, -2, -3, ...
 		{
 			rotate_a(var);
 			pos--;
-					write(1, "G", 1);
 		}
-					write(1, "H", 2);
 	}
 }
 		/*later use

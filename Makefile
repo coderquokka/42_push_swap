@@ -1,24 +1,29 @@
 NAME = push_swap
 
 # Directory
-SCR_DIR := src
-INC_DIR := includes
-OBJ_DIR := obj
-LIBFT_DIR := libft
+SRC_DIR = src
+LIBFT_DIR = libft
+operation_DIR = operation
+SORT_DIR = sort
+INC_DIR = includes
 
 # Library
 LIBFT := $(LIBFT_DIR)/libft.a
 
-# Sources
+# Source files
 SRC := $(wildcard $(SCR_DIR)/*.c)
+LIBFT_SRC = $(wildcard $(LIBFT_DIR)/*.c)
+OPERATION_SRC = $(wildcard $(operation_DIR)/*.c)
+SORT_SRC = $(SORT_DIR)/sort_less_than.c
 
 # Objects
-OBJ := $(patsubst $(SCR_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
+OBJ = $(SRC:.c=.o) $(LIBFT_SRC:.c=.o) $(operation_SRC:.c=.o) $(SORT_SRC:.c=.o)
+
 
 # Headers
-HEADER := $(wildcard includes/*.h)
+INC = -I$(INC_DIR) -I$(LIBFT_DIR) -I$(operation_DIR) -I$(SORT_DIR)
 
-# Flags
+# Compiler and Flags
 CC := gcc
 CFLAGS := -Wall -Wextra -Werror -I$(INC_DIR)
 LDFLAGS := -L$(LIBFT_DIR)
@@ -27,32 +32,24 @@ LDLIBS := -lft
 # Others
 .PHONY = all clean fclean re
 
+# default target
 all: $(NAME)
 
-$(NAME): $(OBJ) $(LIBFT) #$(HEADER) #header: necessary?
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LDFLAGS) $(LDLIBS)
+# Linking
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-$(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR)
-
-$(OBJ_DIR)/%.o: $(SCR_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-#can be rm-ed
-$(HEADER):
-	ln -sf $(LIBFT_DIR)/libft.h $(INC_DIR)/libft.h
+# Compiling
+%.o: %.c
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 
-
-# Clean
+# Cleaning
 clean:
-	$(RM) $(OBJ)
-	$(RM) -r $(OBJ_DIR)
-	$(MAKE) -C $(LIBFT_DIR) clean
+	rm -f $(OBJ)
 
 fclean: clean
-	$(RM) $(NAME)
-	$(MAKE) -C $(LIBFT_DIR) fclean
+	rm -f $(NAME)
 
+#rebuild
 re: fclean all

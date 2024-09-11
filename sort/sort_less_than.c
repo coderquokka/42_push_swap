@@ -1,5 +1,5 @@
 #include "../includes/push_swap.h"
-#include "../stack_op/stack_op.h"
+#include "../operation/operation.h"
 
 void	sort_two(t_stack_var *var)
 {
