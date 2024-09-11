@@ -61,20 +61,3 @@ void	free_node(t_node *stack)
 	}
 }
 
-int	is_sorted(t_node *stack)
-{
-	int		prev;
-	t_node	*temp;
-
-	if (!stack || !stack->right)
-		return (-1);
-	temp = stack;
-	while (temp->right)
-	{
-		prev = temp->val;
-		temp = temp->right;
-		if (prev >= temp->val)
-			return (0);
-	}
-	return (1);
-}
