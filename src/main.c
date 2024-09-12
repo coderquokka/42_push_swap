@@ -5,6 +5,7 @@
 
 void	print_stack(t_stack_var *var)
 {
+	printf("after a to b\n");
 	printf("\n(temp_sorted_stack_a)\n");
 	print_value(var->temp_sorted_stack_a);
 	printf("\n(stack a in idx)\n");

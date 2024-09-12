@@ -40,22 +40,6 @@ void	cp_node(t_node **dst, t_node *src)
 	}
 }
 
-void	print_idx(t_node *node)
-{
-	t_node	*temp;
-
-	temp = node;
-	if (!temp)
-	{
-		printf("node is leer\n");
-		return ;
-	}
-	while (temp)
-	{
-		printf("%d\n", temp->idx);
-		temp = temp->right;
-	}
-}
 
 void	swap_nodes(t_node *a, t_node *b)
 {

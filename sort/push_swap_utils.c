@@ -1,5 +1,4 @@
-#include "../includes/push_swap.h"
-#include "../operation/operation.h"
+#include "sort.h"
 
 //o = normal, -1 = error, 1, 2, 3 = case 1, 2, 3
 int	handle_exception_case(t_stack_var *var, int pos)
@@ -64,37 +63,31 @@ int	find_best_position(t_stack_var *var)
 	return (res);
 }
 
-void	b_to_a(t_stack_var *var)
+void	pick_two_pivots(t_stack_var *var)
 {
-	int		pos;
+	int		first_pivot_idx;
+	int		second_pivot_idx;
+	int		found;
+	t_node	*cur;
 
-	while (var->stack_b)
+	if (!var->stack_a || !var->temp_sorted_stack_a)
+		return ;
+	first_pivot_idx = (var->stack_a_size) / 2 - (var->stack_a_size) / 4;
+	second_pivot_idx = (var->stack_a_size) / 2 + (var->stack_a_size) / 4;
+		printf("stack a size: %d, pivots' idx: %d, %d\n", var->stack_a_size, first_pivot_idx, second_pivot_idx); //out
+	found = 0;
+	cur = var->stack_a;
+	while (cur && found != 2)
 	{
-		var->stack_a_size = measure_size(var->stack_a);
-		get_temp_sorted_stack_a(var);
-		get_index_stack_a(var);
-		pos = find_best_position(var);
-		printf("\n pos : %d  cur stack A size:%d", pos, var->stack_a_size);
-		if (handle_exception_case(var, pos) == 1)
+		if (cur->idx == first_pivot_idx || cur->idx == second_pivot_idx)
 		{
-			printf("exception case\n");
-			pos = 0;
+			if (cur->idx == first_pivot_idx)
+				var->first_piv = cur->val;
+			else
+				var->second_piv = cur->val;
+			found++;
 		}
-		while (pos < 0) //pos < 0 : -1, -2, -3, ...
-		{
-			rev_rotate_a(var);
-			pos++;
-		}
-		while (pos >= 3) //pos < 0 : -1, -2, -3, ...
-		{
-			rotate_a(var);
-			pos--;
-		}
+		cur = cur->right;
 	}
+	printf("\n\npivots: %d, %d\n\n", var->first_piv, var->second_piv);
 }
-		/*later use
-		while (++pos <= 0) //pos < 0 : -1, -2, -3, ...
-			rev_rotate_a(var);
-		while (--pos >= 2) //pos >= 3 : 3, 4, 5, ...
-			rotate_a(var);
-			*/
