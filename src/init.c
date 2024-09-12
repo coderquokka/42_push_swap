@@ -29,15 +29,75 @@ void	init_stack(char **temp, t_node **stack)
 	}
 }
 
-void	get_index_stack_a(t_stack_var *var)
+void	get_index(t_node *stack, t_node *temp_sorted_stack)
+{
+    int     i;
+    t_node  *first = NULL;
+    t_node  *second_current = NULL;
+    t_node  *second_start;
+
+    first = stack; // origin, unsorted
+    second_start = temp_sorted_stack; // sorted
+    if (!first || !second_start)
+        return ;
+    while (first)
+    {
+        i = 1;
+        second_current = second_start;
+        while (second_current)
+        {
+            if (first->val == second_current->val)
+            {
+                first->idx = i;
+                break;
+            }
+            second_current = second_current->right;
+            i++;
+        }
+        first = first->right;
+    }
+}
+
+void	get_temp_sorted_stack(t_node *src, t_node **dest)
+{
+    t_node *start_pos;
+    t_node *cur = NULL;
+    t_node *tail;
+
+    if (!src || !dest)
+        return;
+
+    cp_node(dest, src); // Copy the source stack to the destination
+    if (!*dest)
+        return;
+
+    start_pos = *dest; // Save starting position
+    tail = ft_last_node(start_pos);
+
+    while (tail != start_pos)
+    {
+        cur = start_pos;
+        while (cur && cur->right && cur != tail)
+        {
+            if (cur->val > cur->right->val)
+                swap_nodes(cur, cur->right); // Swapping values
+            cur = cur->right;
+        }
+        tail = ft_second_last_node(start_pos, tail);
+    }
+}
+
+/*to delete
+
+t_node	*get_index_stack(t_node *stack, t_node *temp_sorted_stack)
 {
 	int		i;
 	t_node	*first = NULL;
 	t_node	*second_current = NULL;
 	t_node	*second_start;
 
-	first = var->stack_a; //origin, unsorted
-	second_start = var->temp_sorted_stack_a; //sorted
+	first = stack; //origin, unsorted
+	second_start = temp_sorted_stack; //sorted
 	if (!first || !second_current)
 		return ;
 	while (first)
@@ -58,7 +118,9 @@ void	get_index_stack_a(t_stack_var *var)
 	}
 }
 
-void	get_temp_sorted_stack_a(t_stack_var *var)
+
+
+t_node	*get_temp_sorted_stack(t_stack_var *var)
 {
 	t_node	*start_pos;
 	t_node	*cur = NULL;
@@ -83,6 +145,7 @@ void	get_temp_sorted_stack_a(t_stack_var *var)
 		tail = ft_second_last_node(start_pos, tail);
 	}
 }
+*/
 
 
 
@@ -104,8 +167,8 @@ t_stack_var	*setup_stack_var(t_node *stack_a)
 	else if (stack_var->stack_a_size >= 4)
 	{
 		printf("\nstack a is not sorted yet, has more than 4 arg\n");
-		get_temp_sorted_stack_a(stack_var);
-		get_index_stack_a(stack_var);
+		get_temp_sorted_stack(stack_var->stack_a, &stack_var->temp_sorted_stack_a);
+		get_index(stack_var->stack_a, stack_var->temp_sorted_stack_a);
 	}
 	return (stack_var);
 }

@@ -17,6 +17,6 @@ void		push_swap(t_stack_var *var);
 //sort less than
 void		sort_two(t_stack_var *var);
 void		sort_three(t_stack_var *var);
-void		sort_less_than(t_stack_var *var);	
-
+void		sort_less_than(t_stack_var *var);
+void		pick_two_pivots(t_stack_var *var);
 #endif

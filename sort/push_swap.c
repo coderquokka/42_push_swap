@@ -7,8 +7,8 @@ void	b_to_a(t_stack_var *var)
 	while (var->stack_b)
 	{
 		var->stack_a_size = measure_size(var->stack_a);
-		get_temp_sorted_stack_a(var);
-		get_index_stack_a(var);
+		get_temp_sorted_stack(var->stack_a, &var->temp_sorted_stack_a);
+		get_index(var->stack_a, var->temp_sorted_stack_a);
 		pos = find_best_position(var);
 		printf("\n pos : %d  cur stack A size:%d", pos, var->stack_a_size);
 		if (handle_exception_case(var, pos) == 1)

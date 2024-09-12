@@ -39,46 +39,33 @@ typedef struct s_list_node
 	struct s_list_node		*right;
 }	t_list_node;
 
-// src: check_arg.c
+// src/check_arg.c
 int				is_numeric(char **av);
 int				have_same_nbr(t_node *tmp);
 
-//src: stack_setup.c
-t_stack_var		*setup_stack_var(t_node *stack_a);
-t_node			*sort_stack(t_stack_var *var);
-t_node			*idx_stack(t_stack_var *var);
-
-//src: push_swap.c
-void			pick_two_pivots(t_stack_var *var);
-void			a_to_b(t_stack_var *var);
-void			a_to_ab(t_stack_var *var);
-void			push_swap(t_stack_var *var);
-
-//src: sort_less_than
-void			sort_two(t_stack_var *var);
-void			sort_three(t_stack_var *var);
-void			sort_less_than(t_stack_var *var);
-
-//src:stack_setup
+// src/init.c
 void			init_stack(char **temp, t_node **stack);
-void			get_temp_sorted_stack_a(t_stack_var *var);
-void			get_index_stack_a(t_stack_var *var);
+void			get_index(t_node *stack, t_node *temp_sorted_stack);
+void			get_temp_sorted_stack(t_node *src, t_node **dest);
 t_stack_var		*setup_stack_var(t_node *stack_a);
 
-//src:stack_libft.c
+// src/main.c
+void			print_stack(t_stack_var *var);
+
+// src/stack_libft.c
 t_node			*ft_second_last_node(t_node *node, t_node *prev_tail);
 t_node			*ft_last_node(t_node *node);
 void			print_value(t_node *node);
 void			free_node(t_node *stack);
-int				is_sorted(t_node *stack);
+int			is_sorted(t_node *stack);
 
-//src:stack_libft2.c
+// src/stack_libft2.c
 void			cp_one_node(t_node *dst, t_node *src);
 void			cp_node(t_node **dst, t_node *src);
 void			print_idx(t_node *node);
 void			swap_nodes(t_node *a, t_node *b);
 
-//src:stack_libft3.c
-int				measure_size(t_node *cur);
+// src/stack_libft3.c
+int			measure_size(t_node *cur);
 
 #endif
