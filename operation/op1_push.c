@@ -1,10 +1,14 @@
-#include "../includes/push_swap.h"
+struct s_stack_var;
+typedef struct s_stack_var t_stack_var;
+
+struct s_node;
+typedef struct s_node t_node;
+
 #include "operation.h"
 
 //push "1st elem of b" to the head of "a"
 void	push_a(t_stack_var	*var)
 {
-	t_node	*new_stack_a;
 	t_node	*head;
 
 	if (!var->stack_b)
@@ -18,7 +22,6 @@ void	push_a(t_stack_var	*var)
 
 void	push_b(t_stack_var *var)
 {
-	t_node	*new_stack_b;
 	t_node	*head;
 
 	if (!var->stack_a)

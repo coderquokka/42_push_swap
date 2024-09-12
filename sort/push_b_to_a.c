@@ -1,5 +1,4 @@
 #include "../includes/push_swap.h"
-#include "../includes/push_b_to_a.h"
 #include "../operation/operation.h"
 
 //o = normal, -1 = error, 1, 2, 3 = case 1, 2, 3

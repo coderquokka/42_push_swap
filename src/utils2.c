@@ -1,14 +1,18 @@
 #include "../includes/push_swap.h"
 
-void	cp_one_node(t_node *dst, t_node *src)
+int	measure_size(t_node *cur)
 {
-	if (!src)
-		return ;
-	if (!(dst = malloc(sizeof(t_node))))
-		return ;
-	dst->val = src->val;
-	dst->left = NULL;
-	dst->right = NULL;
+	int i;
+
+	i = 0;
+	if (!cur || !cur->val)
+		return (0);
+	while (cur)
+	{
+		i++;
+		cur = cur->right;
+	}
+	return (i);
 }
 
 void	cp_node(t_node **dst, t_node *src)

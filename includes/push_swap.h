@@ -4,7 +4,6 @@
 # include "../libft/libft.h"
 # include <unistd.h> //write:err
 # include "../operation/operation.h"
-# include "../operation/operation.h"
 # include "../sort/sort.h"
 
 

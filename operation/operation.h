@@ -1,5 +1,9 @@
 #ifndef operation_H
 # define operation_H
+#include "../includes/push_swap.h"
+
+struct s_stack_var;
+typedef struct s_stack_var t_stack_var;
 
 //op1.push
 void	push_a(t_stack_var	*var);

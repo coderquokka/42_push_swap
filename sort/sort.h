@@ -1,7 +1,7 @@
 #ifndef SORT_H
 #define SORT_H
 
-#include "push_swap.h"  // Include any necessary headers
+#include "../includes/push_swap.h"  // Include any necessary headers
 
 //push b to a
 int		find_exception_case(t_stack_var *var);
