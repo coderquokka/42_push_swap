@@ -14,9 +14,14 @@ void		a_to_b(t_stack_var *var);
 void		a_to_ab(t_stack_var *var);
 void		push_swap(t_stack_var *var);
 
-//sort less than
+//sort small_nbr
 void		sort_two(t_stack_var *var);
 void		sort_three(t_stack_var *var);
 void		sort_less_than(t_stack_var *var);
 void		pick_two_pivots(t_stack_var *var);
+
+//sort mid nbr
+int			calculate_moves(t_stack_var *var, int pos);
+void		execute_moves(t_stack_var *var, int moves, int pos);
+
 #endif

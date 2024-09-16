@@ -1,5 +1,27 @@
 #include "sort.h"
 
+void b_to_a(t_stack_var *var)
+{
+    int pos;
+    int moves;
+
+    while (var->stack_b)
+    {
+        var->stack_a_size = measure_size(var->stack_a);
+        get_temp_sorted_stack(var->stack_a, &var->temp_sorted_stack_a);
+        get_index(var->stack_a, var->temp_sorted_stack_a);
+        pos = find_best_position(var);
+        moves = calculate_moves(var, pos);
+
+        // Execute the moves
+        execute_moves(var, moves, pos);
+
+        // Push from B to A
+        push_a(var);
+    }
+}
+
+/* last ver
 void	b_to_a(t_stack_var *var)
 {
 	int		pos;
@@ -27,7 +49,7 @@ void	b_to_a(t_stack_var *var)
 			pos--;
 		}
 	}
-}
+}*/
 		/*later use
 		while (++pos <= 0) //pos < 0 : -1, -2, -3, ...
 			rev_rotate_a(var);
