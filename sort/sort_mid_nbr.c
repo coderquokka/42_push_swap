@@ -1,20 +1,29 @@
 #include "sort.h"
 
 // Helper function to calculate the number of moves
-int calculate_moves(t_stack_var *var, int pos)
+int	calculate_moves(t_stack_var *var, int pos)
 {
-    int ra = (pos >= 0) ? pos : 0;
-    int rra = (pos < 0) ? -pos : 0;
-    int rb = find_b_rotation(var);
-    int rrb = (rb > 0) ? var->stack_b_size - rb : 0;
+	int	ra;
+	int	rra;
+	int	rb;
+	int	rrb;
+	int	moves[4];
 
-    // Calculate the minimum number of moves
-    return min_of_four(
-        max(ra, rb),           // RR + RA or RB
-        max(rra, rrb),         // RRR + RRA or RRB
-        ra + rrb,              // RA + RRB
-        rra + rb               // RRA + RB
-    );
+	ra = 0;
+	rra = 0;
+	if (pos >= 0)
+		ra = pos;
+	else
+		rra = -pos;
+	rb = find_b_rotation(var);
+	rrb = 0;
+	if (rb > 0)
+		rrb = var->stack_b_size - rb;
+	moves[0] = ft_max(ra, rb);
+	moves[1] = ft_max(rra, rrb);
+	moves[2] = ra + rrb;
+	moves[3] = rra + rb;
+	return (ft_min_of_four(moves[0], moves[1], moves[2], moves[3]));
 }
 
 // Helper function to execute the moves

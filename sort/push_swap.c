@@ -2,17 +2,27 @@
 
 void b_to_a(t_stack_var *var)
 {
-    int pos;
-    int moves;
+    int	pos;
+    int	moves;
+	int	diff;
+
+	if (var->stack_b == NULL)
+		return ;
+	get_temp_sorted_stack(var->stack_b, &var->temp_sorted_stack_b);
+	get_index(var->stack_b, var->temp_sorted_stack_b);
+	push_a(var);
 
     while (var->stack_b)
     {
+		var->stack_b_size = measure_size(var->stack_b);
         var->stack_a_size = measure_size(var->stack_a);
-        get_temp_sorted_stack(var->stack_a, &var->temp_sorted_stack_a);
-        get_index(var->stack_a, var->temp_sorted_stack_a);
-        pos = find_best_position(var);
-        moves = calculate_moves(var, pos);
+        //pos = find_best_position(var);
 
+		/*
+		-> how to fix? 
+		temp sorted stack b -> diff 가 최소인 것을 뽑아서 움직인다 ! 
+        moves = calculate_moves(var, pos);
+		*/
         // Execute the moves
         execute_moves(var, moves, pos);
 
