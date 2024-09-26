@@ -1,5 +1,11 @@
 #include "sort.h"
 
+int find_b_rotation(t_stack_var var)
+{
+
+	
+}
+
 // Helper function to calculate the number of moves
 int	calculate_moves(t_stack_var *var, int pos)
 {

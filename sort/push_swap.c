@@ -4,7 +4,6 @@ void b_to_a(t_stack_var *var)
 {
     int	pos;
     int	moves;
-	int	diff;
 
 	if (var->stack_b == NULL)
 		return ;
@@ -16,17 +15,9 @@ void b_to_a(t_stack_var *var)
     {
 		var->stack_b_size = measure_size(var->stack_b);
         var->stack_a_size = measure_size(var->stack_a);
-        //pos = find_best_position(var);
-
-		/*
-		-> how to fix? 
-		temp sorted stack b -> diff 가 최소인 것을 뽑아서 움직인다 ! 
-        moves = calculate_moves(var, pos);
-		*/
-        // Execute the moves
+        pos = find_best_position(var);
+		moves = calculate_moves(var, pos);
         execute_moves(var, moves, pos);
-
-        // Push from B to A
         push_a(var);
     }
 }
