@@ -44,7 +44,7 @@ void	sort_three(t_stack_var *var)
 	}
 }
 
-void	sort_less_than(t_stack_var *var)
+void	sort_small(t_stack_var *var)
 {
 	if (var->stack_a_size == 1)
 		return ;
