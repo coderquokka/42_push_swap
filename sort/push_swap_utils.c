@@ -30,37 +30,31 @@ int	handle_exception_case(t_stack_var *var, int pos)
 	}
 	return (0);
 }
-int find_best_position_last_stage(t_stack_var *var, int pos)
-{
-	if (pos > var->stack_a_size / 2)
-	{
-		printf("pos is big case!\n");
-		return (-1 * (var->stack_a_size - pos + 1));
-	}
-	return (pos);
-}
-int	find_best_position(t_stack_var *var)
-{
-	t_node	*cur;
-	int		res;
 
-	if (!var->stack_b)
-		return (0);
-	cur = var->stack_a;
-	if (!cur)
-		return (1);
-	res = 1; //fix this loop
-	printf("cur val: (A) %d (B)%d \n", cur->val, var->stack_b->val);
-	while (cur->idx && cur->idx < var->stack_b->idx)
-	{
-		res++;
-		if (cur->right)
-			cur = cur->right;
-		else
-			break ;
-	}
-	printf("temp2 pos/res: %d\n", res);
-	return (res);
+int find_best_position(t_stack_var *var)
+{
+    t_node *cur;
+    int res;
+    int b_val;
+
+    if (!var->stack_b)
+        return (0);
+    b_val = var->stack_b->val; // Get the value of the top element in stack B
+    cur = var->stack_a;
+    if (!cur)
+        return (1);
+    var->stack_b_size = measure_size(var->stack_b);
+    var->stack_a_size = measure_size(var->stack_a);
+    res = 0; // Start from position 0
+    // Find the position in stack A where the value from stack B should be inserted
+    while (cur)
+    {
+        if (cur->val > b_val) // If the current value in A is greater than B's value
+            break; // Found the position to insert
+        res++;
+        cur = cur->right; // Move to the next node in stack A
+    }
+    return (res); // Return the position found
 }
 
 void	pick_two_pivots(t_stack_var *var)

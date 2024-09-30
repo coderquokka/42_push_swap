@@ -4,7 +4,6 @@
 
 void	push_swap(t_stack_var *var)
 {
-	t_node	*last_node;
 
 	if (var->stack_a_size <= 1 || is_sorted(var->stack_a))
 		return ;

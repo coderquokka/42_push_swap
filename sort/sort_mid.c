@@ -1,11 +1,28 @@
 #include "sort.h"
 
+/*
 int find_b_rotation(t_stack_var var)
 {
 
 	
+}*/
+int ft_max(int a, int b)
+{
+    return (a > b) ? a : b;
 }
+int ft_min_of_four(int a, int b, int c, int d)
+{
+    int min = a;
 
+    if (b < min)
+        min = b;
+    if (c < min)
+        min = c;
+    if (d < min)
+        min = d;
+
+    return min;
+}
 // Helper function to calculate the number of moves
 int	calculate_moves(t_stack_var *var, int pos)
 {
@@ -21,7 +38,7 @@ int	calculate_moves(t_stack_var *var, int pos)
 		ra = pos;
 	else
 		rra = -pos;
-	rb = find_b_rotation(var);
+	rb = pos;
 	rrb = 0;
 	if (rb > 0)
 		rrb = var->stack_b_size - rb;
@@ -38,11 +55,11 @@ void execute_moves(t_stack_var *var, int moves, int pos)
     while (moves--)
     {
         if (pos > 0 && var->stack_b->val > var->stack_a->val)
-            rotate_both(var);
+            rotate_ab(var);
         else if (pos > 0)
             rotate_a(var);
         else if (pos < 0 && var->stack_b->val < ft_last_node(var->stack_a)->val)
-            rev_rotate_both(var);
+            rev_rotate_ab(var);
         else if (pos < 0)
             rev_rotate_a(var);
         else if (var->stack_b->val > var->stack_a->val)
@@ -51,6 +68,28 @@ void execute_moves(t_stack_var *var, int moves, int pos)
             rev_rotate_b(var);
     }
 }
+
+void b_to_a(t_stack_var *var)
+{
+    int pos;
+    int moves;
+
+    if (var->stack_b == NULL)
+        return;
+    while (var->stack_b)
+    {
+        pos = find_best_position(var);
+		if (handle_exception_case(var, pos) == 1)
+			return ;
+        moves = calculate_moves(var, pos);
+        execute_moves(var, moves, pos);
+        push_a(var);
+    }
+    // Final rotation to put the smallest element at the top
+    //final_rotate(var);
+}
+
+/*second last
 void b_to_a(t_stack_var *var)
 {
     int	pos;
@@ -71,7 +110,7 @@ void b_to_a(t_stack_var *var)
         execute_moves(var, moves, pos);
         push_a(var);
     }
-}
+}*/
 
 /* last ver
 void	b_to_a(t_stack_var *var)
@@ -153,12 +192,13 @@ void	a_to_ab(t_stack_var *var)
 	}
 }
 
-void	sort_mid(t_stack_var var)
+void	sort_mid(t_stack_var *var)
 {
+	t_node	*last_node;
+	
 	pick_two_pivots(var);
 	a_to_ab(var);
 	a_to_b(var);
-	//print_value(var->stack_b);
 	last_node = ft_last_node(var->stack_b);
 	last_node->right = NULL;
 	//b_to_a(var);

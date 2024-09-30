@@ -70,4 +70,9 @@ void			swap_nodes(t_node *a, t_node *b);
 // src/stack_libft3.c
 int			measure_size(t_node *cur);
 
+void	sort_small(t_stack_var *var);
+
+void	sort_mid(t_stack_var *var);
+
+
 #endif
