@@ -23,5 +23,6 @@ void		pick_two_pivots(t_stack_var *var);
 //sort mid nbr
 int			calculate_moves(t_stack_var *var, int pos);
 void		execute_moves(t_stack_var *var, int moves, int pos);
+int			find_split_start(t_node **node);
 
 #endif

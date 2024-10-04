@@ -81,7 +81,7 @@ int	is_sorted(t_node *stack)
 	{
 		prev = temp->val;
 		temp = temp->right;
-		if (prev >= temp->val)
+		if (prev > temp->val)
 			return (0);
 	}
 	return (1);

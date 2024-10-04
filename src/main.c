@@ -5,15 +5,15 @@
 
 void	print_stack(t_stack_var *var)
 {
-	printf("\n(temp_sorted_stack_a)\n");
-	print_value(var->temp_sorted_stack_a);
+	//printf("\n(temp_sorted_stack_a)\n");
+	//print_value(var->temp_sorted_stack_a);
 
-	printf("\n(stack a)\n");
+	printf("\n\n(stack a)\n");
 	print_value(var->stack_a);
 
-	printf("\n(stack a in idx)\n");
-	print_idx(var->stack_a);
-	printf("\n(stack b)\n");
+	//printf("\n(stack a in idx)\n");
+	//print_idx(var->stack_a);
+	printf("\n\n(stack b)\n");
 	print_value(var->stack_b);
 	//printf("\n(stack b in idx)\n");
 	//print_idx(var->stack_b);
@@ -34,7 +34,6 @@ int	main(int ac, char **av)
 		temp = stack_a;
 		if (have_same_nbr(temp) == 1)
 			return (EXIT_FAILURE);
-		print_value(stack_a);
 		stack_var = setup_stack_var(stack_a);
 		printf("after setup_stack_var\n");
 		print_stack(stack_var);
@@ -46,5 +45,9 @@ int	main(int ac, char **av)
 		free(temp);
 		return (EXIT_SUCCESS);
 		*/
+		if (is_sorted(stack_var->stack_a) == 1)
+		{
+			printf("finally is sorted! ");
+		}
 	}
 }

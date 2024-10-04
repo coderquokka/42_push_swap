@@ -1,15 +1,31 @@
 #include "sort.h"
 
-int	find_split_point(t_node **node)
+t_node	*ft_second_last_node(t_node *node, t_node *prev_tail)
+{
+	t_node	*temp;
+
+	temp = node;
+	if (!temp)
+		return (NULL);
+	while (temp->right && temp->right != prev_tail)
+		temp = temp->right;
+	return (temp);
+}
+
+int	find_split_start(t_node **node)
 {
 	int	res;
 
 	res = 0;
+	if (!*node)
+		return (res);
 	while (*node && (*node)->right && (*node)->idx < (*node)->right->idx)
 	{
 		*node = (*node)->right;
 		res++;
 	}
+	*node = (*node)->right;
+	res++;
 	return (res);
 }
 
@@ -28,17 +44,31 @@ int	find_best_position(t_stack_var *var)
     res = 0;
 	if (is_sorted(var->stack_a) == 0) // 3 cases
 	{
+		printf("\nstack A's ");
+		print_value(var->stack_a);
+		printf("\n \"stack A is not sorted\"\n");
 		if (var->stack_b->idx < head_idx && var->stack_b->idx > tail_idx)
+		{
+			printf("\n CASE (1) tail < nbr < head : pos = %d\n", res);
 			return (res);
+		}
 		else if (var->stack_b->idx < head_idx)
-			res = find_split_point(&cur);
+		{
+
+			res = find_split_start(&cur);
+			printf("\n CASE (2) nbr < head : found split point's val %d prev pos %d\n", cur->val,res);
+		}
 	}
-	cur = cur->right;
-	while (cur && !(cur->idx > var->stack_b->idx))
+	//smaller than split point's start
+	printf("\n CASE (0) or (2) LOOP from cur's val to cal position %d \n", cur->val);
+
+	while (cur && (cur->idx < var->stack_b->idx))
 	{
+
 		res++;
 		cur = cur->right; // Move to the next node in stack A
 	}
+	printf("\npos : %d", res);
 	return (res); // Return the position found
 }
 

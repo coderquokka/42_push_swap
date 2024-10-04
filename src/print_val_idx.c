@@ -14,7 +14,7 @@ void	print_idx(t_node *node)
 	}
 	while (temp)
 	{
-		printf("%d\n", temp->idx);
+		printf("%d -> ", temp->idx);
 		temp = temp->right;
 	}
 }
@@ -33,7 +33,7 @@ void	print_value(t_node *node)
 	printf("values: ");
 	while (temp)
 	{
-		printf("%d ->", temp->val);
+		printf("%d -> ", temp->val);
 		if (temp->right)
 			temp = temp->right;
 		else

@@ -1,28 +1,35 @@
 #include "sort.h"
 
-/*
-int find_b_rotation(t_stack_var var)
+void	final_rotation(t_stack_var *var)
 {
+	int		split_start_idx;
+	t_node	*temp;
 
+	temp = var->stack_a;
+	split_start_idx = find_split_start(&temp);
+	printf("stack A size is %d\n", var->stack_a_size);
+
+	printf("split start idx is %d\n", split_start_idx);
 	
-}*/
-int ft_max(int a, int b)
-{
-    return (a > b) ? a : b;
+	if (split_start_idx < (var->stack_a_size / 2) - 1)
+	{
+		while (split_start_idx > 0)
+		{
+			rotate_a(var);
+			split_start_idx--;
+		}
+	}
+	else
+	{
+		split_start_idx = var->stack_a_size - split_start_idx + 1;
+		while (split_start_idx > 0)
+		{
+			rev_rotate_a(var);
+			split_start_idx--;
+		}
+	}
 }
-int ft_min_of_four(int a, int b, int c, int d)
-{
-    int min = a;
 
-    if (b < min)
-        min = b;
-    if (c < min)
-        min = c;
-    if (d < min)
-        min = d;
-
-    return min;
-}
 void	set_commands_null(t_commands **cmd)
 {
 	(*cmd)->ra_or_rra = 0;
@@ -34,11 +41,8 @@ void	saves_commands(t_stack_var *var, int pos, t_commands *cmd)
 {
 	int				stack_a_size;
 
-
 	stack_a_size = measure_size(var->stack_a);
-
 	set_commands_null(&cmd);
-
 	if (pos == 0)
 		return ;
 	else if (pos == 1)
@@ -46,7 +50,9 @@ void	saves_commands(t_stack_var *var, int pos, t_commands *cmd)
 		cmd->sa = 1;
 	}
 	else if (pos <= stack_a_size / 2)
+	{
 		cmd->ra_or_rra = pos;
+	}
 	else
 	{
 		cmd->ra_or_rra = -1 * (stack_a_size - pos);
@@ -55,23 +61,31 @@ void	saves_commands(t_stack_var *var, int pos, t_commands *cmd)
 }
 
 // Helper function to execute the moves
-void execute_commands(t_stack_var *var, t_commands *cmd)
+void execute_rotate(t_stack_var *var, t_commands *cmd)
 {
-	if (cmd->sa == 1)
-		swap_a(var);
 	if (cmd->ra_or_rra == 0)
 		return ;
     while (cmd->ra_or_rra > 0)
     {
         rotate_a(var);
 		(cmd->ra_or_rra)--;
-		return ;	
     }
-	 while (cmd->ra_or_rra < 0)
+	if (cmd->ra_or_rra == 0)
+		return ;
+	while (cmd->ra_or_rra < 0)
     {
         rev_rotate_a(var);
 		(cmd->ra_or_rra)++;
     }
+}
+
+void execute_swap(t_stack_var *var, t_commands *cmd)
+{
+	if (cmd->sa == 1)
+	{
+		swap_a(var);
+	}
+	set_commands_null(&cmd);
 }
 
 void b_to_a(t_stack_var *var)
@@ -89,73 +103,23 @@ void b_to_a(t_stack_var *var)
     while (var->stack_b)
     {
         pos = find_best_position(var);
-		push_a(var);
+		printf("\n<cur stack a> ");
+		print_value(var->stack_a);
+		printf("\n<stack b: (pos: %d, stack a size: %d) %d>\n", pos, var->stack_a_size, var->stack_b->val);
+		//printf("\n<split point's val and idx> %d, %d\n", var->val, res);
+
 		saves_commands(var, pos, cmd);
-        execute_commands(var, cmd);
+        execute_rotate(var, cmd);
+		push_a(var);
+		execute_swap(var, cmd);
+
     }
     // Final rotation to put the smallest element at the top
-    //final_rotate(var);
-}
-
-/*second last
-void b_to_a(t_stack_var *var)
-{
-    int	pos;
-    int	moves;
-
-	if (var->stack_b == NULL)
-		return ;
-	get_temp_sorted_stack(var->stack_b, &var->temp_sorted_stack_b);
-	get_index(var->stack_b, var->temp_sorted_stack_b);
-	push_a(var);
-
-    while (var->stack_b)
-    {
-		var->stack_b_size = measure_size(var->stack_b);
-        var->stack_a_size = measure_size(var->stack_a);
-        pos = find_best_position(var);
-		moves = calculate_moves(var, pos);
-        execute_moves(var, moves, pos);
-        push_a(var);
-    }
-}*/
-
-/* last ver
-void	b_to_a(t_stack_var *var)
-{
-	int		pos;
-
-	while (var->stack_b)
+	if (is_sorted(var->stack_a) == 0)
 	{
-		var->stack_a_size = measure_size(var->stack_a);
-		get_temp_sorted_stack(var->stack_a, &var->temp_sorted_stack_a);
-		get_index(var->stack_a, var->temp_sorted_stack_a);
-		pos = find_best_position(var);
-		printf("\n pos : %d  cur stack A size:%d", pos, var->stack_a_size);
-		if (handle_exception_case(var, pos) == 1)
-		{
-			printf("exception case\n");
-			pos = 0;
-		}
-		while (pos < 0) //pos < 0 : -1, -2, -3, ...
-		{
-			rev_rotate_a(var);
-			pos++;
-		}
-		while (pos >= 3) //pos < 0 : -1, -2, -3, ...
-		{
-			rotate_a(var);
-			pos--;
-		}
+		final_rotation(var);
 	}
-}*/
-		/*later use
-		while (++pos <= 0) //pos < 0 : -1, -2, -3, ...
-			rev_rotate_a(var);
-		while (--pos >= 2) //pos >= 3 : 3, 4, 5, ...
-			rotate_a(var);
-			*/
-
+}
 
 void	a_to_b(t_stack_var *var)
 {
@@ -209,12 +173,11 @@ void	sort_mid(t_stack_var *var)
 	a_to_b(var);
 	last_node = ft_last_node(var->stack_b);
 	last_node->right = NULL;
-	printf("\nafter a to b: \n");
-	print_stack(var);
-	
 	sort_three(var);
+
+	printf("\nafter a to b & sort three: \n");
+	print_stack(var);
+
 	b_to_a(var);
-
-
 
 }
