@@ -44,31 +44,20 @@ int	find_best_position(t_stack_var *var)
     res = 0;
 	if (is_sorted(var->stack_a) == 0) // 3 cases
 	{
-		printf("\nstack A's ");
-		print_value(var->stack_a);
-		printf("\n \"stack A is not sorted\"\n");
 		if (var->stack_b->idx < head_idx && var->stack_b->idx > tail_idx)
 		{
-			printf("\n CASE (1) tail < nbr < head : pos = %d\n", res);
 			return (res);
 		}
 		else if (var->stack_b->idx < head_idx)
 		{
-
 			res = find_split_start(&cur);
-			printf("\n CASE (2) nbr < head : found split point's val %d prev pos %d\n", cur->val,res);
 		}
 	}
-	//smaller than split point's start
-	printf("\n CASE (0) or (2) LOOP from cur's val to cal position %d \n", cur->val);
-
 	while (cur && (cur->idx < var->stack_b->idx))
 	{
-
 		res++;
 		cur = cur->right; // Move to the next node in stack A
 	}
-	printf("\npos : %d", res);
 	return (res); // Return the position found
 }
 
@@ -83,7 +72,7 @@ void	pick_two_pivots(t_stack_var *var)
 		return ;
 	first_pivot_idx = (var->stack_a_size) / 2 - (var->stack_a_size) / 4;
 	second_pivot_idx = (var->stack_a_size) / 2 + (var->stack_a_size) / 4;
-		printf("stack a size: %d, pivots' idx: %d, %d\n", var->stack_a_size, first_pivot_idx, second_pivot_idx); //out
+		//printf("stack a size: %d, pivots' idx: %d, %d\n", var->stack_a_size, first_pivot_idx, second_pivot_idx); //out
 	found = 0;
 	cur = var->stack_a;
 	while (cur && found != 2)

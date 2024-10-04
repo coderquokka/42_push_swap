@@ -7,10 +7,8 @@ void	final_rotation(t_stack_var *var)
 
 	temp = var->stack_a;
 	split_start_idx = find_split_start(&temp);
-	printf("stack A size is %d\n", var->stack_a_size);
-
-	printf("split start idx is %d\n", split_start_idx);
-	
+	//printf("stack A size is %d\n", var->stack_a_size);
+	//printf("split start idx is %d\n", split_start_idx);
 	if (split_start_idx < (var->stack_a_size / 2) - 1)
 	{
 		while (split_start_idx > 0)
@@ -103,9 +101,9 @@ void b_to_a(t_stack_var *var)
     while (var->stack_b)
     {
         pos = find_best_position(var);
-		printf("\n<cur stack a> ");
-		print_value(var->stack_a);
-		printf("\n<stack b: (pos: %d, stack a size: %d) %d>\n", pos, var->stack_a_size, var->stack_b->val);
+		//printf("\n<cur stack a> ");
+		//print_value(var->stack_a);
+		//printf("\n<stack b: (pos: %d, stack a size: %d) %d>\n", pos, var->stack_a_size, var->stack_b->val);
 		//printf("\n<split point's val and idx> %d, %d\n", var->val, res);
 
 		saves_commands(var, pos, cmd);
@@ -175,8 +173,8 @@ void	sort_mid(t_stack_var *var)
 	last_node->right = NULL;
 	sort_three(var);
 
-	printf("\nafter a to b & sort three: \n");
-	print_stack(var);
+	//printf("\nafter a to b & sort three: \n");
+	//print_stack(var);
 
 	b_to_a(var);
 

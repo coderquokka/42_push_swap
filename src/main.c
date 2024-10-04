@@ -35,12 +35,12 @@ int	main(int ac, char **av)
 		if (have_same_nbr(temp) == 1)
 			return (EXIT_FAILURE);
 		stack_var = setup_stack_var(stack_a);
-		printf("after setup_stack_var\n");
-		print_stack(stack_var);
+		//printf("after setup_stack_var\n");
+		//print_stack(stack_var);
 
 		push_swap(stack_var);
-		printf("after b to a\n");
-		print_stack(stack_var);
+		//printf("after b to a\n");
+		//print_stack(stack_var);
 		/*free
 		free(temp);
 		return (EXIT_SUCCESS);
