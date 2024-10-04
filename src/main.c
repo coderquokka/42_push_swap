@@ -40,7 +40,7 @@ int	main(int ac, char **av)
 		print_stack(stack_var);
 
 		push_swap(stack_var);
-		printf("after a to b\n");
+		printf("after b to a\n");
 		print_stack(stack_var);
 		/*free
 		free(temp);

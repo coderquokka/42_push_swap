@@ -41,6 +41,13 @@ typedef struct s_list_node
 	struct s_list_node		*right;
 }	t_list_node;
 
+typedef struct s_commands
+{
+	int						ra_or_rra; //pos or negative 
+
+	int						sa;
+}	t_commands;
+
 // src/check_arg.c
 int				is_numeric(char **av);
 int				have_same_nbr(t_node *tmp);
