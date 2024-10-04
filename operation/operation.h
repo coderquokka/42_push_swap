@@ -1,6 +1,7 @@
 #ifndef operation_H
 # define operation_H
 #include "../includes/push_swap.h"
+#include "../libft/libft.h"
 
 struct s_stack_var;
 typedef struct s_stack_var t_stack_var;

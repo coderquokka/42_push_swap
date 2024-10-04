@@ -1,60 +1,45 @@
 #include "sort.h"
 
-//o = normal, -1 = error, 1, 2, 3 = case 1, 2, 3
-int	handle_exception_case(t_stack_var *var, int pos)
+int	find_split_point(t_node **node)
 {
-	printf("\n handle exception case:  pos = %d\n", pos);
-	if (var->stack_a_size == pos && pos >= 3) // second last element ii stack A
+	int	res;
+
+	res = 0;
+	while (*node && (*node)->right && (*node)->idx < (*node)->right->idx)
 	{
-		rev_rotate_a(var);
-		push_a(var);
-		rotate_a(var);
-		rotate_a(var);
-		return (1);
+		*node = (*node)->right;
+		res++;
 	}
-	else if (pos >= -1 && pos <= 2)
-	{
-		push_a(var);
-		if (pos == 2)
-			swap_a(var);
-		else if (pos == -1)
-			rev_rotate_a(var);
-		pos = 1;
-		return (1);
-	}
-	else if (pos == var->stack_a_size  + 1)
-	{
-		push_a(var);
-		rev_rotate_a(var);
-		return (1);
-	}
-	return (0);
+	return (res);
 }
 
-int find_best_position(t_stack_var *var)
+int	find_best_position(t_stack_var *var)
 {
-    t_node *cur;
-    int res;
-    int b_val;
+    t_node	*cur;
+	int		head_idx;
+	int		tail_idx;
+    int		res;
 
-    if (!var->stack_b)
-        return (0);
-    b_val = var->stack_b->val; // Get the value of the top element in stack B
     cur = var->stack_a;
-    if (!cur)
-        return (1);
+	head_idx = var->stack_a->idx;
+	tail_idx = ft_last_node(var->stack_a)->idx;
     var->stack_b_size = measure_size(var->stack_b);
     var->stack_a_size = measure_size(var->stack_a);
-    res = 0; // Start from position 0
-    // Find the position in stack A where the value from stack B should be inserted
-    while (cur)
-    {
-        if (cur->val > b_val) // If the current value in A is greater than B's value
-            break; // Found the position to insert
-        res++;
-        cur = cur->right; // Move to the next node in stack A
-    }
-    return (res); // Return the position found
+    res = 0;
+	if (is_sorted(var->stack_a) == 0) // 3 cases
+	{
+		if (var->stack_b->idx < head_idx && var->stack_b->idx > tail_idx)
+			return (res);
+		else if (var->stack_b->idx < head_idx)
+			res = find_split_point(&cur);
+	}
+	cur = cur->right;
+	while (cur && !(cur->idx > var->stack_b->idx))
+	{
+		res++;
+		cur = cur->right; // Move to the next node in stack A
+	}
+	return (res); // Return the position found
 }
 
 void	pick_two_pivots(t_stack_var *var)

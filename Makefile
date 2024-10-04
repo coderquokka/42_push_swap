@@ -11,30 +11,34 @@ INC_DIR = includes
 LIBFT := $(LIBFT_DIR)/libft.a
 
 # Headers
-INC = -I$(INC_DIR) -I$(LIBFT_DIR) -I$(OPERATION_DIR) -I$(SORT_DIR)
+INC := -I$(INC_DIR) -I$(LIBFT_DIR) -I$(OPERATION_DIR) -I$(SORT_DIR)
 
 # Source files
 SRC := $(wildcard $(SRC_DIR)/*.c)
-OPERATION_SRC = $(wildcard $(OPERATION_DIR)/*.c)
-SORT_SRC = $(wildcard $(SORT_DIR)/*.c)
+OPERATION_SRC := $(wildcard $(OPERATION_DIR)/*.c)
+SORT_SRC := $(wildcard $(SORT_DIR)/*.c)
 
 # Objects
-OBJ = $(SRC:.c=.o) $(OPERATION_SRC:.c=.o) $(SORT_SRC:.c=.o)
+OBJ := $(SRC:.c=.o) $(OPERATION_SRC:.c=.o) $(SORT_SRC:.c=.o)
+
+# Libft Objects
+LIBFT_SRC := $(wildcard $(LIBFT_DIR)/*.c)
+LIBFT_OBJ := $(LIBFT_SRC:.c=.o)
 
 # Compiler and Flags
 CC := gcc
-CFLAGS := -Wall -Wextra -Werror -I$(INC_DIR)
+CFLAGS := -Wall -Wextra -Werror $(INC)
 LDFLAGS := -L$(LIBFT_DIR)
 LDLIBS := -lft
 
 # Others
-.PHONY = all clean fclean re libft
+.PHONY: all clean fclean re libft
 
 # default target
 all: libft $(NAME)
 
 # build libft
-$(LIBFT):
+$(LIBFT): $(LIBFT_OBJ)
 	$(MAKE) -C $(LIBFT_DIR)
 
 # Linking
@@ -43,7 +47,7 @@ $(NAME): $(OBJ) $(LIBFT)
 
 # Compiling
 %.o: %.c
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Cleaning
 clean:

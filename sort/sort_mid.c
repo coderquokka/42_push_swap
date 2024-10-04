@@ -79,8 +79,6 @@ void b_to_a(t_stack_var *var)
     while (var->stack_b)
     {
         pos = find_best_position(var);
-		if (handle_exception_case(var, pos) == 1)
-			return ;
         moves = calculate_moves(var, pos);
         execute_moves(var, moves, pos);
         push_a(var);
@@ -155,8 +153,10 @@ void	a_to_b(t_stack_var *var)
 
 	if (var->stack_a == NULL)
 		return ;
-	while (var->stack_a)
+	while (var->stack_a && var->stack_a_size >= 5)
 	{
+		var->stack_a_size = measure_size(var->stack_a);
+		var->stack_b_size = measure_size(var->stack_b);
 		next_node = var->stack_a->right;  // Store next node before modifying stack_a
 		push_b(var);					  // push_b might modify var->stack_a
 		var->stack_a = next_node;		 // Safely move to the next node
@@ -172,14 +172,12 @@ void	a_to_ab(t_stack_var *var)
 	flag = 0;
 	while (var->stack_a)
 	{
+		var->stack_a_size = measure_size(var->stack_a);
+		var->stack_b_size = measure_size(var->stack_b);
 		if (var->stack_a->val > var->second_piv)
-		{
 			rotate_a(var);
-		}
 		else if (var->stack_a->val >= var->first_piv)
-		{
 			push_b(var);
-		}
 		else
 		{
 			push_b(var);
@@ -201,6 +199,7 @@ void	sort_mid(t_stack_var *var)
 	a_to_b(var);
 	last_node = ft_last_node(var->stack_b);
 	last_node->right = NULL;
+	sort_three(var);
 	//b_to_a(var);
 
 
