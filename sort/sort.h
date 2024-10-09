@@ -4,9 +4,15 @@
 #include "../includes/push_swap.h"  // Include any necessary headers
 
 //push swap utils
-int			handle_exception_case(t_stack_var *var, int pos);
-int			find_exception_case(t_stack_var *var);
-int			find_best_position(t_stack_var *var);
+t_node	*ft_second_last_node(t_node *node, t_node *prev_tail);
+int		find_split_start(t_node **node);
+void	set_commands_default(t_node *node);
+void	rotation_single(t_stack_var *var, t_node *b_cur);
+void	rotation_double(t_stack_var *var, t_node *b_cur);
+void	execute_commands(t_stack_var *var);
+void	save_commands(t_stack_var *var, int a_pos, int b_pos);
+int		save_a_pos(t_stack_var *var);
+void	pick_two_pivots(t_stack_var *var);
 
 //push swap
 void		b_to_a(t_stack_var *var);

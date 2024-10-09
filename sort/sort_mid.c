@@ -1,122 +1,65 @@
 #include "sort.h"
 
-void	final_rotation(t_stack_var *var)
-{
-	int		split_start_idx;
-	t_node	*temp;
 
-	temp = var->stack_a;
-	split_start_idx = find_split_start(&temp);
-	//printf("stack A size is %d\n", var->stack_a_size);
-	//printf("split start idx is %d\n", split_start_idx);
-	if (split_start_idx < (var->stack_a_size / 2) - 1)
-	{
-		while (split_start_idx > 0)
-		{
-			rotate_a(var);
-			split_start_idx--;
-		}
-	}
-	else
-	{
-		split_start_idx = var->stack_a_size - split_start_idx + 1;
-		while (split_start_idx > 0)
-		{
-			rev_rotate_a(var);
-			split_start_idx--;
-		}
-	}
-}
+/*
+b to a scenario
+1) pa
+2) sb -> pa
 
-void	set_commands_null(t_commands **cmd)
-{
-	(*cmd)->ra_or_rra = 0;
-	(*cmd)->sa = 0;
-}
 
-// Helper function to calculate the number of moves
-void	saves_commands(t_stack_var *var, int pos, t_commands *cmd)
-{
-	int				stack_a_size;
+3) ra * n times -> pa -> (rra) * m times
 
-	stack_a_size = measure_size(var->stack_a);
-	set_commands_null(&cmd);
-	if (pos == 0)
-		return ;
-	else if (pos == 1)
-	{
-		cmd->sa = 1;
-	}
-	else if (pos <= stack_a_size / 2)
-	{
-		cmd->ra_or_rra = pos;
-	}
-	else
-	{
-		cmd->ra_or_rra = -1 * (stack_a_size - pos);
-	}
-	return ;
-}
+stack a		| stack b 
+1 2 3 5 6 	|   4
+-> ra * 3
+5 6 1 2 3   |   4
+-> pa
+4 5 6 1 2 3 | 
+-> rra * 3
+1 2 3 4 5 6
 
-// Helper function to execute the moves
-void execute_rotate(t_stack_var *var, t_commands *cmd)
-{
-	if (cmd->ra_or_rra == 0)
-		return ;
-    while (cmd->ra_or_rra > 0)
-    {
-        rotate_a(var);
-		(cmd->ra_or_rra)--;
-    }
-	if (cmd->ra_or_rra == 0)
-		return ;
-	while (cmd->ra_or_rra < 0)
-    {
-        rev_rotate_a(var);
-		(cmd->ra_or_rra)++;
-    }
-}
+4) rra * n times -> pa -> ra * m times
 
-void execute_swap(t_stack_var *var, t_commands *cmd)
-{
-	if (cmd->sa == 1)
-	{
-		swap_a(var);
-	}
-	set_commands_null(&cmd);
-}
+stack a		| stack b 
+1 2 3 5 6 	|   4
+-> rra * 2
+
+5 6 1 2 3   |   4
+-> pa
+
+4 5 6 1 2 3 | 
+-> rra * 3
+1 2 3 4 5 6
+ */
 
 void b_to_a(t_stack_var *var)
 {
-    int 		pos;
-	t_commands	*cmd;
+    int 		a_pos;
+	int			b_pos;
+	int			i;
 
-    if((var->stack_b) == NULL)
+	if (!var->stack_b)
 	{
-        return ;
-	}
-	cmd = malloc(sizeof(t_commands));
-	if (!cmd)
 		return ;
-    while (var->stack_b)
-    {
-        pos = find_best_position(var);
-		//printf("\n<cur stack a> ");
-		//print_value(var->stack_a);
-		//printf("\n<stack b: (pos: %d, stack a size: %d) %d>\n", pos, var->stack_a_size, var->stack_b->val);
-		//printf("\n<split point's val and idx> %d, %d\n", var->val, res);
-
-		saves_commands(var, pos, cmd);
-        execute_rotate(var, cmd);
-		push_a(var);
-		execute_swap(var, cmd);
-
-    }
-    // Final rotation to put the smallest element at the top
-	if (is_sorted(var->stack_a) == 0)
-	{
-		final_rotation(var);
 	}
+	i = 0;
+	while (var->stack_b)
+	{
+		a_pos = save_a_pos(var);
+		b_pos = i++;
+		var->stack_b_size = measure_size(var->stack_b);
+		var->stack_a_size = measure_size(var->stack_a);
+		save_commands(var, a_pos, b_pos);
+		execute_commands(var);
+		var->stack_b = var->stack_b->right; //maybe wrong
+		if (!var->stack_b)
+			return ;
+	}
+	// Final rotation to put the smallest element at the top
+	// if (is_sorted(var->stack_a) == 0)
+	// {
+	// 	final_rotation(var);
+	// }
 }
 
 void	a_to_b(t_stack_var *var)

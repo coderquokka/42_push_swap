@@ -10,10 +10,11 @@
 // STACK : two way linked-list
 typedef struct s_node
 {
-	struct s_node	*left;
-	int				val;
-	int				idx;
-	struct s_node	*right;
+	struct s_node		*left;
+	int					val;
+	int					idx;
+	struct s_node		*right;
+	struct s_commands	*cmd;
 }	t_node;
 
 // STACK VARIABLE
@@ -43,9 +44,14 @@ typedef struct s_list_node
 
 typedef struct s_commands
 {
-	int						ra_or_rra; //pos or negative 
-
-	int						sa;
+	int				pa;
+	//int				sa;
+	//int				sb;
+	int				ra;
+	int				rb;
+	int				rra;
+	int				rrb;
+	int				sum;
 }	t_commands;
 
 // src/check_arg.c
@@ -66,7 +72,7 @@ t_node			*ft_second_last_node(t_node *node, t_node *prev_tail);
 t_node			*ft_last_node(t_node *node);
 void			print_value(t_node *node);
 void			free_node(t_node *stack);
-int			is_sorted(t_node *stack);
+int				is_sorted(t_node *stack);
 
 // src/stack_libft2.c
 void			cp_one_node(t_node *dst, t_node *src);
@@ -76,9 +82,7 @@ void			swap_nodes(t_node *a, t_node *b);
 
 // src/stack_libft3.c
 int			measure_size(t_node *cur);
-
 void	sort_small(t_stack_var *var);
-
 void	sort_mid(t_stack_var *var);
 
 
