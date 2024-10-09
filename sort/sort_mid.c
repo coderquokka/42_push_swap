@@ -32,18 +32,21 @@ stack a		| stack b
 1 2 3 4 5 6
  */
 
+/*
 void b_to_a(t_stack_var *var)
 {
     int 		a_pos;
 	int			b_pos;
 	int			i;
+	t_stack_var		*cur;
 
 	if (!var->stack_b)
 	{
 		return ;
 	}
 	i = 0;
-	while (var->stack_b)
+	cur = var;
+	while (cur)
 	{
 		a_pos = save_a_pos(var);
 		b_pos = i++;
@@ -51,7 +54,7 @@ void b_to_a(t_stack_var *var)
 		var->stack_a_size = measure_size(var->stack_a);
 		save_commands(var, a_pos, b_pos);
 		execute_commands(var);
-		var->stack_b = var->stack_b->right; //maybe wrong
+		//var->stack_b = var->stack_b->right; //maybe wrong
 		if (!var->stack_b)
 			return ;
 	}
@@ -60,6 +63,62 @@ void b_to_a(t_stack_var *var)
 	// {
 	// 	final_rotation(var);
 	// }
+}*/
+void b_to_a(t_stack_var *var)
+{
+    int 		a_pos;
+	int			b_pos;
+	int			i;
+	int			b_size;
+	t_stack_var		*cur;
+
+	if (!var->stack_b)
+	{
+		return ;
+	}
+	i = 0;
+	cur = var;
+	//save commands
+	b_size = measure_size(cur->stack_b);
+	var->stack_a_size = measure_size(cur->stack_a);
+	while (cur->stack_b)
+	{
+		a_pos = save_a_pos(cur);
+		b_pos = i++;
+		save_commands(cur, b_size, a_pos, b_pos);
+		if (cur->stack_b->right)
+			cur->stack_b = cur->stack_b->right;
+		else
+			break ;
+	}
+	//prints infos
+	execute_commands(cur);
+
+/*
+	i = 1;
+	while (cur->stack_b)
+	{
+		execute_commands(cur);
+		if (cur->stack_b->right)
+			cur->stack_b = cur->stack_b->right;
+		else
+			break ; 
+		printf("%d time\n", i++);
+	}*/
+		/*
+		if (cur->stack_b->right)
+			cur->stack_b->right;
+		else
+			break ;
+		
+		//var->stack_b = var->stack_b->right; //maybe wrong
+	}
+	// Final rotation to put the smallest element at the top
+	// if (is_sorted(var->stack_a) == 0)
+	// {
+	// 	final_rotation(var);
+	// }
+	*/
 }
 
 void	a_to_b(t_stack_var *var)

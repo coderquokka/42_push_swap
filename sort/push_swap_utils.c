@@ -63,43 +63,44 @@ idx    0 1 2 3 4 5 6
 */
 void	rotation_single(t_stack_var *var, t_node *b_cur)
 {
-	if (b_cur->cmd->sum == 0)
-		return ;
-	if (b_cur->cmd->ra > 0)
+	while (b_cur->cmd->sum > 1)
 	{
-		rotate_a(var);
-		b_cur->cmd->ra = b_cur->cmd->ra - 1;
+		if (b_cur->cmd->ra > 1)
+		{
+			rotate_a(var);
+			b_cur->cmd->ra = b_cur->cmd->ra - 1;
+		}
+		if (b_cur->cmd->rb > 1)
+		{
+			rotate_b(var);
+			b_cur->cmd->rb = b_cur->cmd->rb - 1;
+		}
+		if (b_cur->cmd->rra > 1)
+		{
+			rev_rotate_a(var);
+			b_cur->cmd->rra = b_cur->cmd->rra - 1;
+		}
+		if (b_cur->cmd->rb > 1)
+		{
+			rev_rotate_b(var);
+			b_cur->cmd->rrb = b_cur->cmd->rrb - 1;
+		}
+		b_cur->cmd->sum = b_cur->cmd->sum - 1;
 	}
-	if (b_cur->cmd->rb > 0)
-	{
-		rotate_b(var);
-		b_cur->cmd->rb = b_cur->cmd->rb - 1;
-	}
-	if (b_cur->cmd->rra > 0)
-	{
-		rev_rotate_a(var);
-		b_cur->cmd->rra = b_cur->cmd->rra - 1;
-	}
-	if (b_cur->cmd->rb > 0)
-	{
-		rev_rotate_b(var);
-		b_cur->cmd->rrb = b_cur->cmd->rrb - 1;
-	}
-	b_cur->cmd->sum = b_cur->cmd->sum - 1;
 }
 
 void	rotation_double(t_stack_var *var, t_node *b_cur)
 {
-	if (b_cur->cmd->sum == 0)
+	if (b_cur->cmd->sum <= 2)
 		return ;
-	while (b_cur->cmd->ra > 0 && b_cur->cmd->rb > 0)
+	while (b_cur->cmd->ra > 1 && b_cur->cmd->rb > 1)
 	{
 		rotate_ab(var);
 		b_cur->cmd->ra = b_cur->cmd->ra - 1;
 		b_cur->cmd->rb = b_cur->cmd->rb - 1;
 		b_cur->cmd->sum = b_cur->cmd->sum - 2;
 	}
-	while (b_cur->cmd->rra > 0 && b_cur->cmd->rrb > 0)
+	while (b_cur->cmd->rra > 1 && b_cur->cmd->rrb > 1)
 	{
 		rev_rotate_ab(var);
 		b_cur->cmd->rra = b_cur->cmd->rra - 1;
@@ -120,6 +121,8 @@ void	execute_commands(t_stack_var *var)
 	//1) find min_move
 	min_move = b_cur->cmd->sum;
 	b_min_move = b_cur;
+				printf("before execution\n");
+
 	while (b_cur != NULL && b_cur->right != NULL)
 	{
 		if (b_cur->right->cmd && min_move > b_cur->right->cmd->sum)
@@ -127,23 +130,36 @@ void	execute_commands(t_stack_var *var)
 			min_move = b_cur->right->cmd->sum;
 			b_min_move = b_cur->right;
 		}
-				write(1, "E", 1);
 		b_cur = b_cur->right;
+		printf("hi");
 	}
+			printf("after execution\n");
+
+	printf("b idx: %d, op sum: %d\n", b_min_move->idx, b_min_move->cmd->sum);
+	printf("pa:%d\n", b_min_move->cmd->pa);
+	printf("ra:%d\n", b_min_move->cmd->ra);
+	printf("rb:%d\n", b_min_move->cmd->rb);
+	printf("rra:%d\n", b_min_move->cmd->rra);
+	printf("rrb:%d\n", b_min_move->cmd->rrb);
+			printf("AFTER execution\n");
+
+	/*
 	//2) execute
-	while (b_min_move->cmd->sum > 1)
-	{
+	//while (b_min_move->cmd->sum > 1)
+	//{
 		rotation_double(var, b_min_move);
 		rotation_single(var, b_min_move);
-						write(1, "X", 1);
-
-	}
-	if (b_min_move->cmd->sum-- == 1)
+	//}
+	//if (b_min_move->cmd->sum == 1)
+	//{
 		push_a(var);
+		//b_min_move->cmd->sum == 0;
+	//}
+	*/
 }
 
 
-void	save_commands(t_stack_var *var, int a_pos, int b_pos)
+void	save_commands(t_stack_var *var, int b_size, int a_pos, int b_pos)
 {
 	t_node	*cur_b;
 
@@ -152,19 +168,18 @@ void	save_commands(t_stack_var *var, int a_pos, int b_pos)
 	set_commands_default(cur_b);
 	// calculate "rb" and "rrb"
 
-	if (b_pos <= var->stack_b_size / 2)
+	//printf("SIZE : %d, %d", var->stack_a_size, var->stack_b_size);
+	if (b_pos <= b_size / 2)
 		cur_b->cmd->rb = b_pos;
 	else
-		cur_b->cmd->rrb = var->stack_b_size - b_pos;
-
+		cur_b->cmd->rrb = b_size - b_pos;
 	// calculate "ra" and "rra"
 	if (a_pos <= var->stack_a_size / 2)
 		cur_b->cmd->ra = a_pos;
 	else
 		cur_b->cmd->rra = var->stack_a_size - a_pos;
-
 	//sum
-	cur_b->cmd->sum = cur_b->cmd->rb + cur_b->cmd->rrb + cur_b->cmd->ra + cur_b->cmd->rra;
+	cur_b->cmd->sum = cur_b->cmd->rb + cur_b->cmd->rrb + cur_b->cmd->ra + cur_b->cmd->rra + 1;
 }
 
 

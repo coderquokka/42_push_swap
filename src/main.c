@@ -47,7 +47,7 @@ int	main(int ac, char **av)
 		*/
 		if (is_sorted(stack_var->stack_a) == 1)
 		{
-			printf("finally is sorted! ");
+			printf("finally is sorted!");
 		}
 	}
 }
