@@ -46,70 +46,55 @@ void	set_commands_default(t_node *node)
 	node->cmd = cmd;
 }
 
+void	rotation_single(t_stack_var *var, t_node *b_cur)
+{
+	while (b_cur->cmd->sum > 1)
+	{
+		if (b_cur->cmd->ra > 1)
+		{
+			rotate_a(var);
+			b_cur->cmd->ra = b_cur->cmd->ra - 1;
+		}
+		if (b_cur->cmd->rb > 1)
+		{
+			rotate_b(var);
+			b_cur->cmd->rb = b_cur->cmd->rb - 1;
+		}
+		if (b_cur->cmd->rra > 1)
+		{
+			rev_rotate_a(var);
+			b_cur->cmd->rra = b_cur->cmd->rra - 1;
+		}
+		if (b_cur->cmd->rb > 1)
+		{
+			rev_rotate_b(var);
+			b_cur->cmd->rrb = b_cur->cmd->rrb - 1;
+		}
+		b_cur->cmd->sum = b_cur->cmd->sum - 1;
+	}
+}
+
+void	rotation_double(t_stack_var *var, t_node *b_cur)
+{
+	if (b_cur->cmd->sum <= 2)
+		return ;
+	while (b_cur->cmd->ra > 1 && b_cur->cmd->rb > 1)
+	{
+		rotate_ab(var);
+		b_cur->cmd->ra = b_cur->cmd->ra - 1;
+		b_cur->cmd->rb = b_cur->cmd->rb - 1;
+		b_cur->cmd->sum = b_cur->cmd->sum - 2;
+	}
+	while (b_cur->cmd->rra > 1 && b_cur->cmd->rrb > 1)
+	{
+		rev_rotate_ab(var);
+		b_cur->cmd->rra = b_cur->cmd->rra - 1;
+		b_cur->cmd->rrb = b_cur->cmd->rrb - 1;
+		b_cur->cmd->sum = b_cur->cmd->sum - 2;
+	}
+}
 
 
-/* size = 8 , size / 2 = 4
-
-idx    0 1 2 3 4 5 6 7
-     : 1 2 3 4 5 6 7 8
-
-
- size = 7 , size / 2 = 3.5
-
-idx    0 1 2 3 4 5 6
-     : 1 2 3 4 5 6 7
-
-
-*/
-// void	rotation_single(t_stack_var *var, t_node *b_cur)
-// {
-// 	while (b_cur->cmd->sum > 1)
-// 	{
-// 		if (b_cur->cmd->ra > 1)
-// 		{
-// 			rotate_a(var);
-// 			b_cur->cmd->ra = b_cur->cmd->ra - 1;
-// 		}
-// 		if (b_cur->cmd->rb > 1)
-// 		{
-// 			rotate_b(var);
-// 			b_cur->cmd->rb = b_cur->cmd->rb - 1;
-// 		}
-// 		if (b_cur->cmd->rra > 1)
-// 		{
-// 			rev_rotate_a(var);
-// 			b_cur->cmd->rra = b_cur->cmd->rra - 1;
-// 		}
-// 		if (b_cur->cmd->rb > 1)
-// 		{
-// 			rev_rotate_b(var);
-// 			b_cur->cmd->rrb = b_cur->cmd->rrb - 1;
-// 		}
-// 		b_cur->cmd->sum = b_cur->cmd->sum - 1;
-// 	}
-// }
-
-// void	rotation_double(t_stack_var *var, t_node *b_cur)
-// {
-// 	if (b_cur->cmd->sum <= 2)
-// 		return ;
-// 	while (b_cur->cmd->ra > 1 && b_cur->cmd->rb > 1)
-// 	{
-// 		rotate_ab(var);
-// 		b_cur->cmd->ra = b_cur->cmd->ra - 1;
-// 		b_cur->cmd->rb = b_cur->cmd->rb - 1;
-// 		b_cur->cmd->sum = b_cur->cmd->sum - 2;
-// 	}
-// 	while (b_cur->cmd->rra > 1 && b_cur->cmd->rrb > 1)
-// 	{
-// 		rev_rotate_ab(var);
-// 		b_cur->cmd->rra = b_cur->cmd->rra - 1;
-// 		b_cur->cmd->rrb = b_cur->cmd->rrb - 1;
-// 		b_cur->cmd->sum = b_cur->cmd->sum - 2;
-// 	}
-// }
-
-/*
 void	execute_commands(t_stack_var *var)
 {
 	int		min_move;
@@ -122,8 +107,6 @@ void	execute_commands(t_stack_var *var)
 	//1) find min_move
 	min_move = b_cur->cmd->sum;
 	b_min_move = b_cur;
-				printf("before execution\n");
-
 	while (b_cur != NULL && b_cur->right != NULL)
 	{
 		if (b_cur->right->cmd && min_move > b_cur->right->cmd->sum)
@@ -133,21 +116,19 @@ void	execute_commands(t_stack_var *var)
 		}
 		b_cur = b_cur->right;
 	}
-	printf("after execution\n");
 
 	//2) execute
-	//while (b_min_move->cmd->sum > 1)
-	//{
+	while (b_min_move->cmd->sum > 1)
+	{
 		rotation_double(var, b_min_move);
 		rotation_single(var, b_min_move);
-	//}
-	//if (b_min_move->cmd->sum == 1)
-	//{
+	}
+	if (b_min_move->cmd->sum == 1)
+	{
 		push_a(var);
-		//b_min_move->cmd->sum == 0;
-	//}
+	}
 	
-}*/
+}
 
 
 void	save_commands(t_stack_var *var)
@@ -208,37 +189,32 @@ void	save_commands(t_stack_var *var, int b_size, int a_pos, int b_pos)
 */
 
 
-
 int		save_a_pos(t_node *stack_a, int b_idx)
 {
     t_node	*a_cur;
-	int		diff[2];
-	int		idx[2];
+	int		res;
+	int		diff;
 
 	a_cur = stack_a;
-	idx[0] = 0;
-	diff[0] = a_cur->idx - b_idx;
+	res = 0;
+	diff = INT_MAX; // Initialize to maximum integer value
 	while (a_cur)
 	{
-		if ((a_cur->right->idx - b_idx) < diff[0] && a_cur->idx < a_cur->right->idx)
+		if (a_cur->idx < b_idx && (b_idx - a_cur->idx) < diff)
 		{
-			diff[0] = a_cur->right->idx - b_idx;
-			idx[0]++;
+			diff = b_idx - a_cur->idx;
+			res++;
 		}
-		else if ((a_cur->right->idx - b_idx) < diff[0] && a_cur->idx > a_cur->right->idx)
+		else if (a_cur->idx > b_idx && (a_cur->idx - b_idx) < diff)
 		{
-			diff[0] = a_cur->right->idx - b_idx;
-			idx[1] = idx[0] + 1;
-		}
-		if ((a_cur->right->idx - b_idx) < diff[0] && a_cur->idx < a_cur->right->idx)
-		{
-			diff[1] = a_cur->right->idx - b_idx;
-			idx[1]++;
+			diff = a_cur->idx - b_idx;
+			res++;
 		}
 		a_cur = a_cur->right;
 	}
 	return (res);
 }
+
 /*
 int		save_index_stack_a(t_stack_var *var)
 {

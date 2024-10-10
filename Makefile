@@ -27,8 +27,8 @@ LIBFT_OBJ := $(LIBFT_SRC:.c=.o)
 
 # Compiler and Flags
 CC := gcc
-CFLAGS := -Wall -Wextra -Werror $(INC)
-LDFLAGS := -L$(LIBFT_DIR)
+CFLAGS := -Wall -Wextra -Werror -arch arm64 $(INC) #rm
+LDFLAGS := -L$(LIBFT_DIR) -arch arm64 #remove in ubuntu
 LDLIBS := -lft
 
 # Others

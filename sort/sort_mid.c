@@ -75,29 +75,28 @@ void b_to_a(t_stack_var *var)
 	cur = var;
 	//save commands
 
-	//while (cur->stack_b)
-	//{
+	while (cur->stack_b)
+	{
 		save_commands(cur);
 
-		while (cur->stack_b)
-		{
-			printf("b val: %d, b idx: %d, op sum: %d\n", cur->stack_b->val, cur->stack_b->idx, cur->stack_b->cmd->sum);
-			printf("pa:%d\n", cur->stack_b->cmd->pa);
-			printf("ra:%d\n", cur->stack_b->cmd->ra);
-			printf("rb:%d\n", cur->stack_b->cmd->rb);
-			printf("rra:%d\n", cur->stack_b->cmd->rra);
-			printf("rrb:%d\n", cur->stack_b->cmd->rrb);
-			cur->stack_b = cur->stack_b->right;
-		}
-		//execute_commands(cur);
+		// while (cur->stack_b)
+		// {
+		// 	printf("b val: %d, b idx: %d, op sum: %d\n", cur->stack_b->val, cur->stack_b->idx, cur->stack_b->cmd->sum);
+		// 	printf("pa:%d\n", cur->stack_b->cmd->pa);
+		// 	printf("ra:%d\n", cur->stack_b->cmd->ra);
+		// 	printf("rb:%d\n", cur->stack_b->cmd->rb);
+		// 	printf("rra:%d\n", cur->stack_b->cmd->rra);
+		// 	printf("rrb:%d\n", cur->stack_b->cmd->rrb);
+		// 	cur->stack_b = cur->stack_b->right;
+		// }
+		execute_commands(cur);
 		//cur = var;
 		//if (cur->stack_b->right)
 		//	cur->stack_b = cur->stack_b->right;
 		//else
 		//	break ;
-	//}
-	//prints infos
-	//execute_commands(cur);
+	}
+
 
 /*
 	i = 1;
