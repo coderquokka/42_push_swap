@@ -61,54 +61,55 @@ idx    0 1 2 3 4 5 6
 
 
 */
-void	rotation_single(t_stack_var *var, t_node *b_cur)
-{
-	while (b_cur->cmd->sum > 1)
-	{
-		if (b_cur->cmd->ra > 1)
-		{
-			rotate_a(var);
-			b_cur->cmd->ra = b_cur->cmd->ra - 1;
-		}
-		if (b_cur->cmd->rb > 1)
-		{
-			rotate_b(var);
-			b_cur->cmd->rb = b_cur->cmd->rb - 1;
-		}
-		if (b_cur->cmd->rra > 1)
-		{
-			rev_rotate_a(var);
-			b_cur->cmd->rra = b_cur->cmd->rra - 1;
-		}
-		if (b_cur->cmd->rb > 1)
-		{
-			rev_rotate_b(var);
-			b_cur->cmd->rrb = b_cur->cmd->rrb - 1;
-		}
-		b_cur->cmd->sum = b_cur->cmd->sum - 1;
-	}
-}
+// void	rotation_single(t_stack_var *var, t_node *b_cur)
+// {
+// 	while (b_cur->cmd->sum > 1)
+// 	{
+// 		if (b_cur->cmd->ra > 1)
+// 		{
+// 			rotate_a(var);
+// 			b_cur->cmd->ra = b_cur->cmd->ra - 1;
+// 		}
+// 		if (b_cur->cmd->rb > 1)
+// 		{
+// 			rotate_b(var);
+// 			b_cur->cmd->rb = b_cur->cmd->rb - 1;
+// 		}
+// 		if (b_cur->cmd->rra > 1)
+// 		{
+// 			rev_rotate_a(var);
+// 			b_cur->cmd->rra = b_cur->cmd->rra - 1;
+// 		}
+// 		if (b_cur->cmd->rb > 1)
+// 		{
+// 			rev_rotate_b(var);
+// 			b_cur->cmd->rrb = b_cur->cmd->rrb - 1;
+// 		}
+// 		b_cur->cmd->sum = b_cur->cmd->sum - 1;
+// 	}
+// }
 
-void	rotation_double(t_stack_var *var, t_node *b_cur)
-{
-	if (b_cur->cmd->sum <= 2)
-		return ;
-	while (b_cur->cmd->ra > 1 && b_cur->cmd->rb > 1)
-	{
-		rotate_ab(var);
-		b_cur->cmd->ra = b_cur->cmd->ra - 1;
-		b_cur->cmd->rb = b_cur->cmd->rb - 1;
-		b_cur->cmd->sum = b_cur->cmd->sum - 2;
-	}
-	while (b_cur->cmd->rra > 1 && b_cur->cmd->rrb > 1)
-	{
-		rev_rotate_ab(var);
-		b_cur->cmd->rra = b_cur->cmd->rra - 1;
-		b_cur->cmd->rrb = b_cur->cmd->rrb - 1;
-		b_cur->cmd->sum = b_cur->cmd->sum - 2;
-	}
-}
+// void	rotation_double(t_stack_var *var, t_node *b_cur)
+// {
+// 	if (b_cur->cmd->sum <= 2)
+// 		return ;
+// 	while (b_cur->cmd->ra > 1 && b_cur->cmd->rb > 1)
+// 	{
+// 		rotate_ab(var);
+// 		b_cur->cmd->ra = b_cur->cmd->ra - 1;
+// 		b_cur->cmd->rb = b_cur->cmd->rb - 1;
+// 		b_cur->cmd->sum = b_cur->cmd->sum - 2;
+// 	}
+// 	while (b_cur->cmd->rra > 1 && b_cur->cmd->rrb > 1)
+// 	{
+// 		rev_rotate_ab(var);
+// 		b_cur->cmd->rra = b_cur->cmd->rra - 1;
+// 		b_cur->cmd->rrb = b_cur->cmd->rrb - 1;
+// 		b_cur->cmd->sum = b_cur->cmd->sum - 2;
+// 	}
+// }
 
+/*
 void	execute_commands(t_stack_var *var)
 {
 	int		min_move;
@@ -131,19 +132,9 @@ void	execute_commands(t_stack_var *var)
 			b_min_move = b_cur->right;
 		}
 		b_cur = b_cur->right;
-		printf("hi");
 	}
-			printf("after execution\n");
+	printf("after execution\n");
 
-	printf("b idx: %d, op sum: %d\n", b_min_move->idx, b_min_move->cmd->sum);
-	printf("pa:%d\n", b_min_move->cmd->pa);
-	printf("ra:%d\n", b_min_move->cmd->ra);
-	printf("rb:%d\n", b_min_move->cmd->rb);
-	printf("rra:%d\n", b_min_move->cmd->rra);
-	printf("rrb:%d\n", b_min_move->cmd->rrb);
-			printf("AFTER execution\n");
-
-	/*
 	//2) execute
 	//while (b_min_move->cmd->sum > 1)
 	//{
@@ -155,10 +146,43 @@ void	execute_commands(t_stack_var *var)
 		push_a(var);
 		//b_min_move->cmd->sum == 0;
 	//}
-	*/
+	
+}*/
+
+
+void	save_commands(t_stack_var *var)
+{
+	t_node	*cur_b;
+	int		a_pos;
+	int		b_pos;
+	int		b_size;
+	int		a_size;
+
+	cur_b = var->stack_b;
+	b_size = measure_size(cur_b);
+	a_size = measure_size(var->stack_a);
+	b_pos = 0;
+	printf("a size: %d, b size: %d\n", a_size, b_size);
+	while (cur_b)
+	{
+		print_stack(var);
+		a_pos = save_a_pos(var->stack_a, cur_b->idx);
+		set_commands_default(cur_b);
+		if (b_pos <= (b_size / 2))
+			cur_b->cmd->rb = b_pos;
+		else
+			cur_b->cmd->rrb = b_size - b_pos;
+		if (a_pos <= (a_size / 2))
+			cur_b->cmd->ra = a_pos;
+		else
+			cur_b->cmd->rra = a_size - a_pos;
+		cur_b->cmd->sum = cur_b->cmd->rb + cur_b->cmd->rrb + cur_b->cmd->ra + cur_b->cmd->rra + 1;
+		b_pos++;
+		cur_b = cur_b->right;
+	}
 }
 
-
+/*
 void	save_commands(t_stack_var *var, int b_size, int a_pos, int b_pos)
 {
 	t_node	*cur_b;
@@ -181,35 +205,39 @@ void	save_commands(t_stack_var *var, int b_size, int a_pos, int b_pos)
 	//sum
 	cur_b->cmd->sum = cur_b->cmd->rb + cur_b->cmd->rrb + cur_b->cmd->ra + cur_b->cmd->rra + 1;
 }
+*/
 
 
 
-int		save_a_pos(t_stack_var *var)
+int		save_a_pos(t_node *stack_a, int b_idx)
 {
-    t_node	*cur;
-	int		head_idx;
-	int		tail_idx;
-    int		res;
+    t_node	*a_cur;
+	int		diff[2];
+	int		idx[2];
 
-    cur = var->stack_a;
-	head_idx = var->stack_a->idx;
-	tail_idx = ft_last_node(var->stack_a)->idx;
-    res = 0;
-	if (is_sorted(var->stack_a) == 0) // 3 cases
+	a_cur = stack_a;
+	idx[0] = 0;
+	diff[0] = a_cur->idx - b_idx;
+	while (a_cur)
 	{
-		if (var->stack_b->idx < head_idx && var->stack_b->idx > tail_idx)
-			return (res);
-		else if (var->stack_b->idx < head_idx)
+		if ((a_cur->right->idx - b_idx) < diff[0] && a_cur->idx < a_cur->right->idx)
 		{
-			res = find_split_start(&cur);
+			diff[0] = a_cur->right->idx - b_idx;
+			idx[0]++;
 		}
+		else if ((a_cur->right->idx - b_idx) < diff[0] && a_cur->idx > a_cur->right->idx)
+		{
+			diff[0] = a_cur->right->idx - b_idx;
+			idx[1] = idx[0] + 1;
+		}
+		if ((a_cur->right->idx - b_idx) < diff[0] && a_cur->idx < a_cur->right->idx)
+		{
+			diff[1] = a_cur->right->idx - b_idx;
+			idx[1]++;
+		}
+		a_cur = a_cur->right;
 	}
-	while (cur && (cur->idx < var->stack_b->idx))
-	{
-		res++;
-		cur = cur->right; // Move to the next node in stack A
-	}
-	return (res); // Return the position found
+	return (res);
 }
 /*
 int		save_index_stack_a(t_stack_var *var)

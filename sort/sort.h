@@ -10,8 +10,8 @@ void	set_commands_default(t_node *node);
 void	rotation_single(t_stack_var *var, t_node *b_cur);
 void	rotation_double(t_stack_var *var, t_node *b_cur);
 void	execute_commands(t_stack_var *var);
-void	save_commands(t_stack_var *var, int b_size, int a_pos, int b_pos);
-int		save_a_pos(t_stack_var *var);
+void	save_commands(t_stack_var *var);
+int		save_a_pos(t_node *stack_a, int b_idx);
 void	pick_two_pivots(t_stack_var *var);
 
 //push swap

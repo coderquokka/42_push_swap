@@ -66,33 +66,38 @@ void b_to_a(t_stack_var *var)
 }*/
 void b_to_a(t_stack_var *var)
 {
-    int 		a_pos;
-	int			b_pos;
-	int			i;
-	int			b_size;
 	t_stack_var		*cur;
 
 	if (!var->stack_b)
 	{
 		return ;
 	}
-	i = 0;
 	cur = var;
 	//save commands
-	b_size = measure_size(cur->stack_b);
-	var->stack_a_size = measure_size(cur->stack_a);
-	while (cur->stack_b)
-	{
-		a_pos = save_a_pos(cur);
-		b_pos = i++;
-		save_commands(cur, b_size, a_pos, b_pos);
-		if (cur->stack_b->right)
+
+	//while (cur->stack_b)
+	//{
+		save_commands(cur);
+
+		while (cur->stack_b)
+		{
+			printf("b val: %d, b idx: %d, op sum: %d\n", cur->stack_b->val, cur->stack_b->idx, cur->stack_b->cmd->sum);
+			printf("pa:%d\n", cur->stack_b->cmd->pa);
+			printf("ra:%d\n", cur->stack_b->cmd->ra);
+			printf("rb:%d\n", cur->stack_b->cmd->rb);
+			printf("rra:%d\n", cur->stack_b->cmd->rra);
+			printf("rrb:%d\n", cur->stack_b->cmd->rrb);
 			cur->stack_b = cur->stack_b->right;
-		else
-			break ;
-	}
+		}
+		//execute_commands(cur);
+		//cur = var;
+		//if (cur->stack_b->right)
+		//	cur->stack_b = cur->stack_b->right;
+		//else
+		//	break ;
+	//}
 	//prints infos
-	execute_commands(cur);
+	//execute_commands(cur);
 
 /*
 	i = 1;
