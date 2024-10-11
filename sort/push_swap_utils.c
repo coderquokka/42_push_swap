@@ -48,29 +48,32 @@ void	set_commands_default(t_node *node)
 
 void	rotation_single(t_stack_var *var, t_node *b_cur)
 {
-	while (b_cur->cmd->sum > 1)
+	while (b_cur->cmd->sum >= 2)
 	{
-		if (b_cur->cmd->ra > 1)
+		if (b_cur->cmd->ra >= 1)
 		{
 			rotate_a(var);
 			b_cur->cmd->ra = b_cur->cmd->ra - 1;
+					b_cur->cmd->sum = b_cur->cmd->sum - 1;
 		}
-		if (b_cur->cmd->rb > 1)
+		if (b_cur->cmd->rb >= 1)
 		{
 			rotate_b(var);
 			b_cur->cmd->rb = b_cur->cmd->rb - 1;
+			b_cur->cmd->sum = b_cur->cmd->sum - 1;
 		}
-		if (b_cur->cmd->rra > 1)
+		if (b_cur->cmd->rra >= 1)
 		{
 			rev_rotate_a(var);
 			b_cur->cmd->rra = b_cur->cmd->rra - 1;
+			b_cur->cmd->sum = b_cur->cmd->sum - 1;
 		}
-		if (b_cur->cmd->rb > 1)
+		if (b_cur->cmd->rb >= 1)
 		{
 			rev_rotate_b(var);
 			b_cur->cmd->rrb = b_cur->cmd->rrb - 1;
+			b_cur->cmd->sum = b_cur->cmd->sum - 1;
 		}
-		b_cur->cmd->sum = b_cur->cmd->sum - 1;
 	}
 }
 
@@ -78,14 +81,14 @@ void	rotation_double(t_stack_var *var, t_node *b_cur)
 {
 	if (b_cur->cmd->sum <= 2)
 		return ;
-	while (b_cur->cmd->ra > 1 && b_cur->cmd->rb > 1)
+	while (b_cur->cmd->ra >= 1 && b_cur->cmd->rb >= 1)
 	{
 		rotate_ab(var);
 		b_cur->cmd->ra = b_cur->cmd->ra - 1;
 		b_cur->cmd->rb = b_cur->cmd->rb - 1;
 		b_cur->cmd->sum = b_cur->cmd->sum - 2;
 	}
-	while (b_cur->cmd->rra > 1 && b_cur->cmd->rrb > 1)
+	while (b_cur->cmd->rra >= 1 && b_cur->cmd->rrb >= 1)
 	{
 		rev_rotate_ab(var);
 		b_cur->cmd->rra = b_cur->cmd->rra - 1;
@@ -97,7 +100,7 @@ void	rotation_double(t_stack_var *var, t_node *b_cur)
 
 void	execute_commands(t_stack_var *var)
 {
-	int		min_move;
+	int		move;
 	t_node	*b_cur;
 	t_node	*b_min_move;
 
@@ -105,21 +108,33 @@ void	execute_commands(t_stack_var *var)
 		return ; 
 	b_cur = var->stack_b;
 	//1) find min_move
-	min_move = b_cur->cmd->sum;
+	move = b_cur->cmd->sum;
 	b_min_move = b_cur;
-	while (b_cur != NULL && b_cur->right != NULL)
+	while (b_cur)
 	{
-		if (b_cur->right->cmd && min_move > b_cur->right->cmd->sum)
+		if (b_cur->cmd && b_cur->cmd->sum < move)
 		{
-			min_move = b_cur->right->cmd->sum;
-			b_min_move = b_cur->right;
+			move = b_cur->cmd->sum;
+			b_min_move = b_cur;
 		}
 		b_cur = b_cur->right;
 	}
-	//* print smallest move
+	//****  print 
+	b_cur = var->stack_b;
+	t_node *a_cur = var->stack_a;
+	while(a_cur)
+	{
+		printf("stack A - current idx %d : val %d\n\n", a_cur->idx, a_cur->val);
+		a_cur = a_cur->right;
+	}
+	while(b_cur)
+	{
+		printf("stack B - current idx %d : val %d", b_cur->idx, b_cur->val);
+		printf(" total(%d), pa(%d) ra(%d) rb(%d) rra(%d), rrb(%d)\n\n", b_cur->cmd->sum, b_cur->cmd->pa, b_cur->cmd->ra, b_cur->cmd->rb, b_cur->cmd->rra, b_cur->cmd->rrb);
+		b_cur = b_cur->right;
+	}
+	printf("min move is : idx(%d) op total(%d)\n\n", b_min_move->idx, b_min_move->cmd->sum);
 
-	printf("min move: idx(%d) op total(%d)\n", b_min_move->idx, b_min_move->cmd->sum);
-	printf("pa(%d) ra(%d) rb(%d) rra(%d), rrb(%d)", b_min_move->cmd->pa, b_min_move->cmd->ra, b_min_move->cmd->rb, b_min_move->cmd->rra, b_min_move->cmd->rrb);
 
 	//2) execute
 	while (b_min_move->cmd->sum > 1)
@@ -158,7 +173,7 @@ void	save_commands(t_stack_var *var)
 		else
 			cur_b->cmd->rrb = b_size - b_pos;
 		if (a_pos <= (a_size / 2))
-			cur_b->cmd->ra = a_pos;
+			cur_b->cmd->ra = a_pos;//fix: maybe a_pos?
 		else
 			cur_b->cmd->rra = a_size - a_pos;
 		cur_b->cmd->sum = cur_b->cmd->rb + cur_b->cmd->rrb + cur_b->cmd->ra + cur_b->cmd->rra + 1;
@@ -193,6 +208,31 @@ void	save_commands(t_stack_var *var, int b_size, int a_pos, int b_pos)
 */
 
 
+// fix it
+int		save_a_pos(t_node *stack_a, int b_idx)
+{
+	t_node	*a_cur;
+	int		next_biggest;
+	int		res;
+
+	a_cur = stack_a;
+	res = 0;
+	next_biggest = INT_MAX;
+
+	while (a_cur)
+	{
+		if (a_cur->idx > b_idx && a_cur->idx < next_biggest)
+		{
+			next_biggest = a_cur->idx;
+			res++;
+		}
+		a_cur = a_cur->right;
+	}
+	if (res == 0)
+		return (0);
+	return (res - 1);
+}
+/*
 int		save_a_pos(t_node *stack_a, int b_idx)
 {
     t_node	*a_cur;
@@ -217,7 +257,7 @@ int		save_a_pos(t_node *stack_a, int b_idx)
 		a_cur = a_cur->right;
 	}
 	return (res);
-}
+}*/
 
 /*
 int		save_index_stack_a(t_stack_var *var)
