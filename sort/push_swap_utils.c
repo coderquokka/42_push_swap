@@ -116,6 +116,10 @@ void	execute_commands(t_stack_var *var)
 		}
 		b_cur = b_cur->right;
 	}
+	//* print smallest move
+
+	printf("min move: idx(%d) op total(%d)\n", b_min_move->idx, b_min_move->cmd->sum);
+	printf("pa(%d) ra(%d) rb(%d) rra(%d), rrb(%d)", b_min_move->cmd->pa, b_min_move->cmd->ra, b_min_move->cmd->rb, b_min_move->cmd->rra, b_min_move->cmd->rrb);
 
 	//2) execute
 	while (b_min_move->cmd->sum > 1)
@@ -146,7 +150,7 @@ void	save_commands(t_stack_var *var)
 	printf("a size: %d, b size: %d\n", a_size, b_size);
 	while (cur_b)
 	{
-		print_stack(var);
+		//print_stack(var);
 		a_pos = save_a_pos(var->stack_a, cur_b->idx);
 		set_commands_default(cur_b);
 		if (b_pos <= (b_size / 2))
