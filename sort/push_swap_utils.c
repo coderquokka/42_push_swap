@@ -218,7 +218,6 @@ int		save_a_pos(t_node *stack_a, int b_idx)
 	a_cur = stack_a;
 	res = 0;
 	next_biggest = INT_MAX;
-
 	while (a_cur)
 	{
 		if (a_cur->idx > b_idx && a_cur->idx < next_biggest)
