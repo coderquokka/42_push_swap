@@ -15,21 +15,21 @@ void	swap(t_node **stack)
 	*stack = second;
 }
 
-void	swap_a(t_stack_var *var)
+void	swap_a(t_node **stack_a)
 {
-	swap(&var->stack_a);
+	swap(stack_a);
 	write(1, "sa\n", 3);
 }
 
-void	swap_b(t_stack_var *var)
+void	swap_b(t_node **stack_b)
 {
-	swap(&var->stack_b);
+	swap(stack_b);
 	write(1, "sb\n", 3);
 }
 
-void	swap_ab(t_stack_var *var)
+void	swap_ab(t_node **stack_a, t_node **stack_b)
 {
-	swap_a(var);
-	swap_b(var);
+	swap_a(stack_a);
+	swap_b(stack_b);
 	write(1, "ss\n", 3);
 }

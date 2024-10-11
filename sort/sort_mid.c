@@ -66,37 +66,40 @@ void b_to_a(t_stack_var *var)
 }*/
 void b_to_a(t_stack_var *var)
 {
-	t_stack_var		*cur;
+	t_node		*start_b;
+	t_node		*cur_b;
+
 
 	if (!var->stack_b)
 	{
 		return ;
 	}
-	cur = var;
+	start_b = var->stack_b;
+	cur_b = var->stack_b;
 	//save commands
 
-	while (cur->stack_b)
+	while (cur_b)
 	{
-		save_commands(cur);
+		int b_size = measure_size(cur_b);
+		int a_size = measure_size(var->stack_a);
 
-		// while (cur->stack_b)
-		// {
-		// 	printf("b val: %d, b idx: %d, op sum: %d\n", cur->stack_b->val, cur->stack_b->idx, cur->stack_b->cmd->sum);
-		// 	printf("pa:%d\n", cur->stack_b->cmd->pa);
-		// 	printf("ra:%d\n", cur->stack_b->cmd->ra);
-		// 	printf("rb:%d\n", cur->stack_b->cmd->rb);
-		// 	printf("rra:%d\n", cur->stack_b->cmd->rra);
-		// 	printf("rrb:%d\n", cur->stack_b->cmd->rrb);
-		// 	cur->stack_b = cur->stack_b->right;
-		// }
-		execute_commands(cur);
-		//cur = var;
-		//if (cur->stack_b->right)
-		//	cur->stack_b = cur->stack_b->right;
-		//else
-		//	break ;
+		save_commands(var->stack_a, cur_b, a_size, b_size);
+		execute_commands(var->stack_a, cur_b);
+		//cur_b = cur_b->right;
+
+		//cur)b = execute_commands(cur);
 	}
-
+	cur_b = start_b;
+	while (cur_b)
+	{
+		printf("b val: %d, b idx: %d, op sum: %d\n", cur_b->val, cur_b->idx, cur_b->cmd->sum);
+		printf("pa:%d\n", cur_b->cmd->pa);
+		printf("ra:%d\n", cur_b->cmd->ra);
+		printf("rb:%d\n", cur_b->cmd->rb);
+		printf("rra:%d\n", cur_b->cmd->rra);
+		printf("rrb:%d\n", cur_b->cmd->rrb);
+		cur_b = cur_b->right;
+	}
 
 /*
 	i = 1;
@@ -127,17 +130,19 @@ void b_to_a(t_stack_var *var)
 
 void	a_to_b(t_stack_var *var)
 {
-	t_node	*next_node;
+	//t_node	*next_node;
 
 	if (var->stack_a == NULL)
 		return ;
 	while (var->stack_a && var->stack_a_size >= 5)
 	{
+		printf("here");
+		//next_node = var->stack_a->right;  // Store next node before modifying stack_a
+		push_b(&var->stack_a, &var->stack_b);	// push_b might modify var->stack_a
+		//var->stack_a = next_node;		 // Safely move to the next node
 		var->stack_a_size = measure_size(var->stack_a);
 		var->stack_b_size = measure_size(var->stack_b);
-		next_node = var->stack_a->right;  // Store next node before modifying stack_a
-		push_b(var);					  // push_b might modify var->stack_a
-		var->stack_a = next_node;		 // Safely move to the next node
+
 	}
 }
 
@@ -153,13 +158,13 @@ void	a_to_ab(t_stack_var *var)
 		var->stack_a_size = measure_size(var->stack_a);
 		var->stack_b_size = measure_size(var->stack_b);
 		if (var->stack_a->val > var->second_piv)
-			rotate_a(var);
+			rotate_a(&var->stack_a);
 		else if (var->stack_a->val >= var->first_piv)
-			push_b(var);
+			push_b(&var->stack_a, &var->stack_b);
 		else
 		{
-			push_b(var);
-			rotate_b(var);
+			push_b(&var->stack_a, &var->stack_b);
+			rotate_b(&var->stack_b);
 		}
 		if (flag)
 			break ;

@@ -31,16 +31,16 @@ void	sort_three(t_stack_var *var)
 	temp = temp->right;
 	third = temp->val;
 	if (first > second && first > third && second < third)
-		rotate_a(var);
+		rotate_a(var->stack_a);
 	else if (first < second && second > third && first > third)
-		rev_rotate_a(var);
+		rev_rotate_a(var->stack_a);
 	else
 	{
 		swap_a(var);
 		if (first < second && second > third)
-			rotate_a(var);
+			rotate_a(var->stack_a);
 		if (first > second && second > third)
-			rev_rotate_a(var);
+			rev_rotate_a(var->stack_a);
 	}
 }
 

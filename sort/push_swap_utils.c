@@ -46,48 +46,52 @@ void	set_commands_default(t_node *node)
 	node->cmd = cmd;
 }
 
-void	rotation_single(t_stack_var *var, t_node *b_cur)
+void	rotation_single(t_node *stack_a, t_node *stack_b,  t_node *b_cur)
 {
-	while (b_cur->cmd->sum > 1)
+	if (!stack_a || !stack_b)
+		return ;
+	while (b_cur && b_cur->cmd->sum > 1)
 	{
 		if (b_cur->cmd->ra > 1)
 		{
-			rotate_a(var);
+			rotate_a(&stack_a);
 			b_cur->cmd->ra = b_cur->cmd->ra - 1;
 		}
 		if (b_cur->cmd->rb > 1)
 		{
-			rotate_b(var);
+			rotate_b(&stack_b);
 			b_cur->cmd->rb = b_cur->cmd->rb - 1;
 		}
 		if (b_cur->cmd->rra > 1)
 		{
-			rev_rotate_a(var);
+			rev_rotate_a(&stack_a);
 			b_cur->cmd->rra = b_cur->cmd->rra - 1;
 		}
 		if (b_cur->cmd->rb > 1)
 		{
-			rev_rotate_b(var);
+			rev_rotate_b(&stack_b);
 			b_cur->cmd->rrb = b_cur->cmd->rrb - 1;
 		}
 		b_cur->cmd->sum = b_cur->cmd->sum - 1;
 	}
 }
 
-void	rotation_double(t_stack_var *var, t_node *b_cur)
+void	rotation_double(t_node *stack_a, t_node *stack_b, t_node *b_cur)
 {
+	if (!stack_a || !stack_b)
+		return ;
 	if (b_cur->cmd->sum <= 2)
 		return ;
 	while (b_cur->cmd->ra > 1 && b_cur->cmd->rb > 1)
 	{
-		rotate_ab(var);
+		rotate_ab(&stack_a, &stack_b);
 		b_cur->cmd->ra = b_cur->cmd->ra - 1;
 		b_cur->cmd->rb = b_cur->cmd->rb - 1;
 		b_cur->cmd->sum = b_cur->cmd->sum - 2;
 	}
 	while (b_cur->cmd->rra > 1 && b_cur->cmd->rrb > 1)
 	{
-		rev_rotate_ab(var);
+		rev_rotate_ab(&stack_a, &stack_b);
 		b_cur->cmd->rra = b_cur->cmd->rra - 1;
 		b_cur->cmd->rrb = b_cur->cmd->rrb - 1;
 		b_cur->cmd->sum = b_cur->cmd->sum - 2;
@@ -95,15 +99,15 @@ void	rotation_double(t_stack_var *var, t_node *b_cur)
 }
 
 
-void	execute_commands(t_stack_var *var)
+t_node *execute_commands(t_node *stack_a, t_node *stack_b)
 {
 	int		min_move;
 	t_node	*b_cur;
 	t_node	*b_min_move;
 
-	if (!var->stack_b || !var->stack_b->cmd)
-		return ; 
-	b_cur = var->stack_b;
+	if (!stack_b || !stack_b->cmd)
+		return NULL; 
+	b_cur = stack_b;
 	//1) find min_move
 	min_move = b_cur->cmd->sum;
 	b_min_move = b_cur;
@@ -120,34 +124,29 @@ void	execute_commands(t_stack_var *var)
 	//2) execute
 	while (b_min_move->cmd->sum > 1)
 	{
-		rotation_double(var, b_min_move);
-		rotation_single(var, b_min_move);
+		rotation_double(stack_a, stack_b, b_min_move);
+		rotation_single(stack_a, stack_b, b_min_move);
 	}
 	if (b_min_move->cmd->sum == 1)
 	{
-		push_a(var);
+		push_a(&stack_a, &stack_b);
 	}
-	
+	return (NULL);
 }
 
 
-void	save_commands(t_stack_var *var)
+void	save_commands(t_node *stack_a, t_node *stack_b, int a_size, int b_size)
 {
 	t_node	*cur_b;
 	int		a_pos;
 	int		b_pos;
-	int		b_size;
-	int		a_size;
 
-	cur_b = var->stack_b;
-	b_size = measure_size(cur_b);
-	a_size = measure_size(var->stack_a);
+	cur_b = stack_b;
 	b_pos = 0;
 	printf("a size: %d, b size: %d\n", a_size, b_size);
 	while (cur_b)
 	{
-		print_stack(var);
-		a_pos = save_a_pos(var->stack_a, cur_b->idx);
+		a_pos = save_a_pos(stack_a, cur_b->idx);
 		set_commands_default(cur_b);
 		if (b_pos <= (b_size / 2))
 			cur_b->cmd->rb = b_pos;

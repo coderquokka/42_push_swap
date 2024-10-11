@@ -18,21 +18,21 @@ void	rotate(t_node **stack)
 	last->right = NULL;
 }
 
-void	rotate_a(t_stack_var *var)
+void	rotate_a(t_node **stack_a)
 {
-	rotate(&var->stack_a);
+	rotate(stack_a);
 	write(1, "ra\n", 3);
 }
 
-void	rotate_b(t_stack_var *var)
+void	rotate_b(t_node **stack_b)
 {
-	rotate(&var->stack_b);
+	rotate(stack_b);
 	write(1, "rb\n", 3);
 }
 
-void	rotate_ab(t_stack_var *var)
+void	rotate_ab(t_node **stack_a, t_node **stack_b)
 {
-	rotate_a(var);
-	rotate_b(var);
-	//write(1, "rr\n", 3);
+	rotate_a(stack_a);
+	rotate_b(stack_b);
+	write(1, "rr\n", 3);
 }

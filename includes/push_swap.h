@@ -6,8 +6,6 @@
 # include "../operation/operation.h"
 # include "../sort/sort.h"
 
-
-// STACK : two way linked-list
 typedef struct s_node
 {
 	struct s_node		*left;
@@ -17,7 +15,6 @@ typedef struct s_node
 	struct s_commands	*cmd;
 }	t_node;
 
-// STACK VARIABLE
 typedef struct s_stack_var
 {
 	struct s_node	*stack_a; 
@@ -33,14 +30,6 @@ typedef struct s_stack_var
 
 	struct s_node	*stack_b;
 }	t_stack_var;
-
-//for storing commands, (for later use: optimizing some commands)
-typedef struct s_list_node
-{
-	struct s_list_node		*left;
-	char					*var;
-	struct s_list_node		*right;
-}	t_list_node;
 
 typedef struct s_commands
 {
@@ -82,8 +71,8 @@ void			swap_nodes(t_node *a, t_node *b);
 
 // src/stack_libft3.c
 int			measure_size(t_node *cur);
-void	sort_small(t_stack_var *var);
-void	sort_mid(t_stack_var *var);
+void		sort_small(t_stack_var *var);
+void		sort_mid(t_stack_var *var);
 
 
 #endif
