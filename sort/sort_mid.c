@@ -64,32 +64,31 @@ void b_to_a(t_stack_var *var)
 	// 	final_rotation(var);
 	// }
 }*/
-void b_to_a(t_stack_var *var)
+void b_to_a(t_stack_var **var)
 {
-	t_stack_var		*cur;
+	 //t_stack_var		*cur;
 
-	if (!var->stack_b)
-	{
-		return ;
-	}
-	cur = var;
+	// if (!var->stack_b)
+	// {
+	// 	return ;
+	// }
 	//save commands
-
-	while (cur->stack_b)
+	while ((*var)->stack_b)
 	{
-		save_commands(cur);
-
+		//cur = *var;
+		save_commands(*var);
 		// while (cur->stack_b)
 		// {
-		// 	printf("b val: %d, b idx: %d, op sum: %d\n", cur->stack_b->val, cur->stack_b->idx, cur->stack_b->cmd->sum);
+		// 	print_stack(*var);
+		// 	printf("\nb val: %d, b idx: %d, op sum: %d\n", cur->stack_b->val, cur->stack_b->idx, cur->stack_b->cmd->sum);
 		// 	printf("pa:%d\n", cur->stack_b->cmd->pa);
 		// 	printf("ra:%d\n", cur->stack_b->cmd->ra);
 		// 	printf("rb:%d\n", cur->stack_b->cmd->rb);
 		// 	printf("rra:%d\n", cur->stack_b->cmd->rra);
-		// 	printf("rrb:%d\n", cur->stack_b->cmd->rrb);
+		// 	printf("rrb:%d\n\n", cur->stack_b->cmd->rrb);
 		// 	cur->stack_b = cur->stack_b->right;
 		// }
-		execute_commands(cur);
+		execute_commands(*var);
 		//cur = var;
 		//if (cur->stack_b->right)
 		//	cur->stack_b = cur->stack_b->right;
@@ -182,6 +181,6 @@ void	sort_mid(t_stack_var *var)
 	//printf("\nafter a to b & sort three: \n");
 	//print_stack(var);
 
-	b_to_a(var);
+	b_to_a(&var);
 
 }

@@ -10,12 +10,13 @@ void	set_commands_default(t_node *node);
 void	rotation_single(t_stack_var *var, t_node *b_cur);
 void	rotation_double(t_stack_var *var, t_node *b_cur);
 void	execute_commands(t_stack_var *var);
+int		get_idx_from_value(t_node *stack_a, int next_biggest_idx);
 void	save_commands(t_stack_var *var);
 int		save_a_pos(t_node *stack_a, int b_idx);
 void	pick_two_pivots(t_stack_var *var);
 
 //push swap
-void		b_to_a(t_stack_var *var);
+void		b_to_a(t_stack_var **var);
 void		a_to_b(t_stack_var *var);
 void		a_to_ab(t_stack_var *var);
 void		push_swap(t_stack_var *var);
