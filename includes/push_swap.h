@@ -45,8 +45,8 @@ typedef struct s_list_node
 typedef struct s_commands
 {
 	int				pa;
-	//int				sa;
-	//int				sb;
+	int				sa;
+	int				sb;
 	int				ra;
 	int				rb;
 	int				rra;
@@ -54,9 +54,10 @@ typedef struct s_commands
 	int				sum;
 }	t_commands;
 
-// src/check_arg.c
+// src/check.c
 int				is_numeric(char **av);
 int				have_same_nbr(t_node *tmp);
+int				is_sorted(t_node *stack);
 
 // src/init.c
 void			init_stack(char **temp, t_node **stack);
@@ -72,7 +73,6 @@ t_node			*ft_second_last_node(t_node *node, t_node *prev_tail);
 t_node			*ft_last_node(t_node *node);
 void			print_value(t_node *node);
 void			free_node(t_node *stack);
-int				is_sorted(t_node *stack);
 
 // src/stack_libft2.c
 void			cp_one_node(t_node *dst, t_node *src);

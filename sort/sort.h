@@ -5,7 +5,7 @@
 
 //push swap utils
 t_node	*ft_second_last_node(t_node *node, t_node *prev_tail);
-int		find_split_start(t_node **node);
+int		find_split_start(t_node *node);
 void	set_commands_default(t_node *node);
 void	rotation_single(t_stack_var *var, t_node *b_cur);
 void	rotation_double(t_stack_var *var, t_node *b_cur);
@@ -30,6 +30,5 @@ void		pick_two_pivots(t_stack_var *var);
 //sort mid nbr
 int			calculate_moves(t_stack_var *var, int pos);
 void		execute_moves(t_stack_var *var, int moves, int pos);
-int			find_split_start(t_node **node);
 
 #endif

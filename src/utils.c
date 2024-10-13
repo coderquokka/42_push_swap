@@ -1,7 +1,5 @@
 #include "../includes/push_swap.h"
 
-
-
 t_node	*ft_last_node(t_node *node)
 {
 	t_node	*temp;

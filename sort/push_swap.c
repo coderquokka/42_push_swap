@@ -17,8 +17,4 @@ void	push_swap(t_stack_var *var)
 		sort_mid(var);
 		return ;
 	}
-		//printf("after b to a, stack A\n");
-		//print_value(var->stack_a);
-		//printf("stack B\n");
-		//print_value(var->stack_b);
 }

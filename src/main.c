@@ -40,15 +40,22 @@ int	main(int ac, char **av)
 
 		push_swap(stack_var);
 		//printf("after b to a\n");
-		print_stack(stack_var);
+		//print_stack(stack_var);
 		/*free
 		free(temp);
 		return (EXIT_SUCCESS);
 		*/
 
-		if (is_sorted(stack_var->stack_a) == 1)
-		{
-			printf("finally is sorted!");
-		}
+		// if (is_sorted(stack_var->stack_a) == 1)
+		// {
+		// 	//print_stack(stack_var);
+		//  	printf("\nfinally is sorted!");
+		// }
+		// else
+		// {
+		// 	//print_stack(stack_var);
+		//  	printf(" is not sorted!");
+
+		// }
 	}
 }
